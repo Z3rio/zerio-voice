@@ -2,7 +2,8 @@
 
 ## Supported Versions
 
-No versions are officially supported at the moment, as this project is W.I.P (Work in progress).
+No versions are officially supported at the moment, as this project is W.I.P
+(Work in progress).
 
 ## Reporting a Vulnerability
 
