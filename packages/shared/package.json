@@ -1,0 +1,10 @@
+{
+  "name": "@zerio-voice/shared",
+  "version": "1.0.0",
+  "author": "Zerio",
+  "license": "MIT",
+  "main": "./src/index.ts",
+  "exports": {
+    ".": "./src/index.ts"
+  }
+}
