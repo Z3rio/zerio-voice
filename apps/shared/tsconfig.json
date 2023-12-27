@@ -1,0 +1,13 @@
+{
+  "$schema": "https://json.schemastore.org/tsconfig",
+  "extends": "@zerio-voice/typescript-config/base.json",
+
+  "compilerOptions": {
+    "target": "esnext",
+    "module": "commonjs",
+    "incremental": true,
+    "types": ["@citizenfx/client", "@types/node"]
+  },
+
+  "exclude": ["**/node_modules", "./node_modules"]
+}

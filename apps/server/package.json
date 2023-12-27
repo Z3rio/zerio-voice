@@ -9,6 +9,6 @@
     "dev": "nodemon"
   },
   "dependencies": {
-    "@zerio-voice/shared": "workspace:*"
+    "@zerio-voice/utils": "workspace:*"
   }
 }

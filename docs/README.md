@@ -50,6 +50,7 @@ This monorepo includes the following packages/apps:
 - `@zerio-voice/client`: The clientside of zerio-voice
 - `@zerio-voice/server`: The serverside of zerio-voice
 - `@zerio-voice/shared`: Shared state/data between the client/server/ui
+- `@zerio-voice/utils`: Utility functions
 - `@zerio-voice/typescript-config`: `tsconfig.json`s used throughout the
   monorepo
 

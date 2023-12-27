@@ -35,15 +35,21 @@ importers:
 
   apps/client:
     dependencies:
-      '@zerio-voice/shared':
+      '@zerio-voice/utils':
         specifier: workspace:*
-        version: link:../../packages/shared
+        version: link:../../packages/utils
 
   apps/server:
     dependencies:
-      '@zerio-voice/shared':
+      '@zerio-voice/utils':
         specifier: workspace:*
-        version: link:../../packages/shared
+        version: link:../../packages/utils
+
+  apps/shared:
+    dependencies:
+      '@zerio-voice/utils':
+        specifier: workspace:*
+        version: link:../../packages/utils
 
   apps/ui:
     dependencies:
@@ -67,7 +73,9 @@ importers:
         specifier: ^1.8.25
         version: 1.8.27(typescript@5.3.3)
 
-  packages/shared:
+  packages/typescript-config: {}
+
+  packages/utils:
     dependencies:
       ansicolor:
         specifier: ^2.0.1
@@ -75,8 +83,6 @@ importers:
       jsonschema:
         specifier: ^1.4.1
         version: 1.4.1
-
-  packages/typescript-config: {}
 
 packages:
 

@@ -5,6 +5,7 @@ version("1.0.0")
 author("Zerio")
 description("W.I.P Voice system for FiveM")
 
+shared_script("dist/shared/shared.js")
 client_script("dist/client/client.js")
 server_script("dist/server/server.js")
 

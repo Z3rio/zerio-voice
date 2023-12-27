@@ -1,10 +1,10 @@
 {
-  "name": "@zerio-voice/client",
+  "name": "@zerio-voice/shared",
   "version": "1.0.0",
   "author": "Zerio",
   "license": "MIT",
   "scripts": {
-    "build": "esbuild client=./src/index.ts --bundle --outdir=../../dist/client --target=es2020 --platform=node",
+    "build": "esbuild shared=./src/index.ts --bundle --outdir=../../dist/shared --target=es2020 --platform=node",
     "dev": "nodemon"
   },
   "dependencies": {

@@ -6,7 +6,7 @@ export default defineConfig({
   plugins: [vue()],
   base: "",
   optimizeDeps: {
-    include: ["shared"],
+    include: ["shared"]
   },
   build: {
     outDir: "../../dist/html",
@@ -20,11 +20,11 @@ export default defineConfig({
               .split("/")[0]
               .toString();
           }
-        },
-      },
+        }
+      }
     },
     commonjsOptions: {
-      include: [/shared/, /node_modules/],
-    },
-  },
+      include: [/utils/, /node_modules/]
+    }
+  }
 });
