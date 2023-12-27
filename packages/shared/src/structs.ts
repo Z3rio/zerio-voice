@@ -1,1 +1,3 @@
-export interface Config {}
+export interface Config {
+  logLevel: string;
+}

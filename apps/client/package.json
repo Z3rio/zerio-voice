@@ -6,5 +6,8 @@
   "scripts": {
     "build": "esbuild client=./src/index.ts --bundle --outdir=../../dist/client --target=es2020 --platform=node",
     "dev": "nodemon"
+  },
+  "dependencies": {
+    "@zerio-voice/shared": "workspace:*"
   }
 }

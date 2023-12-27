@@ -19,6 +19,7 @@
   "devDependencies": {
     "@citizenfx/client": "2.0.7257-1",
     "@citizenfx/server": "2.0.7257-1",
+    "@types/node": "^20.10.5",
     "@zerio-voice/typescript-config": "workspace:*",
     "@zerio2/bundler-cli": "^1.0.2",
     "esbuild": "^0.19.10",
