@@ -8,6 +8,12 @@ importers:
 
   .:
     devDependencies:
+      '@citizenfx/client':
+        specifier: 2.0.7257-1
+        version: 2.0.7257-1
+      '@citizenfx/server':
+        specifier: 2.0.7257-1
+        version: 2.0.7257-1
       '@zerio-voice/typescript-config':
         specifier: workspace:*
         version: link:packages/typescript-config
@@ -24,17 +30,13 @@ importers:
         specifier: latest
         version: 1.11.2
 
-  apps/client:
-    devDependencies:
-      '@citizenfx/client':
-        specifier: 2.0.7257-1
-        version: 2.0.7257-1
+  apps/client: {}
 
   apps/server:
-    devDependencies:
-      '@citizenfx/server':
-        specifier: 2.0.7257-1
-        version: 2.0.7257-1
+    dependencies:
+      '@zerio-voice/shared':
+        specifier: workspace:*
+        version: link:../../packages/shared
 
   apps/ui:
     dependencies:
@@ -58,7 +60,11 @@ importers:
         specifier: ^1.8.25
         version: 1.8.27(typescript@5.3.3)
 
-  packages/shared: {}
+  packages/shared:
+    dependencies:
+      jsonschema:
+        specifier: ^1.4.1
+        version: 1.4.1
 
   packages/typescript-config: {}
 
@@ -741,6 +747,10 @@ packages:
     optionalDependencies:
       graceful-fs: 4.2.11
     dev: true
+
+  /jsonschema@1.4.1:
+    resolution: {integrity: sha512-S6cATIPVv1z0IlxdN+zUk5EPjkGCdnhN4wVSBlvoUO1tOLJootbo9CquNJmbIh4yikWHiUedhRYrNPn1arpEmQ==}
+    dev: false
 
   /lru-cache@6.0.0:
     resolution: {integrity: sha512-Jo6dJ04CmSjuznwJSS3pUeWmd/H0ffTlkXXgwZi+eq1UCmqQwCh+eLsYOYCwY991i2Fah4h1BEMCx4qThGbsiA==}

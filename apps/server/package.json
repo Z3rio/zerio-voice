@@ -8,7 +8,7 @@
     "build": "esbuild server=./src/index.ts --bundle --outdir=../../dist/server --target=es2020 --platform=node",
     "dev": "nodemon"
   },
-  "devDependencies": {
-    "@citizenfx/server": "2.0.7257-1"
+  "dependencies": {
+    "@zerio-voice/shared": "workspace:*"
   }
 }

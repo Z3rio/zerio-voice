@@ -6,8 +6,5 @@
   "scripts": {
     "build": "esbuild client=./src/index.ts --bundle --outdir=../../dist/client --target=es2020 --platform=node",
     "dev": "nodemon"
-  },
-  "devDependencies": {
-    "@citizenfx/client": "2.0.7257-1"
   }
 }
