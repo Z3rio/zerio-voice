@@ -8,7 +8,12 @@
     "preinstall": "npx only-allow pnpm",
     "build": "turbo build",
     "dev": "turbo dev",
-    "lint": "turbo lint"
+    "ui": "pnpm build --filter @zerio-voice/ui",
+    "ui:dev": "pnpm dev --filter @zerio-voice/ui",
+    "client": "pnpm build --filter @zerio-voice/client",
+    "client:dev": "pnpm dev --filter @zerio-voice/client",
+    "server": "pnpm build --filter @zerio-voice/server",
+    "server:dev": "pnpm dev --filter @zerio-voice/server"
   },
   "devDependencies": {
     "@zerio-voice/typescript-config": "workspace:*",
