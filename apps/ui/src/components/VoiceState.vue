@@ -8,7 +8,9 @@ const { talking } = storeToRefs(mainStore);
 </script>
 
 <template>
-  <div class="status">You are {{ talking ? "talking" : "not talking" }}</div>
+  <div class="status">
+    You are {{ talking.normal ? "talking" : "not talking" }}
+  </div>
 </template>
 
 <style scoped lang="scss">

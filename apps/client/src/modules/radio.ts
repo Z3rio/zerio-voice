@@ -2,13 +2,12 @@ import { getTranslation } from "@zerio-voice/utils/translations";
 
 const gameName = GetGameName();
 const radioEnabled = GetResourceKvpInt("zerio-voice_enableRadio") === 1;
+const keybind = GetResourceKvpString("zerio-voice_radioKeybind");
 
 function radioToggle(toggle: boolean): void {
   if (!radioEnabled) {
     return;
   }
-
-  console.log("radio toggled", toggle);
 }
 
 if (gameName == "fivem") {
@@ -32,7 +31,7 @@ if (gameName == "fivem") {
     "+radio",
     getTranslation(["radio", "keybind"]),
     "keyboard",
-    "CAPITAL",
+    keybind,
   );
 } else if (gameName == "redm") {
   // todo: fix key handling for redm

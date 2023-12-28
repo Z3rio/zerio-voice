@@ -6,7 +6,7 @@ import { warn } from "@zerio-voice/utils/logger";
 const voiceTarget = 1;
 const serverId = GetPlayerServerId(PlayerId());
 let proximity = MumbleGetTalkerProximity();
-let normalTalkingStatus = false;
+let isTalking = false;
 
 onNet("mumbleConnected", async () => {
   MumbleSetTalkerProximity(VoiceRanges.Normal);
@@ -34,18 +34,16 @@ onNet("onPlayerJoining", (id: number) => {
 });
 
 function updateNUIVoiceStatus() {
-  const currentTalkingStatus =
+  const isCurrentlyTalking =
     (MumbleIsPlayerTalking(PlayerId()) as number | boolean) === 1;
 
-  if (currentTalkingStatus !== normalTalkingStatus) {
-    normalTalkingStatus = currentTalkingStatus;
+  if (isCurrentlyTalking !== isTalking) {
+    isTalking = isCurrentlyTalking;
 
     SendNUIMessage({
-      action: "isTalking",
+      action: "isTalkingNormally",
 
-      data: {
-        normal: normalTalkingStatus,
-      },
+      data: isTalking,
     });
   }
 }
@@ -95,13 +93,14 @@ onNet("onClientResourceStart", async (resourceName: string) => {
     const cfg = getConfig();
 
     if (cfg) {
-      SetResourceKvpInt("zerio-voice_enableRadio", cfg.enableRadio ? 1 : 0);
-      SetResourceKvp("zerio-voice_locale", cfg.locale);
+      SetResourceKvp("zerio-voice_locale", cfg.locale.language);
+      SetResourceKvp("zerio-voice_radioKeybind", cfg.radio.keybind);
+      SetResourceKvpInt("zerio-voice_enableRadio", cfg.radio.enabled ? 1 : 0);
 
-      if (!cfg.enableUI) {
+      if (!cfg.ui.enabled) {
         SendNUIMessage({
           action: "updateVisibility",
-          data: cfg.enableUI,
+          data: cfg.ui.enabled,
         });
       }
 
@@ -113,7 +112,7 @@ onNet("onClientResourceStart", async (resourceName: string) => {
       }
 
       setInterval(() => {
-        if (cfg.enableUI) {
+        if (cfg.ui.enabled) {
           updateNUIVoiceStatus();
         }
 

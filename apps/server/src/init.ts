@@ -1,7 +1,7 @@
 import { getConfig } from "@zerio-voice/utils/config";
 import { validateConfig } from "@zerio-voice/utils/validation";
 import { success, warn } from "@zerio-voice/utils/logger";
-import { VoiceData } from "./voiceData";
+import { VoiceData } from "./classes/voiceData";
 
 const mappedChannels: Record<number, number> = {};
 const voiceData: Record<number, VoiceData> = {};
@@ -34,9 +34,9 @@ onNet("onResourceStart", (resName: string) => {
       if (!validateConfig(cfg)) {
         warn("Your config seems to be invalid");
       } else {
-        SetResourceKvp("zerio-voice_logLevel", cfg.logLevel);
-        SetResourceKvpInt("zerio-voice_enableRadio", cfg.enableRadio ? 1 : 0);
-        SetResourceKvp("zerio-voice_locale", cfg.locale);
+        SetResourceKvp("zerio-voice_logLevel", cfg.logging.level);
+        SetResourceKvp("zerio-voice_locale", cfg.locale.language);
+        SetResourceKvpInt("zerio-voice_enableRadio", cfg.radio.enabled ? 1 : 0);
 
         success("Your config seems to be valid");
       }
