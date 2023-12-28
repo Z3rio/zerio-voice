@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "author": "Zerio",
   "license": "MIT",
+  "main": "./src/index.ts",
   "scripts": {
     "build": "esbuild shared=./src/index.ts --bundle --outdir=../../dist/shared --target=es2020 --platform=node",
     "dev": "nodemon"

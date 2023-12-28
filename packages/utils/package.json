@@ -2,9 +2,14 @@
   "name": "@zerio-voice/utils",
   "version": "1.0.0",
   "author": "Zerio",
-  "type": "module",
   "license": "MIT",
-  "main": "./src/index.ts",
+  "exports": {
+    "./config": "./src/config.ts",
+    "./data": "./src/data.ts",
+    "./functions": "./src/functions.ts",
+    "./logger": "./src/logger.ts",
+    "./structs": "./src/structs.ts"
+  },
   "dependencies": {
     "ansicolor": "^2.0.1",
     "jsonschema": "^1.4.1"
