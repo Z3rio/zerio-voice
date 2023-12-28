@@ -8,7 +8,8 @@
     "./data": "./src/data.ts",
     "./functions": "./src/functions.ts",
     "./logger": "./src/logger.ts",
-    "./structs": "./src/structs.ts"
+    "./structs": "./src/structs.ts",
+    "./validation": "./src/validation.ts"
   },
   "dependencies": {
     "ansicolor": "^2.0.1",

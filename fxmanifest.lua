@@ -13,6 +13,7 @@ files({
 	"dist/html/index.html",
 	"dist/html/assets/*.css",
 	"dist/html/assets/*.js",
+	"config.json",
 })
 
 ui_page("dist/html/index.html")

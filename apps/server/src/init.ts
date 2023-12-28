@@ -1,4 +1,5 @@
-import { getConfig, validateConfig } from "@zerio-voice/utils/config";
+import { getConfig } from "@zerio-voice/utils/config";
+import { validateConfig } from "@zerio-voice/utils/validation";
 import { success, warn } from "@zerio-voice/utils/logger";
 import { VoiceData } from "./voiceData";
 
