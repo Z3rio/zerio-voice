@@ -1,5 +1,7 @@
 # Zerio-Voice
 
+[![Discord](https://img.shields.io/discord/931629164656734238?label=Our%20Discord)](http://discord.zerio-scripts.com/)
+
 This is an W.I.P (Work In Progress) voice script for FiveM.
 
 The primary aim of this is to provide some more exclusive features as compared
@@ -46,15 +48,29 @@ deserve some credit for coming up with all their great ideas & functionalities.
 
 This monorepo includes the following packages/apps:
 
-- `@zerio-voice/ui`: A Vue app for displaying voice info
-- `@zerio-voice/client`: The clientside of zerio-voice
-- `@zerio-voice/server`: The serverside of zerio-voice
-- `@zerio-voice/shared`: Shared state/data between the client/server/ui
-- `@zerio-voice/utils`: Utility functions
-- `@zerio-voice/typescript-config`: `tsconfig.json`s used throughout the
-  monorepo
+### "Apps"
 
-Each package/app is 100% [TypeScript](https://www.typescriptlang.org/).
+The apps directory contains standalone stuff, meaning that there is no other
+app/package which depends on it.
+
+- [`@zerio-voice/ui`](https://github.com/Z3rio/zerio-voice/tree/main/apps/ui): A
+  Vue app for displaying voice info
+- [`@zerio-voice/client`](https://github.com/Z3rio/zerio-voice/tree/main/apps/client):
+  The clientside of zerio-voice
+- [`@zerio-voice/server`](https://github.com/Z3rio/zerio-voice/tree/main/apps/server):
+  The serverside of zerio-voice
+- [`@zerio-voice/shared`](https://github.com/Z3rio/zerio-voice/tree/main/apps/shared):
+  Code which should be ran on both the client and server
+
+### "Packages"
+
+The packages directory contains stuff which is being used accross multiple
+different "Apps", pretty much misc/utility stuff
+
+- [`@zerio-voice/utils`](https://github.com/Z3rio/zerio-voice/tree/main/packages/utils):
+  Utility functions
+- [`@zerio-voice/typescript-config`](https://github.com/Z3rio/zerio-voice/tree/main/packages/typescript-config):
+  `tsconfig.json`s used throughout the monorepo
 
 ### Installing dependencies
 
