@@ -39,7 +39,7 @@ steps below.
 ## Credits
 
 There are ofcourse people who have already made similar projects, which do
-deserve some credit for coming up with all their great ideas & functionalities.
+deserve some credit for coming up with all their great ideas and such.
 
 - [@Frazzle](https://github.com/FrazzIe) creator of mumble-voip
 - [@AvarianKnight](https://github.com/AvarianKnight) creator of pma-voice.
