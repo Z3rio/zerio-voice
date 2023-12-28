@@ -1,13 +1,21 @@
 <script setup lang="ts">
-import { onMounted, ref, Ref } from "vue";
+import RadioList from "@components/RadioList.vue";
+import VoiceState from "@components/VoiceState.vue";
+import useMainStore from "@stores/main";
+import { onMounted } from "vue";
+import { storeToRefs } from "pinia";
 
-const talking: Ref<boolean> = ref(false);
+const mainStore = useMainStore();
+const { enabled } = storeToRefs(mainStore);
 
 onMounted(() => {
   window.addEventListener("message", (e: MessageEvent) => {
     switch (e.data.action) {
       case "isTalking":
-        talking.value = e.data.data.normal;
+        mainStore.talking = e.data.data.normal;
+        break;
+      case "updateVisibility":
+        mainStore.enabled = e.data.data;
         break;
     }
   });
@@ -15,19 +23,10 @@ onMounted(() => {
 </script>
 
 <template>
-  <div class="status">You are {{ talking ? "talking" : "not talking" }}</div>
+  <template v-if="enabled">
+    <RadioList />
+    <VoiceState />
+  </template>
 </template>
 
-<style scoped lang="scss">
-.status {
-  position: absolute;
-
-  right: 16px;
-  bottom: 16px;
-
-  color: #fff;
-  background: rgba(0, 0, 0, 0.5);
-
-  padding: 8px 16px;
-}
-</style>
+<style scoped lang="scss"></style>

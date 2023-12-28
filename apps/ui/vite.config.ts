@@ -1,12 +1,13 @@
 import { defineConfig } from "vite";
 import vue from "@vitejs/plugin-vue";
+import { fileURLToPath } from "url";
 
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [vue()],
   base: "",
   optimizeDeps: {
-    include: ["shared"]
+    include: ["shared"],
   },
   build: {
     outDir: "../../dist/html",
@@ -20,11 +21,21 @@ export default defineConfig({
               .split("/")[0]
               .toString();
           }
-        }
-      }
+        },
+      },
     },
     commonjsOptions: {
-      include: [/utils/, /node_modules/]
-    }
-  }
+      include: [/utils/, /node_modules/],
+    },
+  },
+  resolve: {
+    alias: {
+      "@": fileURLToPath(new URL("./src", import.meta.url)),
+      "@components": fileURLToPath(
+        new URL("./src/components", import.meta.url),
+      ),
+      "@stores": fileURLToPath(new URL("./src/stores", import.meta.url)),
+      "@plugins": fileURLToPath(new URL("./src/plugins", import.meta.url)),
+    },
+  },
 });

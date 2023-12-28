@@ -16,5 +16,5 @@ files({
 	"config.json",
 })
 
-ui_page("dist/html/index.html")
--- ui_page("http://localhost:5173")
+-- ui_page("dist/html/index.html")
+ui_page("http://localhost:5173")
