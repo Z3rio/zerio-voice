@@ -14,6 +14,7 @@ files({
 	"dist/html/assets/*.css",
 	"dist/html/assets/*.js",
 	"config.json",
+	"translations.json",
 })
 
 -- ui_page("dist/html/index.html")

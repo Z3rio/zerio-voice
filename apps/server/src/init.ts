@@ -35,6 +35,8 @@ onNet("onResourceStart", (resName: string) => {
         warn("Your config seems to be invalid");
       } else {
         SetResourceKvp("zerio-voice_logLevel", cfg.logLevel);
+        SetResourceKvpInt("zerio-voice_enableRadio", cfg.enableRadio ? 1 : 0);
+        SetResourceKvp("zerio-voice_locale", cfg.locale);
 
         success("Your config seems to be valid");
       }

@@ -95,6 +95,18 @@ onNet("onClientResourceStart", async (resourceName: string) => {
     const cfg = getConfig();
 
     if (cfg) {
+      SetResourceKvpInt("zerio-voice_enableRadio", cfg.enableRadio ? 1 : 0);
+      SetResourceKvp("zerio-voice_locale", cfg.locale);
+
+      if (!cfg.enableUI) {
+        SendNUIMessage({
+          action: "updateVisibility",
+          data: cfg.enableUI,
+        });
+      }
+
+      require("./modules/radio");
+
       while (!MumbleIsConnected()) {
         warn("Awaiting mumble connection");
         await Wait(250);

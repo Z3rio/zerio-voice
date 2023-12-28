@@ -1,4 +1,6 @@
 {
   "logLevel": "info",
-  "enableUI": true
+  "enableUI": true,
+  "enableRadio": true,
+  "locale": "en"
 }
