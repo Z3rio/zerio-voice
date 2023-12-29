@@ -3,8 +3,14 @@ export class PlayerRadioData {
   channels: Array<number> = [];
   isTalking: Record<number, boolean> = {};
 
+  private updateStateBag() {
+    Player(this.source).state.radioChannels = this.channels;
+  }
+
   constructor(source: number) {
     this.source = source;
+
+    this.updateStateBag();
   }
 
   addChannel(channel: number) {
@@ -12,6 +18,8 @@ export class PlayerRadioData {
       this.channels.push(channel);
       this.isTalking[channel] = false;
     }
+
+    this.updateStateBag();
   }
 
   removeChannel(channel: number) {
@@ -19,6 +27,8 @@ export class PlayerRadioData {
       this.channels = this.channels.filter((c) => c !== channel);
       delete this.isTalking[channel];
     }
+
+    this.updateStateBag();
   }
 }
 

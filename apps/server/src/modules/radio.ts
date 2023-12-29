@@ -32,6 +32,10 @@ function addPlayerToRadioChannel(src: number, frequency: number): boolean {
 }
 global.exports("addPlayerToRadioChannel", addPlayerToRadioChannel);
 
+onNet("zerio-voice:server:addPlayerToRadioChannel", (frequency: number) => {
+  addPlayerToRadioChannel(source, frequency);
+});
+
 function removePlayerFromRadioChannel(src: number, frequency: number): boolean {
   if (!radioEnabled || frequency <= 0) {
     return false;
@@ -50,6 +54,13 @@ function removePlayerFromRadioChannel(src: number, frequency: number): boolean {
   }
 }
 global.exports("removePlayerFromRadioChannel", removePlayerFromRadioChannel);
+
+onNet(
+  "zerio-voice:server:removePlayerFromRadioChannel",
+  (frequency: number) => {
+    removePlayerFromRadioChannel(source, frequency);
+  },
+);
 
 function handleNewPlayer(src: number) {
   playerData[src] = new PlayerRadioData(src);
