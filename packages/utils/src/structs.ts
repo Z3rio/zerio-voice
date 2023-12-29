@@ -22,3 +22,9 @@ export interface Talking {
   normal: boolean;
   radio: boolean;
 }
+
+export interface RadioMember {
+  talking: boolean;
+  name: string;
+  source: number;
+}

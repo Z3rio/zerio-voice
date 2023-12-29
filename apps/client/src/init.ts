@@ -49,8 +49,8 @@ function updateNUIVoiceStatus() {
 }
 
 function proximityCheck(
-  coords1: number[],
-  coords2: number[],
+  coords1: Array<number>,
+  coords2: Array<number>,
 ): [boolean, number] {
   const dist = getDistance(coords1, coords2);
 

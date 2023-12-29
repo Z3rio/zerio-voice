@@ -1,7 +1,7 @@
 import { warn } from "./logger";
 import { Translations } from "./structs";
 
-export function getTranslation(translation: string[]): string {
+export function getTranslation(translation: Array<string>): string {
   let rawTranslations: null | Translations = null;
   let locale = GetResourceKvpString("zerio-voice_locale");
 

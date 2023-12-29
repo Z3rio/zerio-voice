@@ -1,9 +1,10 @@
+import { RadioMember } from "@zerio-voice/utils/structs";
 import { getTranslation } from "@zerio-voice/utils/translations";
 
 const gameName = GetGameName();
 const radioEnabled = GetResourceKvpInt("zerio-voice_enableRadio") === 1;
 const keybind = GetResourceKvpString("zerio-voice_radioKeybind");
-const radioData: Record<number, Record<number, boolean>> = {};
+const radioData: Record<number, Array<RadioMember>> = {};
 
 function radioToggle(toggle: boolean): void {
   if (!radioEnabled) {
@@ -62,16 +63,54 @@ if (gameName == "fivem") {
   // todo: fix key handling for redm
 }
 
-const debug = false;
+onNet(
+  "zerio-voice:client:syncRawPlayers",
+  (freq: number, players: Array<RadioMember>) => {
+    radioData[freq] = players;
+  },
+);
+
+onNet(
+  "zerio-voice:client:playerAddedToRadioChannel",
+  (freq: number, src: number, name: string) => {
+    const newList = radioData[freq];
+
+    if (newList) {
+      newList.push({
+        talking: false,
+        name: name,
+        source: src,
+      });
+
+      radioData[freq] = newList;
+    }
+  },
+);
+
+onNet(
+  "zerio-voice:client:playerRemovedFromRadioChannel",
+  (freq: number, src: number) => {
+    let newList = radioData[freq];
+
+    if (newList) {
+      newList = newList.filter((p) => p.source !== src);
+
+      radioData[freq] = newList;
+    }
+  },
+);
+
+const debug = true;
 
 if (debug) {
   setInterval(() => {
-    console.log(LocalPlayer.state.radioChannels);
+    console.log("localstate radioChannels", LocalPlayer.state.radioChannels);
+    console.log("radioData", radioData);
   }, 1000);
 
   RegisterCommand(
     "addRadioChannel",
-    (_src: number, args: string[], _raw: string) => {
+    (_src: number, args: Array<string>, _raw: string) => {
       addRadioChannel(Number(args[0]));
     },
     false,
@@ -79,7 +118,7 @@ if (debug) {
 
   RegisterCommand(
     "removeRadioChannel",
-    (_src: number, args: string[], _raw: string) => {
+    (_src: number, args: Array<string>, _raw: string) => {
       removeRadioChannel(Number(args[0]));
     },
     false,

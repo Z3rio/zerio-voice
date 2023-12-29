@@ -114,7 +114,7 @@ onNet("playerDropped", () => {
   handlePlayerRemoval(source);
 });
 
-const debug = false;
+const debug = true;
 
 if (debug) {
   function debugPrint() {
@@ -126,7 +126,7 @@ if (debug) {
 
   RegisterCommand(
     "addPlayerToRadioChannel",
-    (_src: number, args: string[], _raw: string) => {
+    (_src: number, args: Array<string>, _raw: string) => {
       addPlayerToRadioChannel(Number(args[0]), Number(args[1]));
       debugPrint();
     },
@@ -135,7 +135,7 @@ if (debug) {
 
   RegisterCommand(
     "removePlayerFromRadioChannel",
-    (_src: number, args: string[], _raw: string) => {
+    (_src: number, args: Array<string>, _raw: string) => {
       removePlayerFromRadioChannel(Number(args[0]), Number(args[1]));
       debugPrint();
     },
@@ -144,7 +144,7 @@ if (debug) {
 
   RegisterCommand(
     "handleNewPlayer",
-    (_src: number, args: string[], _raw: string) => {
+    (_src: number, args: Array<string>, _raw: string) => {
       handleNewPlayer(Number(args[0]));
       debugPrint();
     },
@@ -153,7 +153,7 @@ if (debug) {
 
   RegisterCommand(
     "handlePlayerRemoval",
-    (_src: number, args: string[], _raw: string) => {
+    (_src: number, args: Array<string>, _raw: string) => {
       handlePlayerRemoval(Number(args[0]));
       debugPrint();
     },
