@@ -1,5 +1,6 @@
 import { getConfig } from "@zerio-voice/utils/config";
 import { PlayerRadioData, RadioChannelData } from "../classes/radioData";
+import { info } from "@zerio-voice/utils/logger";
 
 let radioEnabled = true;
 const playerData: Record<number, PlayerRadioData> = {};
@@ -114,12 +115,13 @@ onNet("playerDropped", () => {
   handlePlayerRemoval(source);
 });
 
-const debug = true;
+const debug = false;
 
 if (debug) {
   function debugPrint() {
-    console.log("channelData", JSON.stringify(channelData));
-    console.log("playerData", JSON.stringify(playerData));
+    info("----------");
+    info("channelData", JSON.stringify(channelData));
+    info("playerData", JSON.stringify(playerData));
   }
 
   RegisterCommand("debugPrint", debugPrint, false);

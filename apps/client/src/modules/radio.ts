@@ -1,10 +1,13 @@
 import { RadioMember } from "@zerio-voice/utils/structs";
+import { info } from "@zerio-voice/utils/logger";
 import { getTranslation } from "@zerio-voice/utils/translations";
 
 const gameName = GetGameName();
 const radioEnabled = GetResourceKvpInt("zerio-voice_enableRadio") === 1;
 const keybind = GetResourceKvpString("zerio-voice_radioKeybind");
 const radioData: Record<number, Array<RadioMember>> = {};
+const playerServerId = GetPlayerServerId(PlayerId());
+let currentRadioFreq: null | number = null;
 
 function radioToggle(toggle: boolean): void {
   if (!radioEnabled) {
@@ -32,6 +35,16 @@ function removeRadioChannel(frequency: number) {
   emitNet("zerio-voice:server:removePlayerFromRadioChannel", frequency);
 
   return true;
+}
+
+function changeCurrentRadioFreq(frequency?: number | null) {
+  if (!frequency) {
+    return;
+  }
+
+  if (radioData[frequency]) {
+    currentRadioFreq = frequency;
+  }
 }
 
 global.exports("removeRadioChannel", removeRadioChannel);
@@ -63,10 +76,15 @@ if (gameName == "fivem") {
   // todo: fix key handling for redm
 }
 
+// player just joined channel
 onNet(
   "zerio-voice:client:syncRawPlayers",
   (freq: number, players: Array<RadioMember>) => {
     radioData[freq] = players;
+
+    if (currentRadioFreq == null) {
+      currentRadioFreq = freq;
+    }
   },
 );
 
@@ -90,28 +108,52 @@ onNet(
 onNet(
   "zerio-voice:client:playerRemovedFromRadioChannel",
   (freq: number, src: number) => {
-    let newList = radioData[freq];
+    if (src === playerServerId) {
+      delete radioData[freq];
 
-    if (newList) {
-      newList = newList.filter((p) => p.source !== src);
+      const keys = Object.keys(radioData);
 
-      radioData[freq] = newList;
+      if (keys.length === 0) {
+        currentRadioFreq = null;
+      } else {
+        if (currentRadioFreq == freq) {
+          currentRadioFreq = Number(keys[0]);
+        }
+      }
+    } else {
+      let newList = radioData[freq];
+
+      if (newList) {
+        newList = newList.filter((p) => p.source !== src);
+
+        radioData[freq] = newList;
+      }
     }
   },
 );
 
-const debug = true;
+const debug = false;
 
 if (debug) {
   setInterval(() => {
-    console.log("localstate radioChannels", LocalPlayer.state.radioChannels);
-    console.log("radioData", radioData);
+    info("----------");
+    info("localstate radioChannels", LocalPlayer.state.radioChannels);
+    info("radioData", radioData);
+    info("currentRadioFreq", currentRadioFreq);
   }, 1000);
 
   RegisterCommand(
     "addRadioChannel",
     (_src: number, args: Array<string>, _raw: string) => {
       addRadioChannel(Number(args[0]));
+    },
+    false,
+  );
+
+  RegisterCommand(
+    "chooseRadioFreq",
+    (_src: number, args: Array<string>, _raw: string) => {
+      changeCurrentRadioFreq(Number(args[0]));
     },
     false,
   );

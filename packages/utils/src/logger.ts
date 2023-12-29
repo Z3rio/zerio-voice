@@ -14,6 +14,8 @@ export enum LogLevel {
   error,
 }
 
+const logPrefix = "[Zerio-Voice] LOGGER : ";
+
 function getCurrentLogLevel(): LogLevel {
   const val = GetResourceKvpString("zerio-voice_logLevel");
 
@@ -24,40 +26,54 @@ function getCurrentLogLevel(): LogLevel {
   return LogLevel.error;
 }
 
-function createLog(txt: unknown, prefix: AnsicolorMethods, logLevel: LogLevel) {
-  const currentLogLevel = getCurrentLogLevel();
+function createLog(
+  txt: unknown[],
+  customColor: AnsicolorMethods,
+  logLevel: LogLevel,
+) {
+  const isServer = IsDuplicityVersion();
 
-  if (currentLogLevel >= logLevel) {
-    switch (typeof txt) {
+  for (let i = 0; i < txt.length; i++) {
+    const v = txt[i];
+
+    switch (typeof v) {
       case "object":
-        txt = JSON.stringify(txt);
+        txt[i] = JSON.stringify(v);
         break;
       case "number":
       case "boolean":
-        txt = txt.toString();
+        txt[i] = v.toString();
         break;
     }
+  }
 
-    if (typeof txt === "string") {
-      console.log(
-        lightBlue("[Zerio-Voice] LOGGER : ") + prefix(txt) + white(""),
-      );
-    }
+  if (!isServer) {
+    customColor = (...txt: unknown[]) => txt;
+  }
+
+  const currentLogLevel = getCurrentLogLevel();
+
+  if (currentLogLevel >= logLevel) {
+    console.log(
+      `${isServer ? lightBlue(logPrefix) : logPrefix}${customColor(txt)}${
+        isServer ? white("") : ""
+      }`,
+    );
   }
 }
 
-export function warn(txt: unknown) {
+export function warn(...txt: unknown[]) {
   createLog(txt, yellow, LogLevel.warn);
 }
 
-export function success(txt: unknown) {
+export function success(...txt: unknown[]) {
   createLog(txt, green, LogLevel.info);
 }
 
-export function error(txt: unknown) {
+export function error(...txt: unknown[]) {
   createLog(txt, red, LogLevel.error);
 }
 
-export function info(txt: unknown) {
+export function info(...txt: unknown[]) {
   createLog(txt, white, LogLevel.info);
 }
