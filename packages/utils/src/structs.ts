@@ -8,6 +8,10 @@ export interface Config {
   locale: {
     language: string;
   };
+  submix: {
+    radio: boolean;
+    call: boolean;
+  };
   radio: {
     enabled: boolean;
     keybind: string;

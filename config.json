@@ -11,6 +11,10 @@
     "language": "en"
   },
 
+  "submix": {
+    "radio": true
+  },
+
   "radio": {
     "enabled": true,
     "keybind": "CAPITAL"
