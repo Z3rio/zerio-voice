@@ -32,7 +32,7 @@ onNet("onResourceStart", (resName: string) => {
 
     if (cfg) {
       if (!validateConfig(cfg)) {
-        warn("Your config seems to be invalid");
+        warn("Your config does not seem to be valid");
       } else {
         SetResourceKvp("zerio-voice_logLevel", cfg.logging.level);
         SetResourceKvp("zerio-voice_locale", cfg.locale.language);

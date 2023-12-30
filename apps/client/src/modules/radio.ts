@@ -2,13 +2,31 @@ import { RadioMember } from "@zerio-voice/utils/structs";
 import { info } from "@zerio-voice/utils/logger";
 import { getTranslation } from "@zerio-voice/utils/translations";
 import { voiceTarget } from "@zerio-voice/utils/data";
+import { RadioSubmix } from "./submix";
 
 const gameName = GetGameName();
 const radioEnabled = GetResourceKvpInt("zerio-voice_enableRadio") === 1;
+const enableRadioSubmix =
+  GetResourceKvpInt("zerio-voice_enableRadioSubmix") === 1;
+const enableMicClicks =
+  GetResourceKvpInt("zerio-voice_enableRadioMicClicks") === 1;
+const micClicksVolume = GetResourceKvpFloat("zerio-voice_micClicksVolume");
 const keybind = GetResourceKvpString("zerio-voice_radioKeybind");
 const radioData: Record<number, Array<RadioMember>> = {};
 const playerServerId = GetPlayerServerId(PlayerId());
 let radioTalkingTick: number | null = null;
+
+function playMicClicks(isTalking: boolean) {
+  if (enableMicClicks) {
+    SendNUIMessage({
+      action: "playRadioMicClicks",
+      data: {
+        toggled: isTalking,
+        volume: micClicksVolume,
+      },
+    });
+  }
+}
 
 function handleVoiceTargets() {
   const radioFreq = LocalPlayer.state.currentRadioFreq;
@@ -41,6 +59,7 @@ function radioToggle(toggle: boolean): void {
     }
 
     handleVoiceTargets();
+    playMicClicks(toggle);
 
     LocalPlayer.state.set("talkingOnRadio", true, true);
     emitNet("zerio-voice:server:setTalkingOnRadio", true);
@@ -51,6 +70,8 @@ function radioToggle(toggle: boolean): void {
       SetControlNormal(2, 249, 1.0);
     });
   } else {
+    playMicClicks(toggle);
+
     LocalPlayer.state.set("talkingOnRadio", false, true);
     emitNet("zerio-voice:server:setTalkingOnRadio", false);
 
@@ -142,6 +163,16 @@ onNet(
             MumbleSetVolumeOverrideByServerId(src, 0.6);
           } else {
             MumbleSetVolumeOverrideByServerId(src, -1);
+          }
+
+          playMicClicks(isTalking);
+
+          if (enableRadioSubmix) {
+            if (isTalking) {
+              RadioSubmix.enable();
+            } else {
+              RadioSubmix.disable();
+            }
           }
 
           newData[newPlrIdx] = newPlrData;

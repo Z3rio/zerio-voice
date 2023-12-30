@@ -11,8 +11,15 @@
     "language": "en"
   },
 
+  "submix": {
+    "radio": true,
+    "call": true
+  },
+
   "radio": {
     "enabled": true,
+    "enableMicClicks": true,
+    "micClicksVolume": 0.6,
     "keybind": "CAPITAL"
   }
 }

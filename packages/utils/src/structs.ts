@@ -8,8 +8,14 @@ export interface Config {
   locale: {
     language: string;
   };
+  submix: {
+    radio: boolean;
+    call: boolean;
+  };
   radio: {
     enabled: boolean;
+    enableMicClicks: boolean;
+    micClicksVolume: number;
     keybind: string;
   };
 }
@@ -27,4 +33,13 @@ export interface RadioMember {
   talking: boolean;
   name: string;
   source: number;
+}
+
+export interface SubmixVolume {
+  frontLeftVolume: number;
+  frontRightVolume: number;
+  rearLeftVolume: number;
+  rearRightVolume: number;
+  channel5Volume: number;
+  channel6Volume: number;
 }

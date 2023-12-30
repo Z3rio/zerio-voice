@@ -53,7 +53,7 @@ function createLog(
 
   const currentLogLevel = getCurrentLogLevel();
 
-  if (currentLogLevel >= logLevel) {
+  if (currentLogLevel <= logLevel) {
     console.log(
       `${isServer ? lightBlue(logPrefix) : logPrefix}${customColor(txt)}${
         isServer ? white("") : ""
