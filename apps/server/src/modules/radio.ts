@@ -65,6 +65,8 @@ onNet(
 
 function handleNewPlayer(src: number) {
   playerData[src] = new PlayerRadioData(src);
+
+  Player(src).state.set("talkingOnRadio", false, true);
 }
 
 function handlePlayerRemoval(src: number) {
@@ -113,19 +115,6 @@ onNet("playerJoining", () => {
 
 onNet("playerDropped", () => {
   handlePlayerRemoval(source);
-});
-
-onNet("onResourceStop", (resourceName: string) => {
-  if (GetCurrentResourceName() == resourceName) {
-    for (const src in playerData) {
-      const numSrc = Number(src);
-
-      if (numSrc) {
-        Player(numSrc).state.set("currentRadioFreq", null, true);
-        Player(numSrc).state.set("talkingOnRadio", false, true);
-      }
-    }
-  }
 });
 
 onNet("zerio-voice:server:setTalkingOnRadio", () => {

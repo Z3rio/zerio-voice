@@ -138,7 +138,6 @@ onNet(
         if (newPlrData) {
           newPlrData.talking = isTalking;
 
-          console.log(src, isTalking);
           if (isTalking) {
             MumbleSetVolumeOverrideByServerId(src, 0.6);
           } else {
@@ -244,4 +243,10 @@ if (debug >= 1) {
     },
     false,
   );
+}
+
+const initialRadioFreq = LocalPlayer.state.currentRadioFreq;
+
+if (initialRadioFreq) {
+  addRadioChannel(initialRadioFreq);
 }
