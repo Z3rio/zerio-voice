@@ -32,3 +32,12 @@ export interface RadioMember {
   name: string;
   source: number;
 }
+
+export interface SubmixVolume {
+  frontLeftVolume: number;
+  frontRightVolume: number;
+  rearLeftVolume: number;
+  rearRightVolume: number;
+  channel5Volume: number;
+  channel6Volume: number;
+}

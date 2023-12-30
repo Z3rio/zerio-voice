@@ -2,9 +2,12 @@ import { RadioMember } from "@zerio-voice/utils/structs";
 import { info } from "@zerio-voice/utils/logger";
 import { getTranslation } from "@zerio-voice/utils/translations";
 import { voiceTarget } from "@zerio-voice/utils/data";
+import { RadioSubmix } from "./submix";
 
 const gameName = GetGameName();
 const radioEnabled = GetResourceKvpInt("zerio-voice_enableRadio") === 1;
+const enableRadioSubmix =
+  GetResourceKvpInt("zerio-voice_enableRadioSubmix") === 1;
 const keybind = GetResourceKvpString("zerio-voice_radioKeybind");
 const radioData: Record<number, Array<RadioMember>> = {};
 const playerServerId = GetPlayerServerId(PlayerId());
@@ -142,6 +145,14 @@ onNet(
             MumbleSetVolumeOverrideByServerId(src, 0.6);
           } else {
             MumbleSetVolumeOverrideByServerId(src, -1);
+          }
+
+          if (enableRadioSubmix) {
+            if (isTalking) {
+              MumbleSetSubmixForServerId(src, RadioSubmix.id);
+            } else {
+              MumbleSetSubmixForServerId(src, -1);
+            }
           }
 
           newData[newPlrIdx] = newPlrData;

@@ -95,6 +95,10 @@ onNet("onClientResourceStart", async (resourceName: string) => {
       SetResourceKvp("zerio-voice_locale", cfg.locale.language);
       SetResourceKvp("zerio-voice_radioKeybind", cfg.radio.keybind);
       SetResourceKvpInt("zerio-voice_enableRadio", cfg.radio.enabled ? 1 : 0);
+      SetResourceKvpInt(
+        "zerio-voice_enableRadioSubmix",
+        cfg.submix.radio ? 1 : 0,
+      );
 
       if (!cfg.ui.enabled) {
         SendNUIMessage({
@@ -104,6 +108,7 @@ onNet("onClientResourceStart", async (resourceName: string) => {
       }
 
       require("./modules/radio");
+      require("./modules/submix");
 
       while (!MumbleIsConnected()) {
         warn("Awaiting mumble connection");
