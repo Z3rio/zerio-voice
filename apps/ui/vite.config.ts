@@ -6,9 +6,6 @@ import { fileURLToPath } from "url";
 export default defineConfig({
   plugins: [vue()],
   base: "",
-  optimizeDeps: {
-    include: ["shared"],
-  },
   build: {
     outDir: "../../dist/html",
     rollupOptions: {
@@ -23,9 +20,6 @@ export default defineConfig({
           }
         },
       },
-    },
-    commonjsOptions: {
-      include: [/utils/, /node_modules/],
     },
   },
   resolve: {

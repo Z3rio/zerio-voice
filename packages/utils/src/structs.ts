@@ -14,6 +14,8 @@ export interface Config {
   };
   radio: {
     enabled: boolean;
+    enableMicClicks: boolean;
+    micClicksVolume: number;
     keybind: string;
   };
 }

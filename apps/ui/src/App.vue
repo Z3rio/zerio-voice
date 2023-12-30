@@ -20,15 +20,31 @@ onMounted(() => {
       case "updateVisibility":
         mainStore.enabled = e.data.data;
         break;
+      case "playRadioMicClicks":
+        let click = document.getElementById(
+          `audio_${e.data.data.toggled ? "on" : "off"}`,
+        );
+
+        if (click) {
+          click.load();
+          click.volume = e.data.data.volume;
+          click.play().catch((e) => {
+            console.warn(e);
+          });
+        }
+        break;
     }
   });
 });
 </script>
 
 <template>
+  <audio id="audio_on" src="mic_click_on.ogg" />
+  <audio id="audio_off" src="mic_click_off.ogg" />
+
   <template v-if="enabled">
     <RadioList />
-    <VoiceState />
+    <VoiceStaete />
   </template>
 </template>
 

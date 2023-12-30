@@ -22,3 +22,6 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# random cached versions of vite config
+vite.config.ts.*.mjs

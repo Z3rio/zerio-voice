@@ -66,6 +66,14 @@ const configRadioSchema: Schema = {
       type: "boolean",
       required: true,
     },
+    enableMicClicks: {
+      type: "boolean",
+      required: true,
+    },
+    micClicksVolume: {
+      type: "number",
+      required: true,
+    },
     keybind: {
       type: "string",
       required: true,

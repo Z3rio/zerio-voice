@@ -18,6 +18,8 @@
 
   "radio": {
     "enabled": true,
+    "enableMicClicks": true,
+    "micClicksVolume": 0.6,
     "keybind": "CAPITAL"
   }
 }

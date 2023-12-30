@@ -96,6 +96,17 @@ onNet("onClientResourceStart", async (resourceName: string) => {
       SetResourceKvp("zerio-voice_radioKeybind", cfg.radio.keybind);
       SetResourceKvpInt("zerio-voice_enableRadio", cfg.radio.enabled ? 1 : 0);
       SetResourceKvpInt(
+        "zerio-voice_enableRadioMicClicks",
+        cfg.radio.enableMicClicks ? 1 : 0,
+      );
+
+      let micClicksVolume = cfg.radio.micClicksVolume;
+      if (micClicksVolume > 10) {
+        // user probably using 0-100 instead of 0-1
+        micClicksVolume = micClicksVolume / 100;
+      }
+      SetResourceKvpFloat("zerio-voice_micClicksVolume", micClicksVolume);
+      SetResourceKvpInt(
         "zerio-voice_enableRadioSubmix",
         cfg.submix.radio ? 1 : 0,
       );
