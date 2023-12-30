@@ -1,12 +1,11 @@
-import { VoiceRanges } from "@zerio-voice/utils/data";
+import { VoiceRanges, voiceTarget } from "@zerio-voice/utils/data";
 import { getDistance, Wait } from "@zerio-voice/utils/functions";
 import { getConfig } from "@zerio-voice/utils/config";
 import { warn } from "@zerio-voice/utils/logger";
 
-const voiceTarget = 1;
 const serverId = GetPlayerServerId(PlayerId());
 let proximity = MumbleGetTalkerProximity();
-let normalTalkingStatus = false;
+let isTalking = false;
 
 onNet("mumbleConnected", async () => {
   MumbleSetTalkerProximity(VoiceRanges.Normal);
@@ -34,25 +33,23 @@ onNet("onPlayerJoining", (id: number) => {
 });
 
 function updateNUIVoiceStatus() {
-  const currentTalkingStatus =
+  const isCurrentlyTalking =
     (MumbleIsPlayerTalking(PlayerId()) as number | boolean) === 1;
 
-  if (currentTalkingStatus !== normalTalkingStatus) {
-    normalTalkingStatus = currentTalkingStatus;
+  if (isCurrentlyTalking !== isTalking) {
+    isTalking = isCurrentlyTalking;
 
     SendNUIMessage({
-      action: "isTalking",
+      action: "isTalkingNormally",
 
-      data: {
-        normal: normalTalkingStatus,
-      },
+      data: isTalking,
     });
   }
 }
 
 function proximityCheck(
-  coords1: number[],
-  coords2: number[],
+  coords1: Array<number>,
+  coords2: Array<number>,
 ): [boolean, number] {
   const dist = getDistance(coords1, coords2);
 
@@ -95,13 +92,26 @@ onNet("onClientResourceStart", async (resourceName: string) => {
     const cfg = getConfig();
 
     if (cfg) {
+      SetResourceKvp("zerio-voice_locale", cfg.locale.language);
+      SetResourceKvp("zerio-voice_radioKeybind", cfg.radio.keybind);
+      SetResourceKvpInt("zerio-voice_enableRadio", cfg.radio.enabled ? 1 : 0);
+
+      if (!cfg.ui.enabled) {
+        SendNUIMessage({
+          action: "updateVisibility",
+          data: cfg.ui.enabled,
+        });
+      }
+
+      require("./modules/radio");
+
       while (!MumbleIsConnected()) {
         warn("Awaiting mumble connection");
         await Wait(250);
       }
 
       setInterval(() => {
-        if (cfg.enableUI) {
+        if (cfg.ui.enabled) {
           updateNUIVoiceStatus();
         }
 

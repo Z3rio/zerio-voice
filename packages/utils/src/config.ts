@@ -1,3 +1,4 @@
+import { warn } from "./logger";
 import { type Config } from "./structs";
 
 export function getConfig(): Config | null {
@@ -6,7 +7,7 @@ export function getConfig(): Config | null {
       LoadResourceFile(GetCurrentResourceName(), "config.json"),
     );
   } catch (e) {
-    console.warn(e);
+    warn(e);
     return null;
   }
 }

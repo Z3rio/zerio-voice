@@ -1,4 +1,18 @@
 {
-  "logLevel": "info",
-  "enableUI": true
+  "logging": {
+    "level": "info"
+  },
+
+  "ui": {
+    "enabled": true
+  },
+
+  "locale": {
+    "language": "en"
+  },
+
+  "radio": {
+    "enabled": true,
+    "keybind": "CAPITAL"
+  }
 }

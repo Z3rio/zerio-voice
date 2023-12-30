@@ -11,8 +11,11 @@ const { enabled } = storeToRefs(mainStore);
 onMounted(() => {
   window.addEventListener("message", (e: MessageEvent) => {
     switch (e.data.action) {
-      case "isTalking":
-        mainStore.talking = e.data.data.normal;
+      case "isTalkingNormally":
+        mainStore.talking.normal = e.data.data;
+        break;
+      case "isTalkingOnRadio":
+        mainStore.talking.radio = e.data.data;
         break;
       case "updateVisibility":
         mainStore.enabled = e.data.data;

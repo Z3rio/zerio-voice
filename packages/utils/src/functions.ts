@@ -2,7 +2,10 @@ export const Wait = (ms: number): Promise<void> => {
   return new Promise((resolve) => setTimeout(resolve, ms));
 };
 
-export function getDistance(coords1: number[], coords2: number[]): number {
+export function getDistance(
+  coords1: Array<number>,
+  coords2: Array<number>,
+): number {
   if (
     coords1[0] &&
     coords1[1] &&
@@ -21,4 +24,8 @@ export function getDistance(coords1: number[], coords2: number[]): number {
   } else {
     return -1;
   }
+}
+
+export function getPlayerName(src: number): string {
+  return GetPlayerName(src);
 }

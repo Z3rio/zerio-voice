@@ -14,7 +14,8 @@ files({
 	"dist/html/assets/*.css",
 	"dist/html/assets/*.js",
 	"config.json",
+	"translations.json",
 })
 
--- ui_page("dist/html/index.html")
-ui_page("http://localhost:5173")
+ui_page("dist/html/index.html")
+-- ui_page("http://localhost:5173")
