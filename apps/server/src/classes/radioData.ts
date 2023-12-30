@@ -94,4 +94,31 @@ export class RadioChannelData {
       );
     }
   }
+
+  updateTalkingState(src: number, isTalking: boolean) {
+    const found = this.players.findIndex((p) => p.source == src);
+
+    if (found !== -1) {
+      const newPlr = this.players[found];
+
+      if (newPlr) {
+        newPlr.talking = isTalking;
+        this.players[found] = newPlr;
+
+        for (let i = 0; i < this.players.length; i++) {
+          const v = this.players[i];
+
+          if (v && v.source !== src) {
+            emitNet(
+              "zerio-voice:client:setTalkingOnRadio",
+              v.source,
+              this.frequency,
+              src,
+              isTalking,
+            );
+          }
+        }
+      }
+    }
+  }
 }

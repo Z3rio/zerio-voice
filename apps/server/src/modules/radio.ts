@@ -115,13 +115,44 @@ onNet("playerDropped", () => {
   handlePlayerRemoval(source);
 });
 
-const debug = false;
+onNet("onResourceStop", (resourceName: string) => {
+  if (GetCurrentResourceName() == resourceName) {
+    for (const src in playerData) {
+      const numSrc = Number(src);
 
-if (debug) {
+      if (numSrc) {
+        Player(numSrc).state.set("currentRadioFreq", null, true);
+        Player(numSrc).state.set("talkingOnRadio", false, true);
+      }
+    }
+  }
+});
+
+onNet("zerio-voice:server:setTalkingOnRadio", () => {
+  const plr = Player(source);
+  const radioFreq = plr.state.currentRadioFreq;
+  const isTalking = plr.state.talkingOnRadio;
+
+  if (!radioFreq) {
+    return;
+  }
+
+  const channel = channelData[radioFreq];
+
+  if (channel) {
+    channel.updateTalkingState(source, isTalking);
+  }
+});
+
+const debug = GetConvarInt("zerio_voice_debug", 0);
+
+if (debug >= 1) {
   function debugPrint() {
-    info("----------");
-    info("channelData", JSON.stringify(channelData));
-    info("playerData", JSON.stringify(playerData));
+    if (debug >= 2) {
+      info("----------");
+      info("channelData", JSON.stringify(channelData));
+      info("playerData", JSON.stringify(playerData));
+    }
   }
 
   RegisterCommand("debugPrint", debugPrint, false);

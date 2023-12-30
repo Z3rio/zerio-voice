@@ -1,9 +1,8 @@
-import { VoiceRanges } from "@zerio-voice/utils/data";
+import { VoiceRanges, voiceTarget } from "@zerio-voice/utils/data";
 import { getDistance, Wait } from "@zerio-voice/utils/functions";
 import { getConfig } from "@zerio-voice/utils/config";
 import { warn } from "@zerio-voice/utils/logger";
 
-const voiceTarget = 1;
 const serverId = GetPlayerServerId(PlayerId());
 let proximity = MumbleGetTalkerProximity();
 let isTalking = false;

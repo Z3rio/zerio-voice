@@ -1,17 +1,65 @@
 import { RadioMember } from "@zerio-voice/utils/structs";
 import { info } from "@zerio-voice/utils/logger";
 import { getTranslation } from "@zerio-voice/utils/translations";
+import { voiceTarget } from "@zerio-voice/utils/data";
 
 const gameName = GetGameName();
 const radioEnabled = GetResourceKvpInt("zerio-voice_enableRadio") === 1;
 const keybind = GetResourceKvpString("zerio-voice_radioKeybind");
 const radioData: Record<number, Array<RadioMember>> = {};
 const playerServerId = GetPlayerServerId(PlayerId());
-let currentRadioFreq: null | number = null;
+let radioTalkingTick: number | null = null;
+
+function handleVoiceTargets() {
+  const radioFreq = LocalPlayer.state.currentRadioFreq;
+
+  if (!radioFreq) {
+    return;
+  }
+
+  const channelData = radioData[radioFreq];
+
+  if (channelData) {
+    for (let i = 0; i < channelData.length; i++) {
+      const v = channelData[i];
+
+      if (v && playerServerId !== v.source) {
+        MumbleAddVoiceTargetPlayerByServerId(voiceTarget, v.source);
+      }
+    }
+  }
+}
 
 function radioToggle(toggle: boolean): void {
   if (!radioEnabled) {
     return;
+  }
+
+  if (toggle) {
+    if (!LocalPlayer.state.currentRadioFreq) {
+      return;
+    }
+
+    handleVoiceTargets();
+
+    LocalPlayer.state.set("talkingOnRadio", true, true);
+    emitNet("zerio-voice:server:setTalkingOnRadio", true);
+
+    radioTalkingTick = setTick(() => {
+      SetControlNormal(0, 249, 1.0);
+      SetControlNormal(1, 249, 1.0);
+      SetControlNormal(2, 249, 1.0);
+    });
+  } else {
+    LocalPlayer.state.set("talkingOnRadio", false, true);
+    emitNet("zerio-voice:server:setTalkingOnRadio", false);
+
+    MumbleClearVoiceTargetPlayers(voiceTarget);
+
+    if (radioTalkingTick) {
+      clearTick(radioTalkingTick);
+      radioTalkingTick = null;
+    }
   }
 }
 
@@ -36,18 +84,18 @@ function removeRadioChannel(frequency: number) {
 
   return true;
 }
+global.exports("removeRadioChannel", removeRadioChannel);
 
 function changeCurrentRadioFreq(frequency?: number | null) {
-  if (!frequency) {
-    return;
+  if (frequency && radioData[frequency]) {
+    LocalPlayer.state.set("currentRadioFreq", frequency, true);
+
+    return true;
   }
 
-  if (radioData[frequency]) {
-    currentRadioFreq = frequency;
-  }
+  return false;
 }
-
-global.exports("removeRadioChannel", removeRadioChannel);
+global.exports("changeCurrentRadioFreq", changeCurrentRadioFreq);
 
 if (gameName == "fivem") {
   RegisterCommand(
@@ -76,14 +124,43 @@ if (gameName == "fivem") {
   // todo: fix key handling for redm
 }
 
-// player just joined channel
+onNet(
+  "zerio-voice:client:setTalkingOnRadio",
+  (freq: number, src: number, isTalking: boolean) => {
+    const newData = radioData[freq];
+
+    if (newData) {
+      const newPlrIdx = newData.findIndex((p) => p.source === src);
+
+      if (newPlrIdx !== -1) {
+        const newPlrData = newData[newPlrIdx];
+
+        if (newPlrData) {
+          newPlrData.talking = isTalking;
+
+          console.log(src, isTalking);
+          if (isTalking) {
+            MumbleSetVolumeOverrideByServerId(src, 0.6);
+          } else {
+            MumbleSetVolumeOverrideByServerId(src, -1);
+          }
+
+          newData[newPlrIdx] = newPlrData;
+          radioData[freq] = newData;
+        }
+      }
+    }
+  },
+);
+
+// player joined a new channel
 onNet(
   "zerio-voice:client:syncRawPlayers",
   (freq: number, players: Array<RadioMember>) => {
     radioData[freq] = players;
 
-    if (currentRadioFreq == null) {
-      currentRadioFreq = freq;
+    if (LocalPlayer.state.currentRadioFreq == null) {
+      LocalPlayer.state.set("currentRadioFreq", freq, true);
     }
   },
 );
@@ -114,10 +191,10 @@ onNet(
       const keys = Object.keys(radioData);
 
       if (keys.length === 0) {
-        currentRadioFreq = null;
+        LocalPlayer.state.set("currentRadioFreq", null, true);
       } else {
-        if (currentRadioFreq == freq) {
-          currentRadioFreq = Number(keys[0]);
+        if (LocalPlayer.state.currentRadioFreq == freq) {
+          LocalPlayer.state.set("currentRadioFreq", Number(keys[0]), true);
         }
       }
     } else {
@@ -132,15 +209,17 @@ onNet(
   },
 );
 
-const debug = false;
+const debug = GetConvarInt("zerio_voice_debug", 0);
 
-if (debug) {
-  setInterval(() => {
-    info("----------");
-    info("localstate radioChannels", LocalPlayer.state.radioChannels);
-    info("radioData", radioData);
-    info("currentRadioFreq", currentRadioFreq);
-  }, 1000);
+if (debug >= 1) {
+  if (debug >= 2) {
+    setInterval(() => {
+      info("----------");
+      info("localstate radioChannels", LocalPlayer.state.radioChannels);
+      info("radioData", radioData);
+      info("currentRadioFreq", LocalPlayer.state.currentRadioFreq);
+    }, 2500);
+  }
 
   RegisterCommand(
     "addRadioChannel",
@@ -151,7 +230,7 @@ if (debug) {
   );
 
   RegisterCommand(
-    "chooseRadioFreq",
+    "changeRadioChannel",
     (_src: number, args: Array<string>, _raw: string) => {
       changeCurrentRadioFreq(Number(args[0]));
     },
