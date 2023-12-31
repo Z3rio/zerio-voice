@@ -14,7 +14,9 @@
     "client": "pnpm build --filter @zerio-voice/client",
     "client:dev": "pnpm dev --filter @zerio-voice/client",
     "server": "pnpm build --filter @zerio-voice/server",
-    "server:dev": "pnpm dev --filter @zerio-voice/server"
+    "server:dev": "pnpm dev --filter @zerio-voice/server",
+    "prepare": "husky install",
+    "precommit": "node scripts/precommit.js"
   },
   "devDependencies": {
     "@citizenfx/client": "2.0.7257-1",
@@ -23,8 +25,14 @@
     "@zerio-voice/typescript-config": "workspace:*",
     "@zerio2/bundler-cli": "^1.0.2",
     "esbuild": "^0.19.11",
+    "husky": "^8.0.3",
     "nodemon": "^3.0.2",
     "turbo": "latest"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "pnpm precommit"
+    }
   },
   "packageManager": "pnpm@8.9.0",
   "engines": {
