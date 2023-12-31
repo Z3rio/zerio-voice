@@ -15,12 +15,33 @@ const configLoggingSchema: Schema = {
 };
 validator.addSchema(configLoggingSchema, "/ConfigLogging");
 
+const configUIInteractionSchema: Schema = {
+  id: "/ConfigUIInteraction",
+  type: "object",
+  properties: {
+    key: {
+      type: "string",
+      required: true,
+    },
+    requireMousePressAswell: {
+      type: "boolean",
+      required: true,
+    },
+  },
+  required: true,
+};
+validator.addSchema(configUIInteractionSchema, "/ConfigUI");
+
 const configUISchema: Schema = {
   id: "/ConfigUI",
   type: "object",
   properties: {
     enabled: {
       type: "boolean",
+      required: true,
+    },
+    interaction: {
+      $ref: "/ConfigUIInteraction",
       required: true,
     },
   },

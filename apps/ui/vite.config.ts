@@ -29,6 +29,7 @@ export default defineConfig({
         new URL("./src/components", import.meta.url),
       ),
       "@stores": fileURLToPath(new URL("./src/stores", import.meta.url)),
+      "@utils": fileURLToPath(new URL("./src/utils", import.meta.url)),
       "@plugins": fileURLToPath(new URL("./src/plugins", import.meta.url)),
     },
   },

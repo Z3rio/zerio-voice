@@ -4,6 +4,10 @@ export interface Config {
   };
   ui: {
     enabled: boolean;
+    interaction: {
+      key: string;
+      requireMousePressAswell: boolean;
+    };
   };
   locale: {
     language: string;
@@ -43,3 +47,5 @@ export interface SubmixVolume {
   channel5Volume: number;
   channel6Volume: number;
 }
+
+export type NuiCallback = (...args: unknown[]) => void;

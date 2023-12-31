@@ -8,7 +8,7 @@ const mainStore = useMainStore();
 const radioStore = useRadioStore();
 
 const { talking } = storeToRefs(mainStore);
-const { currentRadioChannel } = storeToRefs(radioStore);
+const { current } = storeToRefs(radioStore);
 
 const nf = Intl.NumberFormat();
 </script>
@@ -33,9 +33,9 @@ const nf = Intl.NumberFormat();
     <!-- Radio Voice State -->
     <div
       class="bg-slate-900/90 rounded h-8 flex items-center w-fit px-6 shadow-xl text-white"
-      v-if="currentRadioChannel"
+      v-if="current"
     >
-      {{ nf.format(currentRadioChannel) }} MHz
+      {{ nf.format(current) }} MHz
     </div>
   </div>
 </template>

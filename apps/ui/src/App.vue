@@ -2,6 +2,7 @@
 import RadioList from "@components/RadioList.vue";
 import VoiceState from "@components/VoiceState.vue";
 import { useMainStore, useRadioStore } from "@stores";
+import { postRequest } from "@utils";
 import { onMounted } from "vue";
 import { storeToRefs } from "pinia";
 
@@ -35,8 +36,35 @@ onMounted(() => {
           sound.play().catch(console.warn);
         }
         break;
+      case "setTalkingOnRadio":
+        break;
+      case "syncRawRadioPlayers":
+        break;
+      case "playerAddedToRadioChannel":
+        break;
+      case "removedFromRadioChannel":
+        break;
+      case "removePlayerFromRadioChannel":
+        break;
     }
   });
+
+  let loaded = false;
+  function tryToLoad() {
+    postRequest("load")
+      .then(() => {
+        loaded = true;
+      })
+      .catch(() => {
+        setTimeout(() => {
+          if (!loaded) {
+            tryToLoad();
+          }
+        }, 1000);
+      });
+  }
+
+  tryToLoad();
 });
 </script>
 

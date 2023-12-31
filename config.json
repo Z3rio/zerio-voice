@@ -4,7 +4,11 @@
   },
 
   "ui": {
-    "enabled": true
+    "enabled": true,
+    "interaction": {
+      "key": "LMenu",
+      "requireMousePressAswell": true
+    }
   },
 
   "locale": {

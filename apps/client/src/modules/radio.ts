@@ -183,6 +183,15 @@ onNet(
 
           newData[newPlrIdx] = newPlrData;
           radioData[freq] = newData;
+
+          SendNUIMessage({
+            action: "setTalkingOnRadio",
+            data: {
+              source: src,
+              frequency: freq,
+              isTalking: isTalking,
+            },
+          });
         }
       }
     }
@@ -194,6 +203,14 @@ onNet(
   "zerio-voice:client:syncRawPlayers",
   (freq: number, players: Array<RadioMember>) => {
     radioData[freq] = players;
+
+    SendNUIMessage({
+      action: "syncRawRadioPlayers",
+      data: {
+        frequency: freq,
+        players: players,
+      },
+    });
 
     if (LocalPlayer.state.currentRadioFreq == null) {
       LocalPlayer.state.set("currentRadioFreq", freq, true);
@@ -214,6 +231,18 @@ onNet(
       });
 
       radioData[freq] = newList;
+
+      SendNUIMessage({
+        action: "playerAddedToRadioChannel",
+        data: {
+          frequency: freq,
+          plr: {
+            name: name,
+            source: src,
+            talking: false,
+          },
+        },
+      });
     }
   },
 );
@@ -233,6 +262,13 @@ onNet(
           LocalPlayer.state.set("currentRadioFreq", Number(keys[0]), true);
         }
       }
+
+      SendNUIMessage({
+        action: "removedFromRadioChannel",
+        data: {
+          frequency: freq,
+        },
+      });
     } else {
       let newList = radioData[freq];
 
@@ -240,6 +276,14 @@ onNet(
         newList = newList.filter((p) => p.source !== src);
 
         radioData[freq] = newList;
+
+        SendNUIMessage({
+          action: "removePlayerFromRadioChannel",
+          data: {
+            frequency: freq,
+            source: src,
+          },
+        });
       }
     }
   },
