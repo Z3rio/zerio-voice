@@ -7,6 +7,7 @@ export const useMainStore = defineStore("main", {
       normal: false,
       radio: false,
     },
+    debug: 0,
     enabled: true,
   }),
 });

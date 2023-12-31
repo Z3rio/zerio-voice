@@ -25,6 +25,9 @@ onMounted(() => {
       case "updateVisibility":
         mainStore.enabled = e.data.data;
         break;
+      case "updateDebugState":
+        mainStore.debug = e.data.data;
+        break;
       case "setCurrentRadioChannel":
         radioStore.current = e.data.data;
         break;
@@ -46,6 +49,14 @@ onMounted(() => {
       case "removedFromRadioChannel":
         break;
       case "removePlayerFromRadioChannel":
+        break;
+    }
+  });
+
+  window.addEventListener("keydown", (e: KeyboardEvent) => {
+    switch (e.key.toLowerCase()) {
+      case "escape":
+        postRequest("removeFocus");
         break;
     }
   });

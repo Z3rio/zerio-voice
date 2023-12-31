@@ -9,11 +9,26 @@ const uiEnabled = GetResourceKvpInt("zerio-voice_enabledUI") == 1;
 const requireMousePressAswell =
   GetResourceKvpInt("zerio-voice_requireMousePressAswell") === 1;
 
+const offsetX = 200;
+const offsetY = 100;
+
+function getInitialCoords(): [number, number] {
+  const [resX, resY] = GetActiveScreenResolution();
+
+  return [(resX - offsetX) / resX, (resY - offsetY) / resY];
+}
+
 function toggleFocus(toggled: boolean) {
   if (hasFocus !== toggled) {
     hasFocus = toggled;
 
-    SetNuiFocus(false, toggled);
+    if (toggled) {
+      const initialCoords = getInitialCoords();
+
+      SetCursorLocation(initialCoords[0], initialCoords[1]);
+    }
+
+    SetNuiFocus(toggled, toggled);
   }
 }
 
@@ -46,7 +61,6 @@ if (uiEnabled) {
     RegisterCommand(
       "-voicefocus",
       () => {
-        toggleFocus(false);
         stopHoldingTick();
       },
       false,
@@ -63,10 +77,21 @@ if (uiEnabled) {
   }
 }
 
+RegisterNuiCallback("removeFocus", (_data: unknown, cb: NuiCallback) => {
+  toggleFocus(false);
+
+  cb("ok");
+});
+
 RegisterNuiCallback("load", (_data: unknown, cb: NuiCallback) => {
   SendNUIMessage({
     action: "updateVisibility",
     data: uiEnabled,
+  });
+
+  SendNUIMessage({
+    action: "updateDebugState",
+    data: GetConvarInt("zerio_voice_debug", 0),
   });
 
   if (uiEnabled) {
