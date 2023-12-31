@@ -41,14 +41,34 @@ onMounted(() => {
         }
         break;
       case "setTalkingOnRadio":
+        if (radioStore.list[e.data.data.frequency]) {
+          const foundIdx = radioStore.list[e.data.data.frequency].findIndex(
+            (p) => p.source === e.data.data.source,
+          );
+
+          if (foundIdx !== -1) {
+            radioStore.list[e.data.data.frequency][foundIdx].talking =
+              e.data.data.isTalking;
+          }
+        }
         break;
       case "syncRawRadioPlayers":
+        radioStore.list[e.data.data.frequency] = e.data.data.players;
         break;
       case "playerAddedToRadioChannel":
+        if (radioStore.list[e.data.data.frequency]) {
+          radioStore.list[e.data.data.frequency].push(e.data.data.plr);
+        }
         break;
       case "removedFromRadioChannel":
+        delete radioStore.list[e.data.data];
         break;
       case "removePlayerFromRadioChannel":
+        if (radioStore.list[e.data.data.frequency]) {
+          radioStore.list[e.data.data.frequency] = radioStore.list[
+            e.data.data.frequency
+          ].filter((p) => p.source !== e.data.data.source);
+        }
         break;
     }
   });

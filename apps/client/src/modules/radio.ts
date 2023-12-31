@@ -49,7 +49,9 @@ function handleVoiceTargets() {
 }
 
 function radioToggle(toggle: boolean): void {
-  if (!radioEnabled || !LocalPlayer.state.currentRadioFreq) {
+  const currentRadioFreq = LocalPlayer.state.currentRadioFreq;
+
+  if (!radioEnabled || !currentRadioFreq) {
     return;
   }
 
@@ -60,6 +62,14 @@ function radioToggle(toggle: boolean): void {
     SendNUIMessage({
       action: "isTalkingOnRadio",
       data: true,
+    });
+    SendNUIMessage({
+      action: "setTalkingOnRadio",
+      data: {
+        source: playerServerId,
+        frequency: currentRadioFreq,
+        isTalking: true,
+      },
     });
 
     LocalPlayer.state.set("talkingOnRadio", true, true);
@@ -76,6 +86,14 @@ function radioToggle(toggle: boolean): void {
     SendNUIMessage({
       action: "isTalkingOnRadio",
       data: false,
+    });
+    SendNUIMessage({
+      action: "setTalkingOnRadio",
+      data: {
+        source: playerServerId,
+        frequency: currentRadioFreq,
+        isTalking: false,
+      },
     });
 
     LocalPlayer.state.set("talkingOnRadio", false, true);
@@ -265,9 +283,7 @@ onNet(
 
       SendNUIMessage({
         action: "removedFromRadioChannel",
-        data: {
-          frequency: freq,
-        },
+        data: freq,
       });
     } else {
       let newList = radioData[freq];
