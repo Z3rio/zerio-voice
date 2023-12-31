@@ -116,6 +116,11 @@ onNet("onClientResourceStart", async (resourceName: string) => {
           action: "updateVisibility",
           data: cfg.ui.enabled,
         });
+
+        SendNUIMessage({
+          action: "setCurrentRadioChannel",
+          data: LocalPlayer.state.currentRadioFreq,
+        });
       }
 
       require("./modules/radio");

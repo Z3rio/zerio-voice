@@ -1,7 +1,7 @@
 import { defineStore } from "pinia";
 import { Talking } from "@zerio-voice/utils/structs";
 
-const useMainStore = defineStore("main", {
+export const useMainStore = defineStore("main", {
   state: () => ({
     talking: <Talking>{
       normal: false,
@@ -10,5 +10,3 @@ const useMainStore = defineStore("main", {
     enabled: true,
   }),
 });
-
-export default useMainStore;

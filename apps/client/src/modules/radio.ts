@@ -49,17 +49,18 @@ function handleVoiceTargets() {
 }
 
 function radioToggle(toggle: boolean): void {
-  if (!radioEnabled) {
+  if (!radioEnabled || !LocalPlayer.state.currentRadioFreq) {
     return;
   }
 
   if (toggle) {
-    if (!LocalPlayer.state.currentRadioFreq) {
-      return;
-    }
-
     handleVoiceTargets();
     playMicClicks(toggle);
+
+    SendNUIMessage({
+      action: "isTalkingOnRadio",
+      data: true,
+    });
 
     LocalPlayer.state.set("talkingOnRadio", true, true);
     emitNet("zerio-voice:server:setTalkingOnRadio", true);
@@ -71,6 +72,11 @@ function radioToggle(toggle: boolean): void {
     });
   } else {
     playMicClicks(toggle);
+
+    SendNUIMessage({
+      action: "isTalkingOnRadio",
+      data: false,
+    });
 
     LocalPlayer.state.set("talkingOnRadio", false, true);
     emitNet("zerio-voice:server:setTalkingOnRadio", false);
@@ -236,6 +242,17 @@ onNet(
         radioData[freq] = newList;
       }
     }
+  },
+);
+
+AddStateBagChangeHandler(
+  "currentRadioFreq",
+  "",
+  (_name: string, _key: string, val: number | null) => {
+    SendNUIMessage({
+      action: "setCurrentRadioChannel",
+      data: val,
+    });
   },
 );
 

@@ -1,11 +1,12 @@
 <script setup lang="ts">
 import RadioList from "@components/RadioList.vue";
 import VoiceState from "@components/VoiceState.vue";
-import useMainStore from "@stores/main";
+import { useMainStore, useRadioStore } from "@stores";
 import { onMounted } from "vue";
 import { storeToRefs } from "pinia";
 
 const mainStore = useMainStore();
+const radioStore = useRadioStore();
 const { enabled } = storeToRefs(mainStore);
 
 onMounted(() => {
@@ -20,17 +21,18 @@ onMounted(() => {
       case "updateVisibility":
         mainStore.enabled = e.data.data;
         break;
+      case "setCurrentRadioChannel":
+        radioStore.current = e.data.data;
+        break;
       case "playRadioMicClicks":
-        let click = document.getElementById(
+        let sound = document.getElementById(
           `audio_${e.data.data.toggled ? "on" : "off"}`,
         );
 
-        if (click) {
-          click.load();
-          click.volume = e.data.data.volume;
-          click.play().catch((e) => {
-            console.warn(e);
-          });
+        if (sound) {
+          sound.load();
+          sound.volume = e.data.data.volume;
+          sound.play().catch(console.warn);
         }
         break;
     }
@@ -44,7 +46,7 @@ onMounted(() => {
 
   <template v-if="enabled">
     <RadioList />
-    <VoiceStaete />
+    <VoiceState />
   </template>
 </template>
 
