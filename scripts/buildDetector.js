@@ -1,11 +1,7 @@
 const fs = require("node:fs");
 const path = require("node:path");
 
-const distFolder = path.join(
-  GetResourcePath(GetCurrentResourceName()),
-  "../",
-  "/dist",
-);
+const distFolder = path.join(GetResourcePath(GetCurrentResourceName()), "dist");
 
 if (!fs.existsSync(distFolder)) {
   setInterval(() => {
