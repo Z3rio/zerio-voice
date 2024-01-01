@@ -1,60 +1,67 @@
 <script setup lang="ts">
 import { storeToRefs } from "pinia";
-import { ref, Ref } from "vue";
 import { useMainStore, useRadioStore } from "@stores";
 import { mdiMicrophone } from "@mdi/js";
+import { ref, Ref, onMounted, onUnmounted } from "vue";
+
 import Icon from "@components/Icon.vue";
+import RadioSwitcher from "@components/RadioSwitcher.vue";
 
 const mainStore = useMainStore();
 const radioStore = useRadioStore();
 
-const isHovering: Ref<boolean> = ref(false);
 const { talking, debug } = storeToRefs(mainStore);
 const { current } = storeToRefs(radioStore);
+const showRadioSwitcher: Ref<boolean> = ref(false);
 
 const nf = Intl.NumberFormat();
 
-function handleMouseOver(_e: MouseEvent): void {
-  isHovering.value = true;
+function MessageHandler(e: MessageEvent) {
+  switch (e.data.action) {
+    case "closed":
+      showRadioSwitcher.value = false;
+      break;
+  }
 }
 
-function handleMouseLeave(_e: MouseEvent): void {
-  isHovering.value = false;
-}
+onMounted(() => {
+  window.addEventListener("message", MessageHandler);
+});
+
+onUnmounted(() => {
+  window.removeEventListener("message", MessageHandler);
+});
 </script>
 
 <template>
-  <div class="absolute right-2 bottom-2 flex flex-row-reverse gap-2">
-    <div
-      class="absolute w-full h-full scale-y-[2] bottom-0 right-0 scale-x-125 z-index-10"
-      :class="{
-        'bg-red-500/50': debug >= 3,
-      }"
-      @mouseover="handleMouseOver"
-      @mouseleave="handleMouseLeave"
-    />
+  <div class="absolute right-2 bottom-2 flex flex-col gap-2 items-end h-fit">
+    <RadioSwitcher :show="showRadioSwitcher" />
 
-    <!-- Main Voice State -->
-    <div
-      class="w-8 h-8 bg-slate-900/90 rounded flex items-center justify-center shadow-xl"
-    >
-      <Icon
-        :path="mdiMicrophone"
-        :height="24"
-        :width="24"
-        :class="{
-          'fill-[#bbb]': !talking.normal,
-          'fill-white': talking.normal,
-        }"
-      />
-    </div>
+    <div class="flex flex-row gap-2 relative w-fit">
+      <!-- Radio Voice State -->
+      <div
+        class="bg-slate-900/90 rounded h-8 flex justify-center items-center w-fit px-6 shadow-xl text-white min-w-[150px] cursor-pointer"
+        v-if="current"
+        @click="showRadioSwitcher = !showRadioSwitcher"
+        v-wave
+      >
+        {{ nf.format(current) }} MHz
+      </div>
 
-    <!-- Radio Voice State -->
-    <div
-      class="bg-slate-900/90 rounded h-8 flex items-center w-fit px-6 shadow-xl text-white"
-      v-if="current"
-    >
-      {{ nf.format(current) }} MHz
+      <!-- Main Voice State -->
+      <div
+        class="w-8 h-8 bg-slate-900/90 rounded flex items-center justify-center shadow-xl"
+      >
+        <Icon
+          :path="mdiMicrophone"
+          :height="24"
+          :width="24"
+          :class="{
+            'fill-[#bbb]': !talking.normal,
+            'fill-white': talking.normal,
+          }"
+        />
+      </div>
     </div>
   </div>
 </template>

@@ -1,5 +1,6 @@
 import { NuiCallback } from "@zerio-voice/utils/structs";
 import { getTranslation } from "@zerio-voice/utils/translations";
+import { changeCurrentRadioFreq } from "./radio";
 
 const gameName = GetGameName();
 let hasFocus = false;
@@ -9,8 +10,8 @@ const uiEnabled = GetResourceKvpInt("zerio-voice_enabledUI") == 1;
 const requireMousePressAswell =
   GetResourceKvpInt("zerio-voice_requireMousePressAswell") === 1;
 
-const offsetX = 200;
-const offsetY = 100;
+const offsetX = 100;
+const offsetY = 50;
 
 function getInitialCoords(): [number, number] {
   const [resX, resY] = GetActiveScreenResolution();
@@ -80,8 +81,19 @@ if (uiEnabled) {
 RegisterNuiCallback("removeFocus", (_data: unknown, cb: NuiCallback) => {
   toggleFocus(false);
 
+  SendNUIMessage({
+    action: "closed",
+  });
+
   cb("ok");
 });
+
+RegisterNuiCallback(
+  "changeFrequency",
+  (data: { frequency: number }, cb: NuiCallback) => {
+    changeCurrentRadioFreq(data.frequency);
+  },
+);
 
 RegisterNuiCallback("load", (_data: unknown, cb: NuiCallback) => {
   SendNUIMessage({

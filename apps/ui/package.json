@@ -12,6 +12,7 @@
     "@mdi/js": "^7.4.47",
     "@zerio-voice/utils": "workspace:*",
     "pinia": "^2.1.7",
+    "v-wave": "^2.0.0",
     "vue": "^3.4.0",
     "webfontloader": "^1.6.28"
   },

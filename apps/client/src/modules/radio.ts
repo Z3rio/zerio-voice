@@ -131,7 +131,7 @@ function removeRadioChannel(frequency: number) {
 }
 global.exports("removeRadioChannel", removeRadioChannel);
 
-function changeCurrentRadioFreq(frequency?: number | null) {
+export function changeCurrentRadioFreq(frequency?: number | null) {
   if (frequency && radioData[frequency]) {
     LocalPlayer.state.set("currentRadioFreq", frequency, true);
 

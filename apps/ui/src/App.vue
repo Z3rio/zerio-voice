@@ -76,7 +76,7 @@ onMounted(() => {
   window.addEventListener("keydown", (e: KeyboardEvent) => {
     switch (e.key.toLowerCase()) {
       case "escape":
-        postRequest("removeFocus");
+        mainStore.close();
         break;
     }
   });
@@ -113,5 +113,3 @@ onMounted(() => {
     <VoiceState />
   </template>
 </template>
-
-<style scoped lang="scss"></style>
