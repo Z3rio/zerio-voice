@@ -4,13 +4,13 @@ import { useMainStore, useRadioStore } from "@stores";
 import { mdiMicrophone } from "@mdi/js";
 import { ref, Ref, onMounted, onUnmounted } from "vue";
 
-import Icon from "@components/Icon.vue";
+import SvgIcon from "@components/SvgIcon.vue";
 import RadioSwitcher from "@components/RadioSwitcher.vue";
 
 const mainStore = useMainStore();
 const radioStore = useRadioStore();
 
-const { talking, debug } = storeToRefs(mainStore);
+const { talking } = storeToRefs(mainStore);
 const { current } = storeToRefs(radioStore);
 const showRadioSwitcher: Ref<boolean> = ref(false);
 
@@ -49,16 +49,14 @@ onUnmounted(() => {
       </div>
 
       <!-- Main Voice State -->
-      <div
-        class="w-8 h-8 bg-slate-900/90 rounded flex items-center justify-center shadow-xl"
-      >
-        <Icon
+      <div class="w-8 h-8 bg-slate-900/90 rounded flex items-center justify-center shadow-xl">
+        <SvgIcon
           :path="mdiMicrophone"
           :height="24"
           :width="24"
           :class="{
             'fill-[#bbb]': !talking.normal,
-            'fill-white': talking.normal,
+            'fill-white': talking.normal
           }"
         />
       </div>
