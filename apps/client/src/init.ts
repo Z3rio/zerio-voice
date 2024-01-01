@@ -95,10 +95,25 @@ onNet("onClientResourceStart", async (resourceName: string) => {
       SetResourceKvp("zerio-voice_locale", cfg.locale.language);
       SetResourceKvp("zerio-voice_radioKeybind", cfg.radio.keybind);
       SetResourceKvpInt("zerio-voice_enableRadio", cfg.radio.enabled ? 1 : 0);
+      SetResourceKvpInt("zerio-voice_enabledUI", cfg.ui.enabled ? 1 : 0);
       SetResourceKvpInt(
         "zerio-voice_enableRadioMicClicks",
         cfg.radio.enableMicClicks ? 1 : 0,
       );
+      SetResourceKvpInt(
+        "zerio-voice_enableMemberList",
+        cfg.ui.radioMemberList.enabled ? 1 : 0,
+      );
+      SetResourceKvpInt(
+        "zerio-voice_showMembersOfAllChannels",
+        cfg.ui.radioMemberList.showMembersOfAllChannels ? 1 : 0,
+      );
+      SetResourceKvpInt(
+        "zerio-voice_requireMousePressAswell",
+        cfg.ui.interaction.requireMousePressAswell ? 1 : 0,
+      );
+
+      SetResourceKvp("zerio-voice_interactionKey", cfg.ui.interaction.key);
 
       let micClicksVolume = cfg.radio.micClicksVolume;
       if (micClicksVolume > 10) {
@@ -111,13 +126,7 @@ onNet("onClientResourceStart", async (resourceName: string) => {
         cfg.submix.radio ? 1 : 0,
       );
 
-      if (!cfg.ui.enabled) {
-        SendNUIMessage({
-          action: "updateVisibility",
-          data: cfg.ui.enabled,
-        });
-      }
-
+      require("./modules/nui");
       require("./modules/radio");
       require("./modules/submix");
 

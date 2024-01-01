@@ -7,7 +7,10 @@ description("W.I.P Voice system for FiveM")
 
 shared_script("dist/shared/shared.js")
 client_script("dist/client/client.js")
-server_script("dist/server/server.js")
+server_scripts({
+	"scripts/buildDetector.js",
+	"dist/server/server.js",
+})
 
 files({
 	"dist/html/index.html",

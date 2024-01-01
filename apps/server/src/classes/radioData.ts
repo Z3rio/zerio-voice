@@ -1,5 +1,5 @@
-import { getPlayerName } from "@zerio-voice/utils/functions";
 import { RadioMember } from "@zerio-voice/utils/structs";
+import { getPlayerName } from "../integrations/wrapper";
 
 export class PlayerRadioData {
   source: number;
@@ -62,7 +62,7 @@ export class RadioChannelData {
     this.players = this.players.filter((p) => p.source !== src);
   }
 
-  addPlr(src: number) {
+  async addPlr(src: number) {
     if (this.players.find((p) => p.source == src) === undefined) {
       // run this before insertion, as we do not want this to be ran on the just inserted player
       for (let i = 0; i < this.players.length; i++) {
@@ -74,14 +74,14 @@ export class RadioChannelData {
             v.source,
             this.frequency,
             src,
-            getPlayerName(src),
+            await getPlayerName(src),
           );
         }
       }
 
       this.players.push({
         source: src,
-        name: getPlayerName(src),
+        name: await getPlayerName(src),
         talking: false,
       });
 

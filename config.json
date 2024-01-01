@@ -4,7 +4,17 @@
   },
 
   "ui": {
-    "enabled": true
+    "enabled": true,
+
+    "radioMemberList": {
+      "enabled": true,
+      "showMembersOfAllChannels": false
+    },
+
+    "interaction": {
+      "key": "LMenu",
+      "requireMousePressAswell": true
+    }
   },
 
   "locale": {

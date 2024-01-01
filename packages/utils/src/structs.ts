@@ -4,6 +4,14 @@ export interface Config {
   };
   ui: {
     enabled: boolean;
+    radioMemberList: {
+      enabled: boolean;
+      showMembersOfAllChannels: boolean;
+    };
+    interaction: {
+      key: string;
+      requireMousePressAswell: boolean;
+    };
   };
   locale: {
     language: string;
@@ -42,4 +50,13 @@ export interface SubmixVolume {
   rearRightVolume: number;
   channel5Volume: number;
   channel6Volume: number;
+}
+
+export type NuiCallback = (...args: Array<unknown>) => void;
+
+export enum Framework {
+  vRP,
+  ESX,
+  QBCore,
+  Standalone,
 }

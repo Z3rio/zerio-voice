@@ -1,0 +1,19 @@
+* {
+  font-family: "Lato", sans-serif;
+
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+
+  cursor: default;
+}
+
+*::-webkit-scrollbar {
+  display: none;
+}
+
+#app,
+body,
+html {
+  height: 100vh;
+  width: 100vw;
+}

@@ -27,7 +27,7 @@ function getCurrentLogLevel(): LogLevel {
 }
 
 function createLog(
-  txt: unknown[],
+  txt: Array<unknown>,
   customColor: AnsicolorMethods,
   logLevel: LogLevel,
 ) {
@@ -48,7 +48,7 @@ function createLog(
   }
 
   if (!isServer) {
-    customColor = (...txt: unknown[]) => txt;
+    customColor = (...txt: Array<unknown>) => txt;
   }
 
   const currentLogLevel = getCurrentLogLevel();
@@ -62,18 +62,18 @@ function createLog(
   }
 }
 
-export function warn(...txt: unknown[]) {
+export function warn(...txt: Array<unknown>) {
   createLog(txt, yellow, LogLevel.warn);
 }
 
-export function success(...txt: unknown[]) {
+export function success(...txt: Array<unknown>) {
   createLog(txt, green, LogLevel.info);
 }
 
-export function error(...txt: unknown[]) {
+export function error(...txt: Array<unknown>) {
   createLog(txt, red, LogLevel.error);
 }
 
-export function info(...txt: unknown[]) {
+export function info(...txt: Array<unknown>) {
   createLog(txt, white, LogLevel.info);
 }

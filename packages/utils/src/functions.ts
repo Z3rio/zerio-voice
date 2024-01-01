@@ -1,3 +1,5 @@
+import { Framework } from "./structs";
+
 export const Wait = (ms: number): Promise<void> => {
   return new Promise((resolve) => setTimeout(resolve, ms));
 };
@@ -26,6 +28,14 @@ export function getDistance(
   }
 }
 
-export function getPlayerName(src: number): string {
-  return GetPlayerName(src);
+export function getFramework(): Framework {
+  if (GetResourceState("es_extended") !== "missing") {
+    return Framework.ESX;
+  } else if (GetResourceState("qb-core") !== "missing") {
+    return Framework.QBCore;
+  } else if (GetResourceState("vRP") !== "missing") {
+    return Framework.vRP;
+  }
+
+  return Framework.Standalone;
 }
