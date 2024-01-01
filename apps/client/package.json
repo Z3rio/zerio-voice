@@ -13,6 +13,8 @@
     "@zerio-voice/utils": "workspace:*"
   },
   "devDependencies": {
-    "@vrpjs/client": "^1.0.4"
+    "@vrpjs/client": "^1.0.4",
+    "@zerio-voice/eslint-config": "workspace:^",
+    "@zerio-voice/prettier-config": "workspace:^"
   }
 }
