@@ -1,10 +1,11 @@
 <script setup lang="ts">
-import RadioList from "@components/RadioList.vue";
-import VoiceState from "@components/VoiceState.vue";
 import { useMainStore, useRadioStore } from "@stores";
 import { postRequest } from "@utils";
 import { onMounted, ref, Ref } from "vue";
 import { storeToRefs } from "pinia";
+
+import VoiceState from "@components/VoiceState.vue";
+import RadioMemberList from "@components/RadioMemberList.vue";
 
 const mainStore = useMainStore();
 const radioStore = useRadioStore();
@@ -70,6 +71,11 @@ onMounted(() => {
           ].filter((p) => p.source !== e.data.data.source);
         }
         break;
+      case "loadRadioMemberListSettings":
+        radioStore.enableMemberList = e.data.data.enabled;
+        radioStore.showMembersOfAllChannels =
+          e.data.data.showMembersOfAllChannels;
+        break;
     }
   });
 
@@ -109,7 +115,7 @@ onMounted(() => {
   <audio ref="micClickOff" src="mic_click_off.ogg" />
 
   <template v-if="enabled">
-    <RadioList />
+    <RadioMemberList />
     <VoiceState />
   </template>
 </template>

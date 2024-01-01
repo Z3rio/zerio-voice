@@ -4,6 +4,10 @@ export interface Config {
   };
   ui: {
     enabled: boolean;
+    radioMemberList: {
+      enabled: boolean;
+      showMembersOfAllChannels: boolean;
+    };
     interaction: {
       key: string;
       requireMousePressAswell: boolean;
@@ -48,4 +52,4 @@ export interface SubmixVolume {
   channel6Volume: number;
 }
 
-export type NuiCallback = (...args: unknown[]) => void;
+export type NuiCallback = (...args: Array<unknown>) => void;

@@ -92,6 +92,7 @@ RegisterNuiCallback(
   "changeFrequency",
   (data: { frequency: number }, cb: NuiCallback) => {
     changeCurrentRadioFreq(data.frequency);
+    cb("ok");
   },
 );
 
@@ -104,6 +105,15 @@ RegisterNuiCallback("load", (_data: unknown, cb: NuiCallback) => {
   SendNUIMessage({
     action: "updateDebugState",
     data: GetConvarInt("zerio_voice_debug", 0),
+  });
+
+  SendNUIMessage({
+    action: "loadRadioMemberListSettings",
+    data: {
+      enabled: GetResourceKvpInt("zerio-voice_enableMemberList") === 1,
+      showMembersOfAllChannels:
+        GetResourceKvpInt("zerio-voice_showMembersOfAllChannels") === 1,
+    },
   });
 
   if (uiEnabled) {

@@ -101,6 +101,14 @@ onNet("onClientResourceStart", async (resourceName: string) => {
         cfg.radio.enableMicClicks ? 1 : 0,
       );
       SetResourceKvpInt(
+        "zerio-voice_enableMemberList",
+        cfg.ui.radioMemberList.enabled ? 1 : 0,
+      );
+      SetResourceKvpInt(
+        "zerio-voice_showMembersOfAllChannels",
+        cfg.ui.radioMemberList.showMembersOfAllChannels ? 1 : 0,
+      );
+      SetResourceKvpInt(
         "zerio-voice_requireMousePressAswell",
         cfg.ui.interaction.requireMousePressAswell ? 1 : 0,
       );

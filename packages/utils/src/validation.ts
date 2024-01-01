@@ -30,7 +30,24 @@ const configUIInteractionSchema: Schema = {
   },
   required: true,
 };
-validator.addSchema(configUIInteractionSchema, "/ConfigUI");
+validator.addSchema(configUIInteractionSchema, "/ConfigUIInteraction");
+
+const configUIRadioMemberListSchema: Schema = {
+  id: "/ConfigUIRadioMemberList",
+  type: "object",
+  properties: {
+    enabled: {
+      type: "boolean",
+      required: true,
+    },
+    showMembersOfAllChannels: {
+      type: "boolean",
+      required: true,
+    },
+  },
+  required: true,
+};
+validator.addSchema(configUIRadioMemberListSchema, "/ConfigUIRadioMemberList");
 
 const configUISchema: Schema = {
   id: "/ConfigUI",
@@ -42,6 +59,10 @@ const configUISchema: Schema = {
     },
     interaction: {
       $ref: "/ConfigUIInteraction",
+      required: true,
+    },
+    radioMemberList: {
+      $ref: "/ConfigUIRadioMemberList",
       required: true,
     },
   },
