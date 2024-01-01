@@ -49,7 +49,9 @@ onUnmounted(() => {
       </div>
 
       <!-- Main Voice State -->
-      <div class="w-8 h-8 bg-slate-900/90 rounded flex items-center justify-center shadow-xl">
+      <div
+        class="w-8 h-8 bg-slate-900/90 rounded flex items-center justify-center shadow-xl"
+      >
         <SvgIcon
           :path="mdiMicrophone"
           :height="24"

@@ -60,7 +60,7 @@ onNet(
   "zerio-voice:server:removePlayerFromRadioChannel",
   (frequency: number) => {
     removePlayerFromRadioChannel(source, frequency);
-  },
+  }
 );
 
 function handleNewPlayer(src: number) {
@@ -138,50 +138,50 @@ onNet("zerio-voice:server:setTalkingOnRadio", () => {
 
 const debug = GetConvarInt("zerio_voice_debug", 0);
 
-if (debug >= 1) {
-  function debugPrint() {
-    if (debug >= 2) {
-      info("----------");
-      info("channelData", JSON.stringify(channelData));
-      info("playerData", JSON.stringify(playerData));
-    }
+function debugPrint() {
+  if (debug >= 2) {
+    info("----------");
+    info("channelData", JSON.stringify(channelData));
+    info("playerData", JSON.stringify(playerData));
   }
+}
 
+if (debug >= 1) {
   RegisterCommand("debugPrint", debugPrint, false);
 
   RegisterCommand(
     "addPlayerToRadioChannel",
-    (_src: number, args: Array<string>, _raw: string) => {
+    (_src: number, args: Array<string>) => {
       addPlayerToRadioChannel(Number(args[0]), Number(args[1]));
       debugPrint();
     },
-    false,
+    false
   );
 
   RegisterCommand(
     "removePlayerFromRadioChannel",
-    (_src: number, args: Array<string>, _raw: string) => {
+    (_src: number, args: Array<string>) => {
       removePlayerFromRadioChannel(Number(args[0]), Number(args[1]));
       debugPrint();
     },
-    false,
+    false
   );
 
   RegisterCommand(
     "handleNewPlayer",
-    (_src: number, args: Array<string>, _raw: string) => {
+    (_src: number, args: Array<string>) => {
       handleNewPlayer(Number(args[0]));
       debugPrint();
     },
-    false,
+    false
   );
 
   RegisterCommand(
     "handlePlayerRemoval",
-    (_src: number, args: Array<string>, _raw: string) => {
+    (_src: number, args: Array<string>) => {
       handlePlayerRemoval(Number(args[0]));
       debugPrint();
     },
-    false,
+    false
   );
 }

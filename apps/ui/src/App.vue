@@ -49,7 +49,8 @@ onMounted(() => {
           );
 
           if (foundIdx !== -1) {
-            radioStore.list[e.data.data.frequency][foundIdx].talking = e.data.data.isTalking;
+            radioStore.list[e.data.data.frequency][foundIdx].talking =
+              e.data.data.isTalking;
           }
         }
         break;
@@ -66,14 +67,15 @@ onMounted(() => {
         break;
       case "removePlayerFromRadioChannel":
         if (radioStore.list[e.data.data.frequency]) {
-          radioStore.list[e.data.data.frequency] = radioStore.list[e.data.data.frequency].filter(
-            (p) => p.source !== e.data.data.source
-          );
+          radioStore.list[e.data.data.frequency] = radioStore.list[
+            e.data.data.frequency
+          ].filter((p) => p.source !== e.data.data.source);
         }
         break;
       case "loadRadioMemberListSettings":
         radioStore.enableMemberList = e.data.data.enabled;
-        radioStore.showMembersOfAllChannels = e.data.data.showMembersOfAllChannels;
+        radioStore.showMembersOfAllChannels =
+          e.data.data.showMembersOfAllChannels;
         break;
     }
   });

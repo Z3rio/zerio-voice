@@ -1,11 +1,13 @@
 import { VrpProxy } from "@vrpjs/server";
 import { Handlers } from "@vrpjs/server/lib/VrpProxy";
 
-let vRP: null | Handlers = null;
+export let vRP: null | Handlers = null;
 
 try {
   vRP = VrpProxy.getInterface("vRP");
-} catch (_e) {}
+} catch (_e) {
+  // could not load vrp, probably doesnt exist on the server
+}
 
 interface vRPIdentity {
   firstname: string;
@@ -13,7 +15,7 @@ interface vRPIdentity {
 }
 
 export async function vrpGetPlayerName(src: number): Promise<string> {
-  const name = await new Promise((resolve, _reject) => {
+  const name = await new Promise((resolve) => {
     if (vRP && "getUserIdentity" in vRP) {
       vRP.getUserIdentity([
         src,
@@ -23,7 +25,7 @@ export async function vrpGetPlayerName(src: number): Promise<string> {
           } else {
             return null;
           }
-        },
+        }
       ]);
     } else {
       return null;

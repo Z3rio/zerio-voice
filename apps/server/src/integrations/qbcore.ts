@@ -1,11 +1,13 @@
 import { Player, Server } from "@zerio2/qbcore.js";
 
-let QBCore: Server | null = null;
+export let QBCore: Server | null = null;
 try {
   if (global.exports["qb-core"] && global.exports["qb-core"].GetCoreObject) {
     QBCore = global.exports["qb-core"].GetCoreObject();
   }
-} catch (_e) {}
+} catch (_e) {
+  // could not load qbcore, probably doesnt exist on the server
+}
 
 export function qbGetPlayerData(src: number): Player | null {
   if (QBCore) {

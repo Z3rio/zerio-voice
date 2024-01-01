@@ -14,6 +14,9 @@ importers:
       '@citizenfx/server':
         specifier: 2.0.7257-1
         version: 2.0.7257-1
+      '@rushstack/eslint-patch':
+        specifier: ^1.6.1
+        version: 1.6.1
       '@types/node':
         specifier: ^20.10.5
         version: 20.10.5
@@ -101,9 +104,6 @@ importers:
         specifier: ^1.6.28
         version: 1.6.28
     devDependencies:
-      '@rushstack/eslint-patch':
-        specifier: ^1.6.1
-        version: 1.6.1
       '@types/webfontloader':
         specifier: ^1.6.38
         version: 1.6.38
