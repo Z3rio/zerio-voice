@@ -4,7 +4,7 @@ import {
   CreateAudioSubmix,
   SetAudioSubmixEffectParamInt,
   SetAudioSubmixEffectRadioFx,
-  SetAudioSubmixOutputVolumes,
+  SetAudioSubmixOutputVolumes
 } from "@zerio-voice/utils/submix";
 
 const playerServerId = GetPlayerServerId(PlayerId());
@@ -21,7 +21,7 @@ export class Submix {
     name: string,
     slot: number,
     volumes: SubmixVolume,
-    radioEffect?: string,
+    radioEffect?: string
   ) {
     this.name = name;
     this.slot = slot;
@@ -43,7 +43,7 @@ export class Submix {
       this.volumes.rearLeftVolume,
       this.volumes.rearRightVolume,
       this.volumes.channel5Volume,
-      this.volumes.channel6Volume,
+      this.volumes.channel6Volume
     );
     AddAudioSubmixOutput(this.id, this.slot);
   }

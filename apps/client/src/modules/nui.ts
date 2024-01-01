@@ -56,7 +56,7 @@ if (uiEnabled) {
           toggleFocus(true);
         }
       },
-      false,
+      false
     );
 
     RegisterCommand(
@@ -64,14 +64,14 @@ if (uiEnabled) {
       () => {
         stopHoldingTick();
       },
-      false,
+      false
     );
 
     RegisterKeyMapping(
       "+voicefocus",
       getTranslation(["misc", "focusKeybind"]),
       "keyboard",
-      keybind,
+      keybind
     );
   } else if (gameName == "redm") {
     // todo: redm control handling
@@ -82,7 +82,7 @@ RegisterNuiCallback("removeFocus", (_data: unknown, cb: NuiCallback) => {
   toggleFocus(false);
 
   SendNUIMessage({
-    action: "closed",
+    action: "closed"
   });
 
   cb("ok");
@@ -93,18 +93,18 @@ RegisterNuiCallback(
   (data: { frequency: number }, cb: NuiCallback) => {
     changeCurrentRadioFreq(data.frequency);
     cb("ok");
-  },
+  }
 );
 
 RegisterNuiCallback("load", (_data: unknown, cb: NuiCallback) => {
   SendNUIMessage({
     action: "updateVisibility",
-    data: uiEnabled,
+    data: uiEnabled
   });
 
   SendNUIMessage({
     action: "updateDebugState",
-    data: GetConvarInt("zerio_voice_debug", 0),
+    data: GetConvarInt("zerio_voice_debug", 0)
   });
 
   SendNUIMessage({
@@ -112,14 +112,14 @@ RegisterNuiCallback("load", (_data: unknown, cb: NuiCallback) => {
     data: {
       enabled: GetResourceKvpInt("zerio-voice_enableMemberList") === 1,
       showMembersOfAllChannels:
-        GetResourceKvpInt("zerio-voice_showMembersOfAllChannels") === 1,
-    },
+        GetResourceKvpInt("zerio-voice_showMembersOfAllChannels") === 1
+    }
   });
 
   if (uiEnabled) {
     SendNUIMessage({
       action: "setCurrentRadioChannel",
-      data: LocalPlayer.state.currentRadioFreq,
+      data: LocalPlayer.state.currentRadioFreq
     });
   }
 

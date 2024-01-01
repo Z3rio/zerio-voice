@@ -22,8 +22,8 @@ function playMicClicks(isTalking: boolean) {
       action: "playRadioMicClicks",
       data: {
         toggled: isTalking,
-        volume: micClicksVolume,
-      },
+        volume: micClicksVolume
+      }
     });
   }
 }
@@ -61,15 +61,15 @@ function radioToggle(toggle: boolean): void {
 
     SendNUIMessage({
       action: "isTalkingOnRadio",
-      data: true,
+      data: true
     });
     SendNUIMessage({
       action: "setTalkingOnRadio",
       data: {
         source: playerServerId,
         frequency: currentRadioFreq,
-        isTalking: true,
-      },
+        isTalking: true
+      }
     });
 
     LocalPlayer.state.set("talkingOnRadio", true, true);
@@ -85,15 +85,15 @@ function radioToggle(toggle: boolean): void {
 
     SendNUIMessage({
       action: "isTalkingOnRadio",
-      data: false,
+      data: false
     });
     SendNUIMessage({
       action: "setTalkingOnRadio",
       data: {
         source: playerServerId,
         frequency: currentRadioFreq,
-        isTalking: false,
-      },
+        isTalking: false
+      }
     });
 
     LocalPlayer.state.set("talkingOnRadio", false, true);
@@ -148,7 +148,7 @@ if (gameName == "fivem") {
     () => {
       radioToggle(true);
     },
-    false,
+    false
   );
 
   RegisterCommand(
@@ -156,14 +156,14 @@ if (gameName == "fivem") {
     () => {
       radioToggle(false);
     },
-    false,
+    false
   );
 
   RegisterKeyMapping(
     "+radio",
     getTranslation(["radio", "keybind"]),
     "keyboard",
-    keybind,
+    keybind
   );
 } else if (gameName == "redm") {
   // todo: fix key handling for redm
@@ -207,13 +207,13 @@ onNet(
             data: {
               source: src,
               frequency: freq,
-              isTalking: isTalking,
-            },
+              isTalking: isTalking
+            }
           });
         }
       }
     }
-  },
+  }
 );
 
 // player joined a new channel
@@ -226,14 +226,14 @@ onNet(
       action: "syncRawRadioPlayers",
       data: {
         frequency: freq,
-        players: players,
-      },
+        players: players
+      }
     });
 
     if (LocalPlayer.state.currentRadioFreq == null) {
       LocalPlayer.state.set("currentRadioFreq", freq, true);
     }
-  },
+  }
 );
 
 onNet(
@@ -245,7 +245,7 @@ onNet(
       newList.push({
         talking: false,
         name: name,
-        source: src,
+        source: src
       });
 
       radioData[freq] = newList;
@@ -257,12 +257,12 @@ onNet(
           plr: {
             name: name,
             source: src,
-            talking: false,
-          },
-        },
+            talking: false
+          }
+        }
       });
     }
-  },
+  }
 );
 
 onNet(
@@ -283,7 +283,7 @@ onNet(
 
       SendNUIMessage({
         action: "removedFromRadioChannel",
-        data: freq,
+        data: freq
       });
     } else {
       let newList = radioData[freq];
@@ -297,12 +297,12 @@ onNet(
           action: "removePlayerFromRadioChannel",
           data: {
             frequency: freq,
-            source: src,
-          },
+            source: src
+          }
         });
       }
     }
-  },
+  }
 );
 
 AddStateBagChangeHandler(
@@ -311,9 +311,9 @@ AddStateBagChangeHandler(
   (_name: string, _key: string, val: number | null) => {
     SendNUIMessage({
       action: "setCurrentRadioChannel",
-      data: val,
+      data: val
     });
-  },
+  }
 );
 
 const debug = GetConvarInt("zerio_voice_debug", 0);
@@ -330,26 +330,26 @@ if (debug >= 1) {
 
   RegisterCommand(
     "addRadioChannel",
-    (_src: number, args: Array<string>, _raw: string) => {
+    (_src: number, args: Array<string>) => {
       addRadioChannel(Number(args[0]));
     },
-    false,
+    false
   );
 
   RegisterCommand(
     "changeRadioChannel",
-    (_src: number, args: Array<string>, _raw: string) => {
+    (_src: number, args: Array<string>) => {
       changeCurrentRadioFreq(Number(args[0]));
     },
-    false,
+    false
   );
 
   RegisterCommand(
     "removeRadioChannel",
-    (_src: number, args: Array<string>, _raw: string) => {
+    (_src: number, args: Array<string>) => {
       removeRadioChannel(Number(args[0]));
     },
-    false,
+    false
   );
 }
 

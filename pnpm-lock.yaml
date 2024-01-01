@@ -17,6 +17,12 @@ importers:
       '@types/node':
         specifier: ^20.10.5
         version: 20.10.5
+      '@typescript-eslint/eslint-plugin':
+        specifier: ^6.17.0
+        version: 6.17.0(@typescript-eslint/parser@6.17.0)(eslint@8.56.0)(typescript@5.3.3)
+      '@typescript-eslint/parser':
+        specifier: ^6.17.0
+        version: 6.17.0(eslint@8.56.0)(typescript@5.3.3)
       '@zerio-voice/typescript-config':
         specifier: workspace:*
         version: link:packages/typescript-config
