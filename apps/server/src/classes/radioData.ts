@@ -3,7 +3,7 @@ import { getPlayerName } from "../integrations/wrapper";
 
 export class PlayerRadioData {
   source: number;
-  channels: Array<number> = new Array();
+  channels: Array<number> = [];
   isTalking: Record<number, boolean> = {};
 
   private updateStateBag() {
@@ -41,7 +41,7 @@ export class RadioChannelData {
 
   constructor(channel: number) {
     this.frequency = channel;
-    this.players = new Array();
+    this.players = [];
   }
 
   removePlr(src: number) {
@@ -54,7 +54,7 @@ export class RadioChannelData {
           "zerio-voice:client:playerRemovedFromRadioChannel",
           v.source,
           this.frequency,
-          src,
+          src
         );
       }
     }
@@ -74,7 +74,7 @@ export class RadioChannelData {
             v.source,
             this.frequency,
             src,
-            await getPlayerName(src),
+            await getPlayerName(src)
           );
         }
       }
@@ -82,7 +82,7 @@ export class RadioChannelData {
       this.players.push({
         source: src,
         name: await getPlayerName(src),
-        talking: false,
+        talking: false
       });
 
       // this syncs ALL players to the just added client
@@ -90,7 +90,7 @@ export class RadioChannelData {
         "zerio-voice:client:syncRawPlayers",
         src,
         this.frequency,
-        this.players,
+        this.players
       );
     }
   }
@@ -114,7 +114,7 @@ export class RadioChannelData {
               v.source,
               this.frequency,
               src,
-              isTalking,
+              isTalking
             );
           }
         }

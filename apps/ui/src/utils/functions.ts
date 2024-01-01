@@ -12,9 +12,9 @@ export const postRequest = async (evName: string, data: any = {}) => {
   const rawResp = await fetch(`https://${getResourceName()}/${evName}`, {
     body: JSON.stringify(data),
     headers: {
-      "Content-Type": "application/json; charset=UTF8",
+      "Content-Type": "application/json; charset=UTF8"
     },
-    method: "POST",
+    method: "POST"
   });
 
   return await rawResp.json();

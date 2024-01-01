@@ -70,6 +70,8 @@ different "Apps", pretty much misc/utility stuff
 - [`@zerio-voice/utils`](https://github.com/Z3rio/zerio-voice/tree/main/packages/utils):
   Utility functions
 - [`@zerio-voice/typescript-config`](https://github.com/Z3rio/zerio-voice/tree/main/packages/typescript-config):
+- [`@zerio-voice/eslint-config`](https://github.com/Z3rio/zerio-voice/tree/main/packages/eslint-config):
+- [`@zerio-voice/prettier-config`](https://github.com/Z3rio/zerio-voice/tree/main/packages/prettier-config):
   `tsconfig.json`s used throughout the monorepo
 
 ### Installing dependencies

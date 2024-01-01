@@ -6,6 +6,6 @@ export const useRadioStore = defineStore("radio", {
     current: <number | null>null,
     list: <Record<number, Array<RadioMember>>>{},
     enableMemberList: true,
-    showMembersOfAllChannels: false,
-  }),
+    showMembersOfAllChannels: false
+  })
 });

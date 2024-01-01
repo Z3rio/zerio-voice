@@ -9,7 +9,7 @@ const {
   enableMemberList: enabled,
   showMembersOfAllChannels,
   list,
-  current,
+  current
 } = storeToRefs(radioStore);
 
 const members: Computed<Array<RadioMember>> = computed(() => {
@@ -46,14 +46,14 @@ const members: Computed<Array<RadioMember>> = computed(() => {
 </script>
 
 <template>
-  <div class="top-2 right-2 absolute flex flex-col">
+  <div class="top-2 right-2 absolute flex flex-col" v-if="enabled">
     <div
       v-for="(member, idx) in members"
       :key="idx"
       class=""
       :class="{
         'text-neutral-300': !member.talking,
-        'text-white': member.talking,
+        'text-white': member.talking
       }"
     >
       {{ member.name }}

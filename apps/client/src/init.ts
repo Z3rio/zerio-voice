@@ -42,18 +42,18 @@ function updateNUIVoiceStatus() {
     SendNUIMessage({
       action: "isTalkingNormally",
 
-      data: isTalking,
+      data: isTalking
     });
   }
 }
 
 function proximityCheck(
   coords1: Array<number>,
-  coords2: Array<number>,
-): [boolean, number] {
+  coords2: Array<number>
+): boolean {
   const dist = getDistance(coords1, coords2);
 
-  return [dist !== -1 && dist < proximity, dist];
+  return dist !== -1 && dist < proximity;
 }
 
 function checkForNearbyPlayers() {
@@ -72,15 +72,15 @@ function checkForNearbyPlayers() {
     for (let i = 0; i < plrs.length; i++) {
       const v = plrs[i];
       const serverId = GetPlayerServerId(v);
-      const [shouldAdd, _distance] = proximityCheck(
+      const shouldAdd = proximityCheck(
         coords,
-        GetEntityCoords(GetPlayerPed(v), true),
+        GetEntityCoords(GetPlayerPed(v), true)
       );
 
       if (shouldAdd) {
         MumbleAddVoiceTargetChannel(
           voiceTarget,
-          MumbleGetVoiceChannelFromServerId(serverId),
+          MumbleGetVoiceChannelFromServerId(serverId)
         );
       }
     }
@@ -98,19 +98,19 @@ onNet("onClientResourceStart", async (resourceName: string) => {
       SetResourceKvpInt("zerio-voice_enabledUI", cfg.ui.enabled ? 1 : 0);
       SetResourceKvpInt(
         "zerio-voice_enableRadioMicClicks",
-        cfg.radio.enableMicClicks ? 1 : 0,
+        cfg.radio.enableMicClicks ? 1 : 0
       );
       SetResourceKvpInt(
         "zerio-voice_enableMemberList",
-        cfg.ui.radioMemberList.enabled ? 1 : 0,
+        cfg.ui.radioMemberList.enabled ? 1 : 0
       );
       SetResourceKvpInt(
         "zerio-voice_showMembersOfAllChannels",
-        cfg.ui.radioMemberList.showMembersOfAllChannels ? 1 : 0,
+        cfg.ui.radioMemberList.showMembersOfAllChannels ? 1 : 0
       );
       SetResourceKvpInt(
         "zerio-voice_requireMousePressAswell",
-        cfg.ui.interaction.requireMousePressAswell ? 1 : 0,
+        cfg.ui.interaction.requireMousePressAswell ? 1 : 0
       );
 
       SetResourceKvp("zerio-voice_interactionKey", cfg.ui.interaction.key);
@@ -123,7 +123,7 @@ onNet("onClientResourceStart", async (resourceName: string) => {
       SetResourceKvpFloat("zerio-voice_micClicksVolume", micClicksVolume);
       SetResourceKvpInt(
         "zerio-voice_enableRadioSubmix",
-        cfg.submix.radio ? 1 : 0,
+        cfg.submix.radio ? 1 : 0
       );
 
       require("./modules/nui");

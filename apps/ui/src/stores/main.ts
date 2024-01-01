@@ -6,11 +6,11 @@ export const useMainStore = defineStore("main", {
   state: () => ({
     talking: <Talking>{
       normal: false,
-      radio: false,
+      radio: false
     },
     isOpen: false,
     debug: 0,
-    enabled: true,
+    enabled: true
   }),
 
   actions: {
@@ -19,8 +19,8 @@ export const useMainStore = defineStore("main", {
     },
     changeFrequency: (frequency: number) => {
       postRequest("changeFrequency", {
-        frequency: frequency,
+        frequency: frequency
       });
-    },
-  },
+    }
+  }
 });

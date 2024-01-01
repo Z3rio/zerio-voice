@@ -5,12 +5,16 @@
   "license": "MIT",
   "scripts": {
     "build": "esbuild client=./src/index.ts --bundle --outdir=../../dist/client --target=es2020 --platform=node",
-    "dev": "nodemon"
+    "dev": "nodemon",
+    "lint": "eslint . --ext .ts --fix --ignore-path .gitignore",
+    "lint:fix": "prettier --write src/"
   },
   "dependencies": {
     "@zerio-voice/utils": "workspace:*"
   },
   "devDependencies": {
-    "@vrpjs/client": "^1.0.4"
+    "@vrpjs/client": "^1.0.4",
+    "@zerio-voice/eslint-config": "workspace:^",
+    "@zerio-voice/prettier-config": "workspace:^"
   }
 }

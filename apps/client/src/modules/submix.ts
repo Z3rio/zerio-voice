@@ -9,9 +9,9 @@ export const RadioSubmix = new Submix(
     rearLeftVolume: 0,
     rearRightVolume: 0,
     channel5Volume: 1,
-    channel6Volume: 1,
+    channel6Volume: 1
   },
-  "default",
+  "default"
 );
 
 export const CallSubmix = new Submix("Call", 1, {
@@ -20,5 +20,5 @@ export const CallSubmix = new Submix("Call", 1, {
   rearLeftVolume: 0,
   rearRightVolume: 0,
   channel5Volume: 1,
-  channel6Volume: 1,
+  channel6Volume: 1
 });
