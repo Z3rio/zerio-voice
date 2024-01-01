@@ -9,5 +9,8 @@
   },
   "dependencies": {
     "@zerio-voice/utils": "workspace:*"
+  },
+  "devDependencies": {
+    "@vrpjs/client": "^1.0.4"
   }
 }

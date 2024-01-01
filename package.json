@@ -24,7 +24,9 @@
     "@types/node": "^20.10.5",
     "@zerio-voice/typescript-config": "workspace:*",
     "@zerio2/bundler-cli": "^1.0.2",
+    "@zerio2/qbcore.js": "^1.5.4",
     "esbuild": "^0.19.11",
+    "fivem-esx-js": "^0.1.17",
     "husky": "^8.0.3",
     "nodemon": "^3.0.2",
     "turbo": "latest"

@@ -23,9 +23,15 @@ importers:
       '@zerio2/bundler-cli':
         specifier: ^1.0.2
         version: 1.0.2
+      '@zerio2/qbcore.js':
+        specifier: ^1.5.4
+        version: 1.5.4
       esbuild:
         specifier: ^0.19.11
         version: 0.19.11
+      fivem-esx-js:
+        specifier: ^0.1.17
+        version: 0.1.17
       husky:
         specifier: ^8.0.3
         version: 8.0.3
@@ -41,12 +47,20 @@ importers:
       '@zerio-voice/utils':
         specifier: workspace:*
         version: link:../../packages/utils
+    devDependencies:
+      '@vrpjs/client':
+        specifier: ^1.0.4
+        version: 1.0.4
 
   apps/server:
     dependencies:
       '@zerio-voice/utils':
         specifier: workspace:*
         version: link:../../packages/utils
+    devDependencies:
+      '@vrpjs/server':
+        specifier: ^1.0.4
+        version: 1.0.4
 
   apps/shared:
     dependencies:
@@ -335,8 +349,28 @@ packages:
       to-fast-properties: 2.0.0
     dev: false
 
+  /@citizenfx/client@1.0.1971-1:
+    resolution: {integrity: sha512-cKrGoRIdCAZpdwL4fyHNE2vjDRobxoEACkcguIkz8IIHXN10dsfUbSZp8KIFDhc6ee+XGnoWIDD2lk4rvD7/eg==}
+    dev: true
+
+  /@citizenfx/client@1.0.3259-1:
+    resolution: {integrity: sha512-6hiwqj+ha+OfZtibZT0qnzLJZ+SCWiAR9eX9cC01L9RDvT80Wns3XqK4dDfhdbnrmqrYLhzGzd7K3WzBbX0pLQ==}
+    dev: true
+
+  /@citizenfx/client@1.0.3281-1:
+    resolution: {integrity: sha512-hZ82+Z1CfFFWYqTohDc9K2Cn00NAGQ4Hv34JH9kQpMsA2talHVUXjZOZ78/Dtk0DcGVA2beSYfA8fMm6ZrKmHg==}
+    dev: true
+
   /@citizenfx/client@2.0.7257-1:
     resolution: {integrity: sha512-PbH/mySi6bwnFNyVVpCZoD+5+16vMNc8QNcKwnokvHdnUPbv4jWxuAlCbScARE4cGSGhRaIj7RdJkbQnhwimaQ==}
+    dev: true
+
+  /@citizenfx/server@1.0.1971-1:
+    resolution: {integrity: sha512-YvEQAHSc5633UKF7LdUeFtWn4w3qNK5iWJyAyjNwUhygBczAIYZELSZVANcoTwsEIdI+eBbI7EPrQ8RsB1lQHA==}
+    dev: true
+
+  /@citizenfx/server@1.0.3259-1:
+    resolution: {integrity: sha512-T0gmFKFOJXDrI5u+cCVfIz7Jk0+fIvOB+opjXYx3id1PwbQsFwDyhSHE0rp3AhTJmhLTA3xXB9c90G3yG3zmBQ==}
     dev: true
 
   /@citizenfx/server@2.0.7257-1:
@@ -1041,6 +1075,18 @@ packages:
       path-browserify: 1.0.1
     dev: true
 
+  /@vrpjs/client@1.0.4:
+    resolution: {integrity: sha512-cFfw5+GwFgnrjX6tFE+xHdoia2suMWLTeQPthUM/CiyQKWiLQ2W5/xCGhtxow6KE3RxDqycekVyN72Ko6aywtQ==}
+    dependencies:
+      '@citizenfx/client': 1.0.3259-1
+    dev: true
+
+  /@vrpjs/server@1.0.4:
+    resolution: {integrity: sha512-PFXqgqmsmYi0aDrm9d8fTa9ro8ALRZTGDUQi7OEhrGHdNT4V0zOGeRwNxHDTPrvCJmKpqQoQDVfnVuILYXiUTQ==}
+    dependencies:
+      '@citizenfx/server': 1.0.3259-1
+    dev: true
+
   /@vue/compiler-core@3.4.0:
     resolution: {integrity: sha512-cw4S15PkNGTKkP9OFFl4wnQoJJk+HqaYBafgrpDnSukiQGpcYJeRpzmqnCVCIkl6V6Eqsv58E0OAdl6b592vuA==}
     dependencies:
@@ -1134,6 +1180,10 @@ packages:
     hasBin: true
     dependencies:
       fs-extra: 11.2.0
+    dev: true
+
+  /@zerio2/qbcore.js@1.5.4:
+    resolution: {integrity: sha512-6Vdsd6ijXtHsZcV5rtK/vkZoa0J+WmLAMpcBeRdm0Pa/cSKytOWhtJosNgE/6yjN13M7UE0ER/7sE+SEsCegDA==}
     dev: true
 
   /abbrev@1.1.1:
@@ -1541,6 +1591,20 @@ packages:
     engines: {node: '>=8'}
     dependencies:
       to-regex-range: 5.0.1
+
+  /fivem-esx-js@0.1.17:
+    resolution: {integrity: sha512-gwfI/hb/XE5+bO1VRJBr/RGeVf1vCk6/gG+dYDjpJ2o77RNS60FMxlsxz87Q+n61Ko51rhpJi9sWRU0dDcYQPA==}
+    dependencies:
+      '@citizenfx/client': 1.0.1971-1
+      '@citizenfx/server': 1.0.1971-1
+      fivem-js: 1.5.2
+    dev: true
+
+  /fivem-js@1.5.2:
+    resolution: {integrity: sha512-PONuAo9djL3UnEcVHxxLLHClQnpnLbiJXu2fNNGvi5Li/7IKfwn5PMHERrjr1Sq+oWeoao100LlsnlnA1mGCew==}
+    dependencies:
+      '@citizenfx/client': 1.0.3281-1
+    dev: true
 
   /flat@5.0.2:
     resolution: {integrity: sha512-b6suED+5/3rTpUBdG1gupIl8MPFCAMA0QXwmljLhvCUKcUvdE4gWky9zpuGCcXHOsz4J9wPGNWq6OKpmIzz3hQ==}

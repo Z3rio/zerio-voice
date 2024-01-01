@@ -53,3 +53,10 @@ export interface SubmixVolume {
 }
 
 export type NuiCallback = (...args: Array<unknown>) => void;
+
+export enum Framework {
+  vRP,
+  ESX,
+  QBCore,
+  Standalone,
+}
