@@ -14,7 +14,29 @@ const {
 
 const members: Computed<Array<RadioMember>> = computed(() => {
   if (showMembersOfAllChannels.value) {
-    return Object.values(list.value).flat();
+    const retVal: Array<RadioMember> = new Array();
+
+    for (const key in list.value) {
+      const v = list.value[key];
+
+      if (v) {
+        for (let i = 0; i < v.length; i++) {
+          const v2 = v[i];
+
+          if (v2) {
+            if (retVal[v2.source]) {
+              if (retVal[v2.source].talking !== true && v2.talking === true) {
+                retVal[v2.source].talking = true;
+              }
+            } else {
+              retVal[v2.source] = v2;
+            }
+          }
+        }
+      }
+    }
+
+    return retVal.flat();
   } else if (list.value[current.value]) {
     return list.value[current.value];
   }
