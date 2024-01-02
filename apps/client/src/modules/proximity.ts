@@ -1,5 +1,6 @@
 import { VoiceMode } from "@zerio-voice/utils/structs";
-import { getTranslation } from "@zerio-voice/utils/translations";
+import { format, getTranslation } from "@zerio-voice/utils/translations";
+import { notify } from "../integrations/wrapper";
 
 let markerTick: null | number = null;
 let markerTimeout: null | ReturnType<typeof setTimeout> = null;
@@ -15,6 +16,10 @@ export function init(voiceModes: Array<VoiceMode>, keybind: string) {
         const voiceMode = voiceModes[val];
         if (voiceMode) {
           MumbleSetTalkerProximity(voiceMode.range);
+
+          notify(
+            format(getTranslation(["proximity", "changed"]), [voiceMode.name])
+          );
 
           if (firstTime === false) {
             markerSize = voiceMode.range;
@@ -77,7 +82,9 @@ export function init(voiceModes: Array<VoiceMode>, keybind: string) {
   RegisterCommand(
     "changeproximity",
     (_src: number, args: Array<string>) => {
-      if (args.length == 0) {
+      const arg = args[0];
+
+      if (!arg) {
         // used by keymapping
         const curr = LocalPlayer.state.proximity;
 
@@ -89,10 +96,46 @@ export function init(voiceModes: Array<VoiceMode>, keybind: string) {
           }
         }
       } else {
-        LocalPlayer.state.set("proximity", Number(args[0]), true);
+        if (Number(arg).toString() == arg) {
+          LocalPlayer.state.set("proximity", Number(arg), true);
+        } else {
+          const found = voiceModes.findIndex(
+            (v) => v.name.toLowerCase() == arg.toLowerCase()
+          );
+
+          if (found !== -1) {
+            LocalPlayer.state.set("proximity", found, true);
+          } else {
+            emit("chat:addMessage", {
+              color: [255, 0, 0],
+              multiline: true,
+              args: [
+                "Zerio-Voice",
+                getTranslation(["commands", "invalidProximity"])
+              ]
+            });
+          }
+        }
       }
     },
     false
+  );
+  emit(
+    "chat:addSuggestion",
+    "/changeproximity",
+    "Change your current proximity state",
+    [
+      {
+        name: "proximity",
+        help:
+          "Valid values: " +
+          voiceModes.reduce(
+            (acc: null | string, curr: VoiceMode) =>
+              (acc ? acc + ", " : "") + curr.name,
+            null
+          )
+      }
+    ]
   );
   RegisterKeyMapping(
     "changeproximity",

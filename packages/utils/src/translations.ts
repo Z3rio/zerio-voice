@@ -42,9 +42,15 @@ export function getTranslation(translation: Array<string>): string {
     return retVal == undefined
       ? "Invalid Translation"
       : typeof retVal == "string"
-      ? retVal
-      : "Translation is not a string";
+        ? retVal
+        : "Translation is not a string";
   }
 
   return "An error occured whilst fetching translations";
 }
+
+export const format = (str: string, args: any): string => {
+  return str.replace(/{(\d+)}/g, function (match: string, number: number) {
+    return typeof args[number] != "undefined" ? args[number] : match;
+  });
+};

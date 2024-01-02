@@ -58,6 +58,7 @@ if (uiEnabled) {
       },
       false
     );
+    emit("chat:removeSuggestion", "/+voicefocus");
 
     RegisterCommand(
       "-voicefocus",
@@ -66,6 +67,7 @@ if (uiEnabled) {
       },
       false
     );
+    emit("chat:removeSuggestion", "/-voicefocus");
 
     RegisterKeyMapping(
       "+voicefocus",

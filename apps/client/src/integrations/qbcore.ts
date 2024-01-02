@@ -6,9 +6,15 @@ export let QBCore: Client | null = null;
 
 try {
   const exps = global.exports[frameworkName];
-  if (exps && exps.getCoreObject) {
-    QBCore = exps.getCoreObject();
+  if (exps && exps.GetCoreObject) {
+    QBCore = exps.GetCoreObject();
   }
 } catch (_e) {
   // could not load qbcore, probably doesnt exist on the server
+}
+
+export function qbNotify(text: string) {
+  if (QBCore) {
+    QBCore.Functions.Notify(text);
+  }
 }
