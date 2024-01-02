@@ -17,6 +17,10 @@
     }
   },
 
+  "framework": {
+    "customResourceName": null
+  },
+
   "locale": {
     "language": "en"
   },
@@ -30,6 +34,7 @@
     "enabled": true,
     "enableMicClicks": true,
     "micClicksVolume": 0.6,
-    "keybind": "CAPITAL"
+    "keybind": "CAPITAL",
+    "noTalkOverMode": false
   }
 }

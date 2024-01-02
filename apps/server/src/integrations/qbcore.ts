@@ -1,9 +1,14 @@
 import { Player, Server } from "@zerio2/qbcore.js";
 
+const frameworkName =
+  GetResourceKvpString("zerio-voice_customFrameworkName") ?? "qb-core";
 export let QBCore: Server | null = null;
+
 try {
-  if (global.exports["qb-core"] && global.exports["qb-core"].GetCoreObject) {
-    QBCore = global.exports["qb-core"].GetCoreObject();
+  const exps = global.exports[frameworkName];
+
+  if (exps && exps.GetCoreObject) {
+    QBCore = exps.GetCoreObject();
   }
 } catch (_e) {
   // could not load qbcore, probably doesnt exist on the server

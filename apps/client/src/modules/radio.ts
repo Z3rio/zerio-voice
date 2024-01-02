@@ -57,22 +57,7 @@ function radioToggle(toggle: boolean): void {
 
   if (toggle) {
     handleVoiceTargets();
-    playMicClicks(toggle);
 
-    SendNUIMessage({
-      action: "isTalkingOnRadio",
-      data: true
-    });
-    SendNUIMessage({
-      action: "setTalkingOnRadio",
-      data: {
-        source: playerServerId,
-        frequency: currentRadioFreq,
-        isTalking: true
-      }
-    });
-
-    LocalPlayer.state.set("talkingOnRadio", true, true);
     emitNet("zerio-voice:server:setTalkingOnRadio", true);
 
     radioTalkingTick = setTick(() => {
@@ -81,21 +66,6 @@ function radioToggle(toggle: boolean): void {
       SetControlNormal(2, 249, 1.0);
     });
   } else {
-    playMicClicks(toggle);
-
-    SendNUIMessage({
-      action: "isTalkingOnRadio",
-      data: false
-    });
-    SendNUIMessage({
-      action: "setTalkingOnRadio",
-      data: {
-        source: playerServerId,
-        frequency: currentRadioFreq,
-        isTalking: false
-      }
-    });
-
     LocalPlayer.state.set("talkingOnRadio", false, true);
     emitNet("zerio-voice:server:setTalkingOnRadio", false);
 
@@ -172,44 +142,64 @@ if (gameName == "fivem") {
 onNet(
   "zerio-voice:client:setTalkingOnRadio",
   (freq: number, src: number, isTalking: boolean) => {
-    const newData = radioData[freq];
+    if (src == playerServerId) {
+      // this is the local player, should only play mic clicks
+      playMicClicks(isTalking);
+      SendNUIMessage({
+        action: "isTalkingOnRadio",
+        data: isTalking
+      });
+      SendNUIMessage({
+        action: "setTalkingOnRadio",
+        data: {
+          source: playerServerId,
+          frequency: freq,
+          isTalking: isTalking
+        }
+      });
 
-    if (newData) {
-      const newPlrIdx = newData.findIndex((p) => p.source === src);
+      LocalPlayer.state.set("talkingOnRadio", true, true);
+    } else {
+      // not the local player
+      const newData = radioData[freq];
 
-      if (newPlrIdx !== -1) {
-        const newPlrData = newData[newPlrIdx];
+      if (newData) {
+        const newPlrIdx = newData.findIndex((p) => p.source === src);
 
-        if (newPlrData) {
-          newPlrData.talking = isTalking;
+        if (newPlrIdx !== -1) {
+          const newPlrData = newData[newPlrIdx];
 
-          if (isTalking) {
-            MumbleSetVolumeOverrideByServerId(src, 0.6);
-          } else {
-            MumbleSetVolumeOverrideByServerId(src, -1);
-          }
+          if (newPlrData) {
+            newPlrData.talking = isTalking;
 
-          playMicClicks(isTalking);
-
-          if (enableRadioSubmix) {
             if (isTalking) {
-              RadioSubmix.enable();
+              MumbleSetVolumeOverrideByServerId(src, 0.6);
             } else {
-              RadioSubmix.disable();
+              MumbleSetVolumeOverrideByServerId(src, -1);
             }
+
+            playMicClicks(isTalking);
+
+            if (enableRadioSubmix) {
+              if (isTalking) {
+                RadioSubmix.enable();
+              } else {
+                RadioSubmix.disable();
+              }
+            }
+
+            newData[newPlrIdx] = newPlrData;
+            radioData[freq] = newData;
+
+            SendNUIMessage({
+              action: "setTalkingOnRadio",
+              data: {
+                source: src,
+                frequency: freq,
+                isTalking: isTalking
+              }
+            });
           }
-
-          newData[newPlrIdx] = newPlrData;
-          radioData[freq] = newData;
-
-          SendNUIMessage({
-            action: "setTalkingOnRadio",
-            data: {
-              source: src,
-              frequency: freq,
-              isTalking: isTalking
-            }
-          });
         }
       }
     }

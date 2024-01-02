@@ -13,6 +13,9 @@ export interface Config {
       requireMousePressAswell: boolean;
     };
   };
+  framework: {
+    customResourceName?: null | string;
+  };
   locale: {
     language: string;
   };
@@ -25,6 +28,7 @@ export interface Config {
     enableMicClicks: boolean;
     micClicksVolume: number;
     keybind: string;
+    noTalkOverMode: boolean;
   };
 }
 

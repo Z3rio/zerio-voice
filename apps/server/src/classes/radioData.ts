@@ -1,6 +1,8 @@
 import { RadioMember } from "@zerio-voice/utils/structs";
 import { getPlayerName } from "../integrations/wrapper";
 
+const noTalkOverMode = GetResourceKvpInt("zerio-voice_noTalkOverMode") == 1;
+
 export class PlayerRadioData {
   source: number;
   channels: Array<number> = [];
@@ -38,10 +40,12 @@ export class PlayerRadioData {
 export class RadioChannelData {
   frequency: number;
   players: Array<RadioMember>;
+  private someoneTalking: number | null;
 
   constructor(channel: number) {
     this.frequency = channel;
     this.players = [];
+    this.someoneTalking = null;
   }
 
   removePlr(src: number) {
@@ -95,27 +99,51 @@ export class RadioChannelData {
     }
   }
 
+  private reEvalSomeoneTalking() {
+    for (let i = 0; i < this.players.length; i++) {
+      const v = this.players[i];
+
+      if (v && v.talking) {
+        this.someoneTalking = v.source;
+        return;
+      }
+    }
+
+    this.someoneTalking = null;
+  }
+
   updateTalkingState(src: number, isTalking: boolean) {
-    const found = this.players.findIndex((p) => p.source == src);
+    if (
+      // check whether no talk over mode either isnt enabled, or no one isnt talking already
+      noTalkOverMode === false ||
+      this.someoneTalking === null ||
+      this.someoneTalking === src
+    ) {
+      const found = this.players.findIndex((p) => p.source == src);
 
-    if (found !== -1) {
-      const newPlr = this.players[found];
+      if (found !== -1) {
+        const newPlr = this.players[found];
 
-      if (newPlr) {
-        newPlr.talking = isTalking;
-        this.players[found] = newPlr;
+        if (newPlr) {
+          newPlr.talking = isTalking;
+          this.players[found] = newPlr;
 
-        for (let i = 0; i < this.players.length; i++) {
-          const v = this.players[i];
+          if (noTalkOverMode) {
+            this.reEvalSomeoneTalking();
+          }
 
-          if (v && v.source !== src) {
-            emitNet(
-              "zerio-voice:client:setTalkingOnRadio",
-              v.source,
-              this.frequency,
-              src,
-              isTalking
-            );
+          for (let i = 0; i < this.players.length; i++) {
+            const v = this.players[i];
+
+            if (v) {
+              emitNet(
+                "zerio-voice:client:setTalkingOnRadio",
+                v.source,
+                this.frequency,
+                src,
+                isTalking
+              );
+            }
           }
         }
       }

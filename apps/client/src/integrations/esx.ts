@@ -1,6 +1,8 @@
 import { error } from "@zerio-voice/utils/logger";
 import { ESXClient as Client } from "fivem-esx-js/client/esx_client";
 
+const frameworkName =
+  GetResourceKvpString("zerio-voice_customFrameworkName") ?? "es_extended";
 export let ESX: Client | null = null;
 let fetchAttempts = 0;
 
@@ -21,11 +23,9 @@ function tryFetchEsx() {
 }
 
 try {
-  if (
-    global.exports["es_extended"] &&
-    global.exports["es_extended"].getSharedObject
-  ) {
-    ESX = global.exports["es_extended"].getSharedObject();
+  const exps = global.exports[frameworkName];
+  if (exps && exps.getSharedObject) {
+    ESX = exps.getSharedObject();
   } else {
     tryFetchEsx();
   }

@@ -32,6 +32,19 @@ const configUIInteractionSchema: Schema = {
 };
 validator.addSchema(configUIInteractionSchema, "/ConfigUIInteraction");
 
+const configFrameworkSchema: Schema = {
+  id: "/ConfigFramework",
+  type: "object",
+  properties: {
+    customResourceName: {
+      type: ["string", "null"],
+      required: false,
+    },
+  },
+  required: true,
+};
+validator.addSchema(configFrameworkSchema, "/ConfigFramework");
+
 const configUIRadioMemberListSchema: Schema = {
   id: "/ConfigUIRadioMemberList",
   type: "object",
@@ -120,6 +133,10 @@ const configRadioSchema: Schema = {
       type: "string",
       required: true,
     },
+    noTalkOverMode: {
+      required: true,
+      type: "boolean",
+    },
   },
   required: true,
 };
@@ -138,6 +155,10 @@ const configSchema: Schema = {
     },
     locale: {
       $ref: "/ConfigLocale",
+      required: true,
+    },
+    framework: {
+      $ref: "/ConfigFramework",
       required: true,
     },
     submix: {
