@@ -11,7 +11,8 @@
     "lint:fix": "prettier --write src/"
   },
   "dependencies": {
-    "@zerio-voice/utils": "workspace:*"
+    "@zerio-voice/utils": "workspace:*",
+    "axios": "^1.6.3"
   },
   "devDependencies": {
     "@vrpjs/server": "^1.0.4",
