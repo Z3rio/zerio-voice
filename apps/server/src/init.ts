@@ -36,10 +36,16 @@ onNet("onResourceStart", (resName: string) => {
       } else {
         SetResourceKvp("zerio-voice_logLevel", cfg.logging.level);
         SetResourceKvp("zerio-voice_locale", cfg.locale.language);
+        SetResourceKvpInt(
+          "zerio-voice_noTalkOverMode",
+          cfg.radio.noTalkOverMode ? 1 : 0
+        );
 
         success("Your config seems to be valid");
       }
     }
+
+    require("./modules/radio");
 
     const plrs = getPlayers();
 

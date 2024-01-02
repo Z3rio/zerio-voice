@@ -28,6 +28,7 @@ export interface Config {
     enableMicClicks: boolean;
     micClicksVolume: number;
     keybind: string;
+    noTalkOverMode: boolean;
   };
 }
 

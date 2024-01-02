@@ -37,7 +37,7 @@ const configFrameworkSchema: Schema = {
   type: "object",
   properties: {
     customResourceName: {
-      type: "string",
+      type: ["string", "null"],
       required: false,
     },
   },
@@ -132,6 +132,10 @@ const configRadioSchema: Schema = {
     keybind: {
       type: "string",
       required: true,
+    },
+    noTalkOverMode: {
+      required: true,
+      type: "boolean",
     },
   },
   required: true,
