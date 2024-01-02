@@ -17,6 +17,10 @@
     }
   },
 
+  "framework": {
+    "customResourceName": null
+  },
+
   "locale": {
     "language": "en"
   },

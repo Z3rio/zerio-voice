@@ -13,6 +13,9 @@ export interface Config {
       requireMousePressAswell: boolean;
     };
   };
+  framework: {
+    customResourceName?: null | string;
+  };
   locale: {
     language: string;
   };
