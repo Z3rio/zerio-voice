@@ -65,11 +65,6 @@ onNet(
 
 function handleNewPlayer(src: number) {
   playerData[src] = new PlayerRadioData(src);
-
-  const plr = Player(src);
-
-  plr.state.set("submix", null, true);
-  plr.state.set("talkingOnRadio", false, true);
 }
 
 function handlePlayerRemoval(src: number) {

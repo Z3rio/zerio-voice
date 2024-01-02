@@ -3,6 +3,7 @@ import { validateConfig } from "@zerio-voice/utils/validation";
 import { success, warn } from "@zerio-voice/utils/logger";
 import { VoiceData } from "./classes/voiceData";
 
+let defaultProximity = -1;
 const mappedChannels: Record<number, number> = {};
 const voiceData: Record<number, VoiceData> = {};
 
@@ -24,6 +25,12 @@ function handleNewPlayer(source: number) {
   }
 
   voiceData[source] = new VoiceData(source, firstFreeChannel);
+
+  const plr = Player(source);
+
+  plr.state.set("submix", null, true);
+  plr.state.set("talkingOnRadio", false, true);
+  plr.state.set("proximity", defaultProximity, true);
 }
 
 onNet("onResourceStart", (resName: string) => {
@@ -40,6 +47,7 @@ onNet("onResourceStart", (resName: string) => {
           "zerio-voice_noTalkOverMode",
           cfg.radio.noTalkOverMode ? 1 : 0
         );
+        defaultProximity = cfg.voiceModes.findIndex((v) => v.default);
 
         success("Your config seems to be valid");
       }

@@ -3,6 +3,26 @@
     "level": "info"
   },
 
+  "voiceModes": [
+    {
+      "range": 1.5,
+      "name": "Whisper"
+    },
+    {
+      "range": 3.0,
+      "name": "Normal",
+      "default": true
+    },
+    {
+      "range": 6.0,
+      "name": "Shouting"
+    }
+  ],
+
+  "proximity": {
+    "keybind": "F10"
+  },
+
   "ui": {
     "enabled": true,
 
