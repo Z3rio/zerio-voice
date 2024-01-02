@@ -69,7 +69,7 @@ if (uiEnabled) {
 
     RegisterKeyMapping(
       "+voicefocus",
-      getTranslation(["misc", "focusKeybind"]),
+      getTranslation(["focus", "keybind"]),
       "keyboard",
       keybind
     );

@@ -16,6 +16,10 @@ export interface Config {
   framework: {
     customResourceName?: null | string;
   };
+  proximity: {
+    keybind: string;
+  };
+  voiceModes: Array<VoiceMode>;
   locale: {
     language: string;
   };
@@ -30,6 +34,12 @@ export interface Config {
     keybind: string;
     noTalkOverMode: boolean;
   };
+}
+
+export interface VoiceMode {
+  range: number;
+  name: string;
+  default?: boolean;
 }
 
 export interface Translations {

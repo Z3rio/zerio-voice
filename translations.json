@@ -2,6 +2,12 @@
   "en": {
     "radio": {
       "keybind": "Talk on radio"
+    },
+    "proximity": {
+      "keybind": "Change your speaking range"
+    },
+    "focus": {
+      "keybind": "Keybind for focusing on UI"
     }
   }
 }

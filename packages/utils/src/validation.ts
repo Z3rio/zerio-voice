@@ -1,4 +1,5 @@
 import { Schema, Validator } from "jsonschema";
+import { Config } from "./structs";
 
 const validator = new Validator();
 
@@ -142,6 +143,40 @@ const configRadioSchema: Schema = {
 };
 validator.addSchema(configRadioSchema, "/ConfigRadio");
 
+const configVoiceMode: Schema = {
+  id: "/ConfigVoiceMode",
+  type: "object",
+  properties: {
+    range: {
+      type: "number",
+      required: true,
+    },
+    name: {
+      type: "string",
+      required: true,
+    },
+    default: {
+      type: ["boolean", "null"],
+      required: false,
+    },
+  },
+  required: true,
+};
+validator.addSchema(configVoiceMode, "/ConfigVoiceMode");
+
+const configProximity: Schema = {
+  id: "/ConfigProximity",
+  type: "object",
+  properties: {
+    keybind: {
+      type: "string",
+      required: true,
+    },
+  },
+  required: true,
+};
+validator.addSchema(configProximity, "/ConfigProximity");
+
 const configSchema: Schema = {
   type: "object",
   properties: {
@@ -165,6 +200,18 @@ const configSchema: Schema = {
       $ref: "/ConfigSubmix",
       required: true,
     },
+    proximity: {
+      $ref: "/ConfigProximity",
+      required: true,
+    },
+    voiceModes: {
+      type: "array",
+      required: true,
+      items: {
+        $ref: "/ConfigVoiceMode",
+        required: true,
+      },
+    },
     radio: {
       $ref: "/ConfigRadio",
       required: true,
@@ -174,5 +221,22 @@ const configSchema: Schema = {
 validator.addSchema(configLoggingSchema, "/ConfigSchema");
 
 export function validateConfig(cfg: unknown): boolean {
-  return validator.validate(cfg, configSchema).valid;
+  const isValid = validator.validate(cfg, configSchema).valid;
+
+  if (isValid) {
+    let defaultCount = 0;
+    const validCfg = cfg as Config;
+
+    for (let i = 0; i < validCfg.voiceModes.length; i++) {
+      const v = validCfg.voiceModes[i];
+
+      if (v && v.default) {
+        defaultCount++;
+      }
+    }
+
+    return defaultCount == 1;
+  } else {
+    return false;
+  }
 }

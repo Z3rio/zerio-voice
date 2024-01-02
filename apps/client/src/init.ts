@@ -1,14 +1,20 @@
-import { VoiceRanges, voiceTarget } from "@zerio-voice/utils/data";
+import { voiceTarget } from "@zerio-voice/utils/data";
 import { getDistance, Wait } from "@zerio-voice/utils/functions";
 import { getConfig } from "@zerio-voice/utils/config";
 import { warn } from "@zerio-voice/utils/logger";
+import { VoiceMode } from "@zerio-voice/utils/structs";
+import { init as initProximity } from "./modules/proximity";
 
 const serverId = GetPlayerServerId(PlayerId());
+let voiceModes: Array<VoiceMode> = [];
 let proximity = MumbleGetTalkerProximity();
 let isTalking = false;
 
 onNet("mumbleConnected", async () => {
-  MumbleSetTalkerProximity(VoiceRanges.Normal);
+  const voiceMode = voiceModes[LocalPlayer.state.proximity];
+  if (voiceMode) {
+    MumbleSetTalkerProximity(voiceMode.range);
+  }
   MumbleClearVoiceTarget(voiceTarget);
   MumbleSetVoiceTarget(voiceTarget);
   MumbleSetVoiceChannel(LocalPlayer.state.assignedChannel);
@@ -112,6 +118,7 @@ onNet("onClientResourceStart", async (resourceName: string) => {
         "zerio-voice_requireMousePressAswell",
         cfg.ui.interaction.requireMousePressAswell ? 1 : 0
       );
+      voiceModes = cfg.voiceModes;
 
       SetResourceKvp("zerio-voice_interactionKey", cfg.ui.interaction.key);
 
@@ -129,6 +136,7 @@ onNet("onClientResourceStart", async (resourceName: string) => {
       require("./modules/nui");
       require("./modules/radio");
       require("./modules/submix");
+      initProximity(voiceModes, cfg.proximity.keybind);
 
       while (!MumbleIsConnected()) {
         warn("Awaiting mumble connection");
