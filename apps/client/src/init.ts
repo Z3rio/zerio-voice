@@ -10,6 +10,65 @@ let voiceModes: Array<VoiceMode> = [];
 let proximity = MumbleGetTalkerProximity();
 let isTalking = false;
 
+async function initialize() {
+  const cfg = getConfig();
+
+  if (cfg) {
+    SetResourceKvp("zerio-voice_locale", cfg.locale.language);
+    SetResourceKvp("zerio-voice_radioKeybind", cfg.radio.keybind);
+    SetResourceKvpInt("zerio-voice_enableRadio", cfg.radio.enabled ? 1 : 0);
+    SetResourceKvpInt("zerio-voice_enabledUI", cfg.ui.enabled ? 1 : 0);
+    SetResourceKvpInt(
+      "zerio-voice_enableRadioMicClicks",
+      cfg.radio.enableMicClicks ? 1 : 0
+    );
+    SetResourceKvpInt(
+      "zerio-voice_enableMemberList",
+      cfg.ui.radioMemberList.enabled ? 1 : 0
+    );
+    SetResourceKvpInt(
+      "zerio-voice_showMembersOfAllChannels",
+      cfg.ui.radioMemberList.showMembersOfAllChannels ? 1 : 0
+    );
+    SetResourceKvpInt(
+      "zerio-voice_requireMousePressAswell",
+      cfg.ui.interaction.requireMousePressAswell ? 1 : 0
+    );
+    voiceModes = cfg.voiceModes;
+
+    SetResourceKvp("zerio-voice_interactionKey", cfg.ui.interaction.key);
+
+    let micClicksVolume = cfg.radio.micClicksVolume;
+    if (micClicksVolume > 10) {
+      // user probably using 0-100 instead of 0-1
+      micClicksVolume = micClicksVolume / 100;
+    }
+    SetResourceKvpFloat("zerio-voice_micClicksVolume", micClicksVolume);
+    SetResourceKvpInt(
+      "zerio-voice_enableRadioSubmix",
+      cfg.submix.radio ? 1 : 0
+    );
+
+    require("./modules/nui");
+    require("./modules/radio");
+    require("./modules/submix");
+    initProximity(voiceModes, cfg.proximity.keybind);
+
+    while (!MumbleIsConnected()) {
+      warn("Awaiting mumble connection");
+      await Wait(250);
+    }
+
+    setInterval(() => {
+      if (cfg.ui.enabled) {
+        updateNUIVoiceStatus();
+      }
+
+      checkForNearbyPlayers();
+    }, 250);
+  }
+}
+
 onNet("mumbleConnected", async () => {
   const voiceMode = voiceModes[LocalPlayer.state.proximity];
   if (voiceMode) {
@@ -93,63 +152,4 @@ function checkForNearbyPlayers() {
   }
 }
 
-onNet("onClientResourceStart", async (resourceName: string) => {
-  if (GetCurrentResourceName() == resourceName) {
-    const cfg = getConfig();
-
-    if (cfg) {
-      SetResourceKvp("zerio-voice_locale", cfg.locale.language);
-      SetResourceKvp("zerio-voice_radioKeybind", cfg.radio.keybind);
-      SetResourceKvpInt("zerio-voice_enableRadio", cfg.radio.enabled ? 1 : 0);
-      SetResourceKvpInt("zerio-voice_enabledUI", cfg.ui.enabled ? 1 : 0);
-      SetResourceKvpInt(
-        "zerio-voice_enableRadioMicClicks",
-        cfg.radio.enableMicClicks ? 1 : 0
-      );
-      SetResourceKvpInt(
-        "zerio-voice_enableMemberList",
-        cfg.ui.radioMemberList.enabled ? 1 : 0
-      );
-      SetResourceKvpInt(
-        "zerio-voice_showMembersOfAllChannels",
-        cfg.ui.radioMemberList.showMembersOfAllChannels ? 1 : 0
-      );
-      SetResourceKvpInt(
-        "zerio-voice_requireMousePressAswell",
-        cfg.ui.interaction.requireMousePressAswell ? 1 : 0
-      );
-      voiceModes = cfg.voiceModes;
-
-      SetResourceKvp("zerio-voice_interactionKey", cfg.ui.interaction.key);
-
-      let micClicksVolume = cfg.radio.micClicksVolume;
-      if (micClicksVolume > 10) {
-        // user probably using 0-100 instead of 0-1
-        micClicksVolume = micClicksVolume / 100;
-      }
-      SetResourceKvpFloat("zerio-voice_micClicksVolume", micClicksVolume);
-      SetResourceKvpInt(
-        "zerio-voice_enableRadioSubmix",
-        cfg.submix.radio ? 1 : 0
-      );
-
-      require("./modules/nui");
-      require("./modules/radio");
-      require("./modules/submix");
-      initProximity(voiceModes, cfg.proximity.keybind);
-
-      while (!MumbleIsConnected()) {
-        warn("Awaiting mumble connection");
-        await Wait(250);
-      }
-
-      setInterval(() => {
-        if (cfg.ui.enabled) {
-          updateNUIVoiceStatus();
-        }
-
-        checkForNearbyPlayers();
-      }, 250);
-    }
-  }
-});
+initialize();

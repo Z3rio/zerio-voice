@@ -6,6 +6,24 @@ let radioEnabled = true;
 const playerData: Record<number, PlayerRadioData> = {};
 const channelData: Record<number, RadioChannelData> = {};
 
+function initialize() {
+  const cfg = getConfig();
+
+  if (cfg) {
+    radioEnabled = cfg.radio.enabled;
+  }
+
+  const plrs = getPlayers();
+
+  for (let i = 0; i < plrs.length; i++) {
+    const src = Number(plrs[i]);
+
+    if (src) {
+      handleNewPlayer(src);
+    }
+  }
+}
+
 function addPlayerToRadioChannel(src: number, frequency: number): boolean {
   if (!radioEnabled || frequency <= 0) {
     return false;
@@ -86,26 +104,6 @@ function handlePlayerRemoval(src: number) {
     delete playerData[src];
   }
 }
-
-onNet("onResourceStart", (resName: string) => {
-  if (GetCurrentResourceName() == resName) {
-    const cfg = getConfig();
-
-    if (cfg) {
-      radioEnabled = cfg.radio.enabled;
-    }
-
-    const plrs = getPlayers();
-
-    for (let i = 0; i < plrs.length; i++) {
-      const src = Number(plrs[i]);
-
-      if (src) {
-        handleNewPlayer(src);
-      }
-    }
-  }
-});
 
 onNet("playerJoining", () => {
   handleNewPlayer(source);
@@ -196,3 +194,5 @@ if (debug >= 1) {
     false
   );
 }
+
+initialize();
