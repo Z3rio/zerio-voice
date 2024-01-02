@@ -142,40 +142,56 @@ function debugPrint() {
 }
 
 if (debug >= 1) {
-  RegisterCommand("debugPrint", debugPrint, false);
+  RegisterCommand(
+    "debugPrint",
+    (src: number) => {
+      if (src === 0) {
+        debugPrint();
+      }
+    },
+    false
+  );
 
   RegisterCommand(
     "addPlayerToRadioChannel",
-    (_src: number, args: Array<string>) => {
-      addPlayerToRadioChannel(Number(args[0]), Number(args[1]));
-      debugPrint();
+    (src: number, args: Array<string>) => {
+      if (src === 0) {
+        addPlayerToRadioChannel(Number(args[0]), Number(args[1]));
+        debugPrint();
+      }
     },
     false
   );
 
   RegisterCommand(
     "removePlayerFromRadioChannel",
-    (_src: number, args: Array<string>) => {
-      removePlayerFromRadioChannel(Number(args[0]), Number(args[1]));
-      debugPrint();
+    (src: number, args: Array<string>) => {
+      if (src === 0) {
+        removePlayerFromRadioChannel(Number(args[0]), Number(args[1]));
+        debugPrint();
+      }
     },
     false
   );
 
   RegisterCommand(
     "handleNewPlayer",
-    (_src: number, args: Array<string>) => {
-      handleNewPlayer(Number(args[0]));
-      debugPrint();
+    (src: number, args: Array<string>) => {
+      if (src === 0) {
+        handleNewPlayer(Number(args[0]));
+        debugPrint();
+      }
     },
     false
   );
 
   RegisterCommand(
     "handlePlayerRemoval",
-    (_src: number, args: Array<string>) => {
-      handlePlayerRemoval(Number(args[0]));
-      debugPrint();
+    (src: number, args: Array<string>) => {
+      if (src === 0) {
+        handlePlayerRemoval(Number(args[0]));
+        debugPrint();
+      }
     },
     false
   );

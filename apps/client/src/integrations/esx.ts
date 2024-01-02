@@ -32,3 +32,9 @@ try {
 } catch (_e) {
   // could not load esx, probably doesnt exist on the server
 }
+
+export function esxNotify(text: string) {
+  if (ESX) {
+    ESX.ShowNotification(text);
+  }
+}

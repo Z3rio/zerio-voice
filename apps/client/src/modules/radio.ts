@@ -120,6 +120,7 @@ if (gameName == "fivem") {
     },
     false
   );
+  emit("chat:removeSuggestion", "/+radio");
 
   RegisterCommand(
     "-radio",
@@ -128,6 +129,7 @@ if (gameName == "fivem") {
     },
     false
   );
+  emit("chat:removeSuggestion", "/-radio");
 
   RegisterKeyMapping(
     "+radio",
@@ -325,6 +327,17 @@ if (debug >= 1) {
     },
     false
   );
+  emit(
+    "chat:addSuggestion",
+    "/addRadioChannel",
+    "DEV COMMAND: Add an radio channel to the local player",
+    [
+      {
+        name: "frequency",
+        help: "The radio frequency"
+      }
+    ]
+  );
 
   RegisterCommand(
     "changeRadioChannel",
@@ -333,6 +346,17 @@ if (debug >= 1) {
     },
     false
   );
+  emit(
+    "chat:addSuggestion",
+    "/changeRadioChannel",
+    "DEV COMMAND: Change the current radio channel of the local player",
+    [
+      {
+        name: "frequency",
+        help: "The radio frequency"
+      }
+    ]
+  );
 
   RegisterCommand(
     "removeRadioChannel",
@@ -340,6 +364,17 @@ if (debug >= 1) {
       removeRadioChannel(Number(args[0]));
     },
     false
+  );
+  emit(
+    "chat:addSuggestion",
+    "/removeRadioChannel",
+    "DEV COMMAND: Remove an radio channel from the local player",
+    [
+      {
+        name: "frequency",
+        help: "The radio frequency"
+      }
+    ]
   );
 }
 

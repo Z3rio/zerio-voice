@@ -4,7 +4,11 @@
       "keybind": "Talk on radio"
     },
     "proximity": {
-      "keybind": "Change your speaking range"
+      "keybind": "Change your speaking range",
+      "changed": "Your proximity was changed to: {0}"
+    },
+    "commands": {
+      "invalidProximity": "The proximity value you provided was invalid"
     },
     "focus": {
       "keybind": "Keybind for focusing on UI"
