@@ -1,8 +1,8 @@
 import { error } from "@zerio-voice/utils/logger";
 import { ESXClient as Client } from "fivem-esx-js/client/esx_client";
 
-const frameworkName = GetResourceKvpString("zerio-voice_customFrameworkName") ??
-  "es_extended";
+const frameworkName =
+  GetResourceKvpString("zerio-voice_customFrameworkName") ?? "es_extended";
 export let ESX: Client | null = null;
 let fetchAttempts = 0;
 
