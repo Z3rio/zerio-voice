@@ -36,6 +36,8 @@ export interface Config {
   };
 }
 
+export type RadioSafeGuard = (src: number) => Promise<boolean> | boolean;
+
 export interface VoiceMode {
   range: number;
   name: string;
