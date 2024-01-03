@@ -53,6 +53,7 @@ async function initialize() {
     require("./modules/nui");
     require("./modules/radio");
     require("./modules/submix");
+    require("./modules/muting");
     initProximity(voiceModes, cfg.proximity.keybind);
 
     while (!MumbleIsConnected()) {

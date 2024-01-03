@@ -42,7 +42,7 @@ RegisterCommand(
       const name = GetPlayerName(targetSrc.toString());
 
       if (name) {
-        if (mutedPlayers[src] === undefined) {
+        if (mutedPlayers[targetSrc] === undefined) {
           mutePlayer(targetSrc, duration);
 
           if (src !== 0) {
