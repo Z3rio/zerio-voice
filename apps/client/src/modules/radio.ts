@@ -3,6 +3,8 @@ import { info } from "@zerio-voice/utils/logger";
 import { getTranslation } from "@zerio-voice/utils/translations";
 import { voiceTarget } from "@zerio-voice/utils/data";
 import { RadioSubmix } from "./submix";
+import { isPlayerMuted } from "./muting";
+import { getPlayerVolume } from "./volumes";
 
 const gameName = GetGameName();
 const radioEnabled = GetResourceKvpInt("zerio-voice_enableRadio") === 1;
@@ -144,6 +146,7 @@ if (gameName == "fivem") {
 onNet(
   "zerio-voice:client:setTalkingOnRadio",
   (freq: number, src: number, isTalking: boolean) => {
+    console.log("muted", isPlayerMuted(src));
     if (src == playerServerId) {
       // this is the local player, should only play mic clicks
       playMicClicks(isTalking);
@@ -161,7 +164,7 @@ onNet(
       });
 
       LocalPlayer.state.set("talkingOnRadio", true, true);
-    } else {
+    } else if (!isPlayerMuted(src)) {
       // not the local player
       const newData = radioData[freq];
 
@@ -175,7 +178,8 @@ onNet(
             newPlrData.talking = isTalking;
 
             if (isTalking) {
-              MumbleSetVolumeOverrideByServerId(src, 0.6);
+              const customVolume = getPlayerVolume(src);
+              MumbleSetVolumeOverrideByServerId(src, 0.75 * customVolume);
             } else {
               MumbleSetVolumeOverrideByServerId(src, -1);
             }

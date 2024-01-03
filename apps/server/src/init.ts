@@ -27,6 +27,7 @@ function initialize() {
   }
 
   require("./modules/radio");
+  require("./modules/muting");
 
   const plrs = getPlayers();
 
@@ -63,6 +64,8 @@ function handleNewPlayer(source: number) {
   plr.state.set("submix", null, true);
   plr.state.set("talkingOnRadio", false, true);
   plr.state.set("proximity", defaultProximity, true);
+  plr.state.set("muted", false, true);
+  MumbleSetPlayerMuted(source, false);
 }
 
 onNet("playerJoining", () => {

@@ -27,3 +27,7 @@ export async function getPlayerName(src: number): Promise<string> {
       return GetPlayerName(src.toString());
   }
 }
+
+export async function notify(src: number, text: string) {
+  emitNet("zerio-voice:client:notify", src, text);
+}

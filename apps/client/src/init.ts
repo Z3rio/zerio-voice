@@ -4,6 +4,7 @@ import { getConfig } from "@zerio-voice/utils/config";
 import { warn } from "@zerio-voice/utils/logger";
 import { VoiceMode } from "@zerio-voice/utils/structs";
 import { init as initProximity } from "./modules/proximity";
+import { notify } from "./integrations/wrapper";
 
 const serverId = GetPlayerServerId(PlayerId());
 let voiceModes: Array<VoiceMode> = [];
@@ -52,6 +53,8 @@ async function initialize() {
     require("./modules/nui");
     require("./modules/radio");
     require("./modules/submix");
+    require("./modules/muting");
+    require("./modules/volumes");
     initProximity(voiceModes, cfg.proximity.keybind);
 
     while (!MumbleIsConnected()) {
@@ -68,6 +71,10 @@ async function initialize() {
     }, 250);
   }
 }
+
+onNet("zerio-voice:client:notify", (text: string) => {
+  notify(text);
+});
 
 onNet("mumbleConnected", async () => {
   const voiceMode = voiceModes[LocalPlayer.state.proximity];

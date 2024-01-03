@@ -106,14 +106,7 @@ export function init(voiceModes: Array<VoiceMode>, keybind: string) {
           if (found !== -1) {
             LocalPlayer.state.set("proximity", found, true);
           } else {
-            emit("chat:addMessage", {
-              color: [255, 0, 0],
-              multiline: true,
-              args: [
-                "Zerio-Voice",
-                getTranslation(["commands", "invalidProximity"])
-              ]
-            });
+            notify(getTranslation(["commands", "invalidProximity"]));
           }
         }
       }
