@@ -40,30 +40,18 @@ RegisterCommand(
     if (args[0]) {
       const targetSrc = Number(args[0]);
       const duration = args[1] ? Number(args[1]) : -1;
-      const name = GetPlayerName(targetSrc);
 
-      if (name) {
-        if (mutedPlayers[targetSrc] === undefined) {
-          mutePlayer(targetSrc, duration);
+      if (mutedPlayers[targetSrc] === undefined) {
+        mutePlayer(targetSrc, duration);
 
-          notify(
-            format(getTranslation(["commands", "playerMuted"]), [
-              GetPlayerName(targetSrc),
-              targetSrc
-            ])
-          );
-        } else {
-          notify(
-            format(getTranslation(["commands", "playerAlreadyMuted"]), [
-              GetPlayerName(targetSrc),
-              targetSrc
-            ])
-          );
-        }
-      } else {
-        // if name is nil, then the player probably doesnt exist
         notify(
-          format(getTranslation(["commands", "invalidPlayer"]), [targetSrc])
+          format(getTranslation(["commands", "playerMuted"]), [targetSrc])
+        );
+      } else {
+        notify(
+          format(getTranslation(["commands", "playerAlreadyMuted"]), [
+            targetSrc
+          ])
         );
       }
     }
@@ -82,23 +70,11 @@ RegisterCommand(
   (_src: number, args: Array<string>) => {
     if (args[0]) {
       const targetSrc = Number(args[0]);
-      const name = GetPlayerName(targetSrc);
+      unmutePlayer(targetSrc);
 
-      if (name) {
-        unmutePlayer(targetSrc);
-
-        notify(
-          format(getTranslation(["commands", "playerUnmuted"]), [
-            GetPlayerName(targetSrc),
-            targetSrc
-          ])
-        );
-      } else {
-        // if name is nil, then the player probably doesnt exist
-        notify(
-          format(getTranslation(["commands", "invalidPlayer"]), [targetSrc])
-        );
-      }
+      notify(
+        format(getTranslation(["commands", "playerUnmuted"]), [targetSrc])
+      );
     }
   },
   false
@@ -112,5 +88,4 @@ emit("chat:addSuggestion", "/unmuteplayer", "Locally unmutes a player", [
 
 onNet("zerio-voice:client:playerLeft", (src: number) => {
   unmutePlayer(src);
-  delete customVolumes[src];
 });

@@ -9,12 +9,12 @@
     },
     "commands": {
       "invalidProximity": "The proximity value you provided was invalid",
-      "playerMuted": "Player \"{0}\" ({1}) is now muted",
-      "playerUnmuted": "Player \"{0}\" ({1}) is now unmuted",
+      "playerMuted": "Player {0} is now muted",
+      "playerUnmuted": "Player {0} is now unmuted",
       "invalidPlayer": "There does not seem to be any player with id {0}",
-      "playerAlreadyMuted": "Player \"{0}\" ({1}) is already muted",
-      "updatedVolume": "Player \"{0}\" ({1}) now has an volume of {2}",
-      "playerIsMuted": "Player \"{0}\" ({1}) is muted, you cant update the volume of them"
+      "playerAlreadyMuted": "Player {0} is already muted",
+      "updatedVolume": "Player {0} now has an volume of {1}",
+      "playerIsMuted": "Player {0} is muted, you cant update the volume of them"
     },
     "focus": {
       "keybind": "Keybind for focusing on UI"

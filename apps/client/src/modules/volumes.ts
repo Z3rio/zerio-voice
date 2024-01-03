@@ -41,31 +41,19 @@ RegisterCommand(
     if (args[0] && args[1]) {
       const targetSrc = Number(args[0]);
       const newVolume = Number(args[1]);
-      const name = GetPlayerName(targetSrc);
 
-      if (name) {
-        const retVal = updatePlayerVolume(targetSrc, newVolume / 100);
+      const retVal = updatePlayerVolume(targetSrc, newVolume / 100);
 
-        if (retVal) {
-          notify(
-            format(getTranslation(["commands", "updatedVolume"]), [
-              GetPlayerName(targetSrc),
-              targetSrc,
-              newVolume
-            ])
-          );
-        } else {
-          notify(
-            format(getTranslation(["commands", "playerIsMuted"]), [
-              GetPlayerName(targetSrc),
-              targetSrc
-            ])
-          );
-        }
-      } else {
-        // if name is nil, then the player probably doesnt exist
+      if (retVal) {
         notify(
-          format(getTranslation(["commands", "invalidPlayer"]), [targetSrc])
+          format(getTranslation(["commands", "updatedVolume"]), [
+            targetSrc,
+            newVolume
+          ])
+        );
+      } else {
+        notify(
+          format(getTranslation(["commands", "playerIsMuted"]), [targetSrc])
         );
       }
     }
