@@ -7,7 +7,7 @@
   "scripts": {
     "build": "esbuild server=./src/index.ts --bundle --outdir=../../dist/server --target=es2020 --platform=node",
     "dev": "nodemon",
-    "lint": "eslint . --ext .ts --fix --ignore-path .gitignore",
+    "lint": "eslint . --ext .ts --fix --ignore-path .gitignore && prettier --check src/",
     "lint:fix": "prettier --write src/"
   },
   "dependencies": {

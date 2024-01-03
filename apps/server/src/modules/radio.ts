@@ -1,6 +1,7 @@
 import { getConfig } from "@zerio-voice/utils/config";
 import { PlayerRadioData, RadioChannelData } from "../classes/radioData";
 import { info } from "@zerio-voice/utils/logger";
+import { RadioSafeGuard } from "@zerio-voice/utils/structs";
 
 let radioEnabled = true;
 const playerData: Record<number, PlayerRadioData> = {};
@@ -24,7 +25,10 @@ function initialize() {
   }
 }
 
-function addPlayerToRadioChannel(src: number, frequency: number): boolean {
+async function addPlayerToRadioChannel(
+  src: number,
+  frequency: number
+): Promise<boolean> {
   if (!radioEnabled || frequency <= 0) {
     return false;
   }
@@ -41,19 +45,52 @@ function addPlayerToRadioChannel(src: number, frequency: number): boolean {
   const player = playerData[src];
 
   if (channel && player) {
-    player.addChannel(frequency);
-    channel.addPlr(src);
+    const retVal = await channel.addPlr(src);
 
-    return true;
-  } else {
-    return false;
+    if (retVal) {
+      player.addChannel(frequency);
+
+      return true;
+    }
   }
+
+  return false;
 }
 global.exports("addPlayerToRadioChannel", addPlayerToRadioChannel);
 
 onNet("zerio-voice:server:addPlayerToRadioChannel", (frequency: number) => {
   addPlayerToRadioChannel(source, frequency);
 });
+
+function addRadioSafeGuard(frequency: number, func: RadioSafeGuard): number {
+  if (!radioEnabled || frequency <= 0) {
+    return -1;
+  }
+
+  const data = channelData[frequency];
+
+  if (data) {
+    return data.addSafeGuard(func);
+  } else {
+    return -1;
+  }
+}
+global.exports("addRadioSafeGuard", addRadioSafeGuard);
+
+function removeRadioSafeGuard(frequency: number, idx: number): boolean {
+  if (!radioEnabled || frequency <= 0) {
+    return false;
+  }
+
+  const data = channelData[frequency];
+
+  if (data) {
+    data.removeSafeGuard(idx);
+  }
+
+  return !!data;
+}
+global.exports("removeRadioSafeGuard", removeRadioSafeGuard);
 
 function removePlayerFromRadioChannel(src: number, frequency: number): boolean {
   if (!radioEnabled || frequency <= 0) {
