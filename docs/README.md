@@ -1,6 +1,7 @@
 # Zerio-Voice
 
 [![Discord](https://img.shields.io/discord/931629164656734238?label=Our%20Discord)](http://discord.zerio-scripts.com/)
+[![Wakatime](https://wakatime.com/badge/user/018b872c-750e-4fad-b67c-3c3f0a3f7b07/project/018cabbf-abf8-46d5-8a69-650b017fb95f.svg)](https://wakatime.com/badge/user/018b872c-750e-4fad-b67c-3c3f0a3f7b07/project/018cabbf-abf8-46d5-8a69-650b017fb95f)
 
 This is an W.I.P (Work In Progress) voice script for FiveM.
 
