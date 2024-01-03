@@ -65,6 +65,7 @@ function handleNewPlayer(source: number) {
   plr.state.set("talkingOnRadio", false, true);
   plr.state.set("proximity", defaultProximity, true);
   plr.state.set("muted", false, true);
+  MumbleSetPlayerMuted(source, false);
 }
 
 onNet("playerJoining", () => {

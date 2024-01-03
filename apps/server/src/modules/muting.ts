@@ -42,12 +42,22 @@ RegisterCommand(
       const name = GetPlayerName(targetSrc.toString());
 
       if (name) {
-        mutePlayer(targetSrc, duration);
+        if (mutedPlayers[src] === undefined) {
+          mutePlayer(targetSrc, duration);
 
-        if (src !== 0) {
+          if (src !== 0) {
+            notify(
+              src,
+              format(getTranslation(["commands", "playerMuted"]), [
+                GetPlayerName(targetSrc.toString()),
+                targetSrc
+              ])
+            );
+          }
+        } else {
           notify(
             src,
-            format(getTranslation(["commands", "playerMuted"]), [
+            format(getTranslation(["commands", "playerAlreadyMuted"]), [
               GetPlayerName(targetSrc.toString()),
               targetSrc
             ])
@@ -98,4 +108,5 @@ RegisterCommand(
 
 onNet("playerDropped", () => {
   unmutePlayer(source);
+  emitNet("zerio-voice:cient:unmutePlayer", -1, source);
 });

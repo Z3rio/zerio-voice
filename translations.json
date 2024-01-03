@@ -11,7 +11,8 @@
       "invalidProximity": "The proximity value you provided was invalid",
       "playerMuted": "Player \"{0}\" ({1}) is now muted",
       "playerUnmuted": "Player \"{0}\" ({1}) is now unmuted",
-      "invalidPlayer": "There does not seem to be any player with id {0}"
+      "invalidPlayer": "There does not seem to be any player with id {0}",
+      "playerAlreadyMuted": "Player \"{0}\" ({1}) is already muted"
     },
     "focus": {
       "keybind": "Keybind for focusing on UI"
