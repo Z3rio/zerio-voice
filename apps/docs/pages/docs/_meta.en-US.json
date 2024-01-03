@@ -25,11 +25,6 @@
   "suspense": {},
   "middleware": {},
   "advanced": {},
-  "change-log": {
-    "theme": {
-      "sidebar": false
-    }
-  },
   "github_link": {
     "title": "GitHub 🐙 →",
     "href": "https://github.com/shuding/nextra",

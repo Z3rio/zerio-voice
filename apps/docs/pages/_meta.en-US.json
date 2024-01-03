@@ -19,30 +19,8 @@
       },
       "team": {
         "title": "Team"
-      },
-      "acknowledgement": {
-        "title": "Acknowledgement"
-      },
-      "a-page": {
-        "title": "A Page"
-      },
-      "changelog": {
-        "title": "Changelog"
       }
     }
-  },
-  "examples": {
-    "type": "page",
-    "title": "Examples",
-    "theme": {
-      "layout": "full"
-    }
-  },
-  "nextra_link": {
-    "type": "page",
-    "title": "Nextra ↗",
-    "href": "https://github.com/shuding/nextra",
-    "newWindow": true
   },
   "404": {
     "type": "page",
