@@ -8,6 +8,8 @@
     "clean": "rimraf .next .turbo",
     "debug": "NODE_OPTIONS='--inspect' next dev",
     "dev": "next",
+    "lint": "eslint --fix --ignore-path .gitignore . && prettier --check .",
+    "lint:fix": "prettier --write .",
     "start": "next start"
   },
   "dependencies": {
@@ -23,6 +25,8 @@
     "react-intersection-observer": "^8.26.2"
   },
   "devDependencies": {
+    "@zerio-voice/eslint-config": "workspace:^",
+    "@zerio-voice/prettier-config": "workspace:^",
     "autoprefixer": "^10.4.15",
     "postcss": "^8.4.31",
     "tailwindcss": "^3.3.3"

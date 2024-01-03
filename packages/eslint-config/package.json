@@ -6,6 +6,7 @@
   "type": "module",
   "exports": {
     "./ui": "./ui.cjs",
-    "./base": "./base.cjs"
+    "./base": "./base.cjs",
+    "./docs": "./docs.cjs"
   }
 }
