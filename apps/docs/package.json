@@ -1,0 +1,35 @@
+{
+  "name": "@zerio-voice/docs",
+  "license": "MIT",
+  "private": true,
+  "main": "index.js",
+  "scripts": {
+    "build": "next build",
+    "clean": "rimraf .next .turbo",
+    "debug": "NODE_OPTIONS='--inspect' next dev",
+    "dev": "next",
+    "start": "next start"
+  },
+  "dependencies": {
+    "focus-visible": "^5.1.0",
+    "intersection-observer": "^0.10.0",
+    "isomorphic-git": "1.21.0",
+    "markdown-to-jsx": "^6.11.4",
+    "next": "^13.5.6",
+    "nextra": "^2.13.2",
+    "nextra-theme-docs": "^2.13.2",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-intersection-observer": "^8.26.2"
+  },
+  "devDependencies": {
+    "autoprefixer": "^10.4.15",
+    "postcss": "^8.4.31",
+    "tailwindcss": "^3.3.3"
+  },
+  "nextBundleAnalysis": {
+    "budget": 358400,
+    "budgetPercentIncreaseRed": 20,
+    "showDetails": true
+  }
+}
