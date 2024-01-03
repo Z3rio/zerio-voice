@@ -6,9 +6,9 @@
   "private": true,
   "scripts": {
     "preinstall": "npx only-allow pnpm",
-    "build": "turbo build",
+    "build": "turbo build --filter !@zerio-voice/docs",
+    "dev": "turbo dev --filter !@zerio-voice/docs",
     "bundle": "zBundler",
-    "dev": "turbo dev",
     "lint": "turbo lint",
     "lint:fix": "turbo lint:fix",
     "ui": "pnpm build --filter @zerio-voice/ui",
@@ -17,6 +17,8 @@
     "client:dev": "pnpm dev --filter @zerio-voice/client",
     "server": "pnpm build --filter @zerio-voice/server",
     "server:dev": "pnpm dev --filter @zerio-voice/server",
+    "docs": "pnpm build --filter @zerio-voice/docs",
+    "docs:dev": "pnpm dev --filter @zerio-voice/docs",
     "prepare": "husky install",
     "precommit": "pnpm lint && node scripts/precommit.js"
   },
