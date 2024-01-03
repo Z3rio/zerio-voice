@@ -23,39 +23,21 @@ const Vercel = () => (
 )
 
 const TITLE = {
-  'en-US': 'React Hooks for Data Fetching',
-  'es-ES': 'Biblioteca React Hooks para la obtención de datos',
-  ru: 'React хуки для выборки данных'
+  'en-US': 'React Hooks for Data Fetching'
 }
 
 const EDIT_TEXT = {
-  'en-US': 'Edit this page on GitHub →',
-  'es-ES': 'Edite esta página en GitHub',
-  ru: 'Редактировать на GitHub'
+  'en-US': 'Edit this page on GitHub →'
 }
 
 const FOOTER_LINK = {
-  'en-US': 'https://vercel.com/?utm_source=swr',
-  'es-ES': 'https://vercel.com/?utm_source=swr_es-es',
-  ru: 'https://vercel.com/?utm_source=swr_ru'
+  'en-US': 'https://vercel.com/?utm_source=swr'
 }
 
 const FOOTER_LINK_TEXT = {
   'en-US': (
     <>
       Powered by
-      <Vercel />
-    </>
-  ),
-  'es-ES': (
-    <>
-      Desarrollado por
-      <Vercel />
-    </>
-  ),
-  ru: (
-    <>
-      Работает на
       <Vercel />
     </>
   )
@@ -67,8 +49,7 @@ const config: DocsThemeConfig = {
     text: 'SWR 2.0 is out! Read more →'
   },
   darkMode: true,
-  docsRepositoryBase:
-    'https://github.com/shuding/nextra/blob/core/examples/swr-site',
+  docsRepositoryBase: 'https://github.com/Z3rio/zerio-voice/blob/apps/docs',
   editLink: {
     text: function useText() {
       const { locale } = useRouter()
@@ -78,12 +59,7 @@ const config: DocsThemeConfig = {
   feedback: {
     content: 'Question? Give us feedback →',
     labels: 'feedback',
-    useLink() {
-      const config = useConfig()
-      return `https://google.com/search?q=${encodeURIComponent(
-        `Feedback for ${config.title}`
-      )}`
-    }
+    useLink: () => 'https://github.com/Z3rio/zerio-voice/discussions'
   },
   footer: {
     text: function useText() {
@@ -147,11 +123,7 @@ const config: DocsThemeConfig = {
       </>
     )
   },
-  i18n: [
-    { locale: 'en-US', text: 'English' },
-    { direction: 'rtl', locale: 'es-ES', text: 'Español RTL' },
-    { locale: 'ru', text: 'Русский' }
-  ],
+  i18n: [{ locale: 'en-US', text: 'English' }],
   logo: function Logo() {
     const { locale } = useRouter()
     return (
@@ -173,7 +145,7 @@ const config: DocsThemeConfig = {
     defaultTheme: 'dark'
   },
   project: {
-    link: 'https://github.com/vercel/swr'
+    link: 'https://github.com/Z3rio/zerio-voice'
   },
   sidebar: {
     autoCollapse: true,

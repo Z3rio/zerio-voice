@@ -9,9 +9,7 @@ const Feature = ({ text, icon }) => (
 )
 
 const TITLE_WITH_TRANSLATIONS = {
-  'en-US': 'React Hooks for Data Fetching',
-  'es-ES': 'Biblioteca React Hooks para la obtención de datos',
-  ru: 'React хуки для выборки данных'
+  'en-US': 'React Hooks for Data Fetching'
 }
 
 // Translations for Features
@@ -25,17 +23,6 @@ const FEATURES_WITH_TRANSLATIONS = {
     renderingStrategies: 'SSR / SSG Ready',
     typescript: 'TypeScript Ready',
     remoteLocal: 'Remote + Local'
-  },
-  'es-ES': {},
-  ru: {
-    lightweight: 'Лёгкий',
-    realtime: 'В реальном времени',
-    suspense: 'Задержка',
-    pagination: 'Пагинация',
-    backendAgnostic: 'Бэкэнд-независимый',
-    renderingStrategies: 'SSR / SSG',
-    typescript: 'TypeScript',
-    remoteLocal: 'Удалённо + Локально'
   }
 }
 
