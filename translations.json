@@ -8,7 +8,10 @@
       "changed": "Your proximity was changed to: {0}"
     },
     "commands": {
-      "invalidProximity": "The proximity value you provided was invalid"
+      "invalidProximity": "The proximity value you provided was invalid",
+      "playerMuted": "Player \"{0}\" ({1}) is now muted",
+      "playerUnmuted": "Player \"{0}\" ({1}) is now unmuted",
+      "invalidPlayer": "There does not seem to be any player with id {0}"
     },
     "focus": {
       "keybind": "Keybind for focusing on UI"

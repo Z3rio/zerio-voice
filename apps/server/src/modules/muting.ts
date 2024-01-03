@@ -1,3 +1,6 @@
+import { format, getTranslation } from "@zerio-voice/utils/translations";
+import { notify } from "../integrations/wrapper";
+
 const mutedPlayers: Record<number, ReturnType<typeof setTimeout> | null> = {};
 
 function mutePlayer(src: number, duration?: number) {
@@ -30,22 +33,68 @@ function unmutePlayer(src: number) {
 }
 global.exports("unmutePlayer", unmutePlayer);
 
-RegisterCommand("mutePlayer", (_src: number, args: Array<string>) => {
-  if (args[0]) {
-    const src = Number(args[0]);
-    const duration = args[1] ? Number(args[1]) : -1;
+RegisterCommand(
+  "globalmuteplayer",
+  (src: number, args: Array<string>) => {
+    if (args[0]) {
+      const targetSrc = Number(args[0]);
+      const duration = args[1] ? Number(args[1]) : -1;
+      const name = GetPlayerName(targetSrc.toString());
 
-    mutePlayer(src, duration);
-  }
-}, true);
+      if (name) {
+        mutePlayer(targetSrc, duration);
 
-RegisterCommand("unmutePlayer", (_src: number, args: Array<string>) => {
-  if (args[0]) {
-    const src = Number(args[0]);
+        if (src !== 0) {
+          notify(
+            src,
+            format(getTranslation(["commands", "playerMuted"]), [
+              GetPlayerName(targetSrc.toString()),
+              targetSrc
+            ])
+          );
+        }
+      } else if (src !== 0) {
+        // if name is nil, then the player probably doesnt exist
+        notify(
+          src,
+          format(getTranslation(["commands", "invalidPlayer"]), [targetSrc])
+        );
+      }
+    }
+  },
+  true
+);
 
-    unmutePlayer(src);
-  }
-}, true);
+RegisterCommand(
+  "globalunmuteplayer",
+  (src: number, args: Array<string>) => {
+    if (args[0]) {
+      const targetSrc = Number(args[0]);
+      const name = GetPlayerName(targetSrc.toString());
+
+      if (name) {
+        unmutePlayer(targetSrc);
+
+        if (src !== 0) {
+          notify(
+            src,
+            format(getTranslation(["commands", "playerUnmuted"]), [
+              name,
+              targetSrc
+            ])
+          );
+        }
+      } else if (src !== 0) {
+        // if name is nil, then the player probably doesnt exist
+        notify(
+          src,
+          format(getTranslation(["commands", "invalidPlayer"]), [targetSrc])
+        );
+      }
+    }
+  },
+  true
+);
 
 onNet("playerDropped", () => {
   unmutePlayer(source);
