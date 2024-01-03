@@ -30,4 +30,4 @@ jobs:
         if: steps.node-modules-cache.outputs.cache-hit != 'true'
         run: pnpm install --no-frozen-lockfile
       - name: Try to build
-        run: pnpm docs
+        run: pnpm docs:build
