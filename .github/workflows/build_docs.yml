@@ -1,4 +1,4 @@
-name: test
+name: build_docs
 on: [pull_request, push]
 
 concurrency:
@@ -30,4 +30,4 @@ jobs:
         if: steps.node-modules-cache.outputs.cache-hit != 'true'
         run: pnpm install --no-frozen-lockfile
       - name: Try to build
-        run: pnpm build
+        run: pnpm docs
