@@ -4,6 +4,7 @@ import { getTranslation } from "@zerio-voice/utils/translations";
 import { voiceTarget } from "@zerio-voice/utils/data";
 import { RadioSubmix } from "./submix";
 import { isPlayerMuted } from "./muting";
+import { getPlayerVolume } from "./volumes";
 
 const gameName = GetGameName();
 const radioEnabled = GetResourceKvpInt("zerio-voice_enableRadio") === 1;
@@ -177,7 +178,8 @@ onNet(
             newPlrData.talking = isTalking;
 
             if (isTalking) {
-              MumbleSetVolumeOverrideByServerId(src, 0.6);
+              const customVolume = getPlayerVolume(src);
+              MumbleSetVolumeOverrideByServerId(src, 0.75 * customVolume);
             } else {
               MumbleSetVolumeOverrideByServerId(src, -1);
             }

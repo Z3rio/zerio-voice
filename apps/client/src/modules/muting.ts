@@ -110,6 +110,7 @@ emit("chat:addSuggestion", "/unmuteplayer", "Locally unmutes a player", [
   }
 ]);
 
-onNet("zerio-voice:client:unmutePlayer", (src: number) => {
+onNet("zerio-voice:client:playerLeft", (src: number) => {
   unmutePlayer(src);
+  delete customVolumes[src];
 });

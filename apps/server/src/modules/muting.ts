@@ -108,5 +108,5 @@ RegisterCommand(
 
 onNet("playerDropped", () => {
   unmutePlayer(source);
-  emitNet("zerio-voice:cient:unmutePlayer", -1, source);
+  emitNet("zerio-voice:client:playerLeft", -1, source);
 });

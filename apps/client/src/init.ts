@@ -54,6 +54,7 @@ async function initialize() {
     require("./modules/radio");
     require("./modules/submix");
     require("./modules/muting");
+    require("./modules/volumes");
     initProximity(voiceModes, cfg.proximity.keybind);
 
     while (!MumbleIsConnected()) {
