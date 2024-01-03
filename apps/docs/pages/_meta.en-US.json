@@ -1,0 +1,39 @@
+{
+  "index": {
+    "title": "Introduction",
+    "type": "page",
+    "display": "hidden"
+  },
+  "docs": {
+    "type": "page",
+    "title": "Docs"
+  },
+  "about": {
+    "type": "menu",
+    "title": "About",
+    "items": {
+      "contributors": {
+        "title": "Contributors",
+        "href": "https://github.com/Z3rio/zerio-voice/graphs/contributors",
+        "newWindow": true
+      },
+      "team": {
+        "title": "Team"
+      }
+    }
+  },
+  "404": {
+    "type": "page",
+    "theme": {
+      "timestamp": false,
+      "typesetting": "article"
+    }
+  },
+  "500": {
+    "type": "page",
+    "theme": {
+      "timestamp": false,
+      "typesetting": "article"
+    }
+  }
+}

@@ -62,6 +62,8 @@ app/package which depends on it.
   The serverside of zerio-voice
 - [`@zerio-voice/shared`](https://github.com/Z3rio/zerio-voice/tree/main/apps/shared):
   Code which should be ran on both the client and server
+- [`@zerio-voice/docs`](https://github.com/Z3rio/zerio-voice/tree/main/apps/docs):
+  Documentation for the project ([link](https://voice.zerio.se))
 
 ### "Packages"
 
