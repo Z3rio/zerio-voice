@@ -241,6 +241,12 @@ importers:
         specifier: ^1.8.25
         version: 1.8.27(typescript@5.3.3)
 
+  docs:
+    devDependencies:
+      '@zerio-voice/prettier-config':
+        specifier: workspace:^
+        version: link:../packages/prettier-config
+
   packages/eslint-config: {}
 
   packages/prettier-config: {}

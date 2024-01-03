@@ -7,6 +7,7 @@
   "exports": {
     "./ui": "./ui.mjs",
     "./base": "./base.mjs",
-    "./docs": "./docs.mjs"
+    "./docs": "./docs.mjs",
+    "./readme": "./readme.mjs"
   }
 }
