@@ -62,12 +62,12 @@ onNet("zerio-voice:server:addPlayerToRadioChannel", (frequency: number) => {
   addPlayerToRadioChannel(source, frequency);
 });
 
-function addRadioSafeGuard(freq: number, func: RadioSafeGuard): number {
-  if (!radioEnabled || freq <= 0) {
+function addRadioSafeGuard(frequency: number, func: RadioSafeGuard): number {
+  if (!radioEnabled || frequency <= 0) {
     return -1;
   }
 
-  const data = channelData[freq];
+  const data = channelData[frequency];
 
   if (data) {
     return data.addSafeGuard(func);
@@ -77,12 +77,12 @@ function addRadioSafeGuard(freq: number, func: RadioSafeGuard): number {
 }
 global.exports("addRadioSafeGuard", addRadioSafeGuard);
 
-function removeRadioSafeGuard(freq: number, idx: number): boolean {
-  if (!radioEnabled || freq <= 0) {
+function removeRadioSafeGuard(frequency: number, idx: number): boolean {
+  if (!radioEnabled || frequency <= 0) {
     return false;
   }
 
-  const data = channelData[freq];
+  const data = channelData[frequency];
 
   if (data) {
     data.removeSafeGuard(idx);

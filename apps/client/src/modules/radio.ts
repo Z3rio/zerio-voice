@@ -145,8 +145,7 @@ if (gameName == "fivem") {
 
 onNet(
   "zerio-voice:client:setTalkingOnRadio",
-  (freq: number, src: number, isTalking: boolean) => {
-    console.log("muted", isPlayerMuted(src));
+  (frequency: number, src: number, isTalking: boolean) => {
     if (src == playerServerId) {
       // this is the local player, should only play mic clicks
       playMicClicks(isTalking);
@@ -158,7 +157,7 @@ onNet(
         action: "setTalkingOnRadio",
         data: {
           source: playerServerId,
-          frequency: freq,
+          frequency: frequency,
           isTalking: isTalking
         }
       });
@@ -166,7 +165,7 @@ onNet(
       LocalPlayer.state.set("talkingOnRadio", true, true);
     } else if (!isPlayerMuted(src)) {
       // not the local player
-      const newData = radioData[freq];
+      const newData = radioData[frequency];
 
       if (newData) {
         const newPlrIdx = newData.findIndex((p) => p.source === src);
@@ -195,13 +194,13 @@ onNet(
             }
 
             newData[newPlrIdx] = newPlrData;
-            radioData[freq] = newData;
+            radioData[frequency] = newData;
 
             SendNUIMessage({
               action: "setTalkingOnRadio",
               data: {
                 source: src,
-                frequency: freq,
+                frequency: frequency,
                 isTalking: isTalking
               }
             });
@@ -215,27 +214,27 @@ onNet(
 // player joined a new channel
 onNet(
   "zerio-voice:client:syncRawPlayers",
-  (freq: number, players: Array<RadioMember>) => {
-    radioData[freq] = players;
+  (frequency: number, players: Array<RadioMember>) => {
+    radioData[frequency] = players;
 
     SendNUIMessage({
       action: "syncRawRadioPlayers",
       data: {
-        frequency: freq,
+        frequency: frequency,
         players: players
       }
     });
 
     if (LocalPlayer.state.currentRadioFreq == null) {
-      LocalPlayer.state.set("currentRadioFreq", freq, true);
+      LocalPlayer.state.set("currentRadioFreq", frequency, true);
     }
   }
 );
 
 onNet(
   "zerio-voice:client:playerAddedToRadioChannel",
-  (freq: number, src: number, name: string) => {
-    const newList = radioData[freq];
+  (frequency: number, src: number, name: string) => {
+    const newList = radioData[frequency];
 
     if (newList) {
       newList.push({
@@ -244,12 +243,12 @@ onNet(
         source: src
       });
 
-      radioData[freq] = newList;
+      radioData[frequency] = newList;
 
       SendNUIMessage({
         action: "playerAddedToRadioChannel",
         data: {
-          frequency: freq,
+          frequency: frequency,
           plr: {
             name: name,
             source: src,
@@ -263,36 +262,36 @@ onNet(
 
 onNet(
   "zerio-voice:client:playerRemovedFromRadioChannel",
-  (freq: number, src: number) => {
+  (frequency: number, src: number) => {
     if (src === playerServerId) {
-      delete radioData[freq];
+      delete radioData[frequency];
 
       const keys = Object.keys(radioData);
 
       if (keys.length === 0) {
         LocalPlayer.state.set("currentRadioFreq", null, true);
       } else {
-        if (LocalPlayer.state.currentRadioFreq == freq) {
+        if (LocalPlayer.state.currentRadioFreq == frequency) {
           LocalPlayer.state.set("currentRadioFreq", Number(keys[0]), true);
         }
       }
 
       SendNUIMessage({
         action: "removedFromRadioChannel",
-        data: freq
+        data: frequency
       });
     } else {
-      let newList = radioData[freq];
+      let newList = radioData[frequency];
 
       if (newList) {
         newList = newList.filter((p) => p.source !== src);
 
-        radioData[freq] = newList;
+        radioData[frequency] = newList;
 
         SendNUIMessage({
           action: "removePlayerFromRadioChannel",
           data: {
-            frequency: freq,
+            frequency: frequency,
             source: src
           }
         });
