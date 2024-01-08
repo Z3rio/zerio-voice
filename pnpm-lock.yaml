@@ -18,8 +18,8 @@ importers:
         specifier: ^1.6.1
         version: 1.6.1
       '@types/node':
-        specifier: ^20.10.6
-        version: 20.10.6
+        specifier: ^20.10.7
+        version: 20.10.7
       '@typescript-eslint/eslint-plugin':
         specifier: ^6.17.0
         version: 6.17.0(@typescript-eslint/parser@6.17.0)(eslint@8.56.0)(typescript@5.3.3)
@@ -157,7 +157,7 @@ importers:
         version: 5.3.3
       vite:
         specifier: ^5.0.11
-        version: 5.0.11(@types/node@20.10.6)(sass@1.69.7)
+        version: 5.0.11(@types/node@20.10.7)(sass@1.69.7)
       vue-tsc:
         specifier: ^1.8.25
         version: 1.8.27(typescript@5.3.3)
@@ -938,8 +938,8 @@ packages:
     resolution: {integrity: sha512-5+fP8P8MFNC+AyZCDxrB2pkZFPGzqQWUzpSeuuVLvm8VMcorNYavBqoFcxK8bQz4Qsbn4oUEEem4wDLfcysGHA==}
     dev: true
 
-  /@types/node@20.10.6:
-    resolution: {integrity: sha512-Vac8H+NlRNNlAmDfGUP7b5h/KA+AtWIzuXy0E6OyP8f1tCLYAtPvKRRDJjAPqhpCb0t6U2j7/xqAuLEebW2kiw==}
+  /@types/node@20.10.7:
+    resolution: {integrity: sha512-fRbIKb8C/Y2lXxB5eVMj4IU7xpdox0Lh8bUPEdtLysaylsml1hOOx1+STloRs/B9nf7C6kPRmmg/V7aQW7usNg==}
     dependencies:
       undici-types: 5.26.5
     dev: true
@@ -1095,7 +1095,7 @@ packages:
       vite: ^5.0.0
       vue: ^3.2.25
     dependencies:
-      vite: 5.0.11(@types/node@20.10.6)(sass@1.69.7)
+      vite: 5.0.11(@types/node@20.10.7)(sass@1.69.7)
       vue: 3.4.5(typescript@5.3.3)
     dev: true
 
@@ -3301,7 +3301,7 @@ packages:
       - supports-color
     dev: false
 
-  /vite@5.0.11(@types/node@20.10.6)(sass@1.69.7):
+  /vite@5.0.11(@types/node@20.10.7)(sass@1.69.7):
     resolution: {integrity: sha512-XBMnDjZcNAw/G1gEiskiM1v6yzM4GE5aMGvhWTlHAYYhxb7S3/V1s3m2LDHa8Vh6yIWYYB0iJwsEaS523c4oYA==}
     engines: {node: ^18.0.0 || >=20.0.0}
     hasBin: true
@@ -3329,7 +3329,7 @@ packages:
       terser:
         optional: true
     dependencies:
-      '@types/node': 20.10.6
+      '@types/node': 20.10.7
       esbuild: 0.19.11
       postcss: 8.4.33
       rollup: 4.9.1
