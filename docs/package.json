@@ -1,0 +1,13 @@
+{
+  "name": "@zerio-voice/readme",
+  "version": "1.0.0",
+  "author": "Zerio",
+  "license": "MIT",
+  "scripts": {
+    "lint": "prettier --check .",
+    "lint:fix": "prettier --write ."
+  },
+  "devDependencies": {
+    "@zerio-voice/prettier-config": "workspace:^"
+  }
+}

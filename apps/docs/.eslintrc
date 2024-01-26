@@ -1,0 +1,3 @@
+{
+  "extends": "@zerio-voice/eslint-config/docs"
+}

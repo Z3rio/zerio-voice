@@ -6,6 +6,8 @@
   "type": "module",
   "exports": {
     "./ui": "./ui.mjs",
-    "./base": "./base.mjs"
+    "./base": "./base.mjs",
+    "./docs": "./docs.mjs",
+    "./readme": "./readme.mjs"
   }
 }
