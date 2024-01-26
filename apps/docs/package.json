@@ -22,7 +22,7 @@
     "nextra-theme-docs": "^2.13.2",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "react-intersection-observer": "^8.26.2"
+    "react-intersection-observer": "^9.5.3"
   },
   "devDependencies": {
     "@zerio-voice/eslint-config": "workspace:^",
