@@ -106,8 +106,8 @@ importers:
         specifier: ^5.1.0
         version: 5.2.0
       intersection-observer:
-        specifier: ^0.10.0
-        version: 0.10.0
+        specifier: ^0.12.2
+        version: 0.12.2
       isomorphic-git:
         specifier: 1.25.3
         version: 1.25.3
@@ -4176,10 +4176,6 @@ packages:
   /internmap@2.0.3:
     resolution: {integrity: sha512-5Hh7Y1wQbvY5ooGgPbDaL5iYLAPzMTUrjMulskHLH6wnv/A+1q5rgEaiuqEjB+oxGXIVZs1FF+R/KPN3ZSQYYg==}
     engines: {node: '>=12'}
-    dev: false
-
-  /intersection-observer@0.10.0:
-    resolution: {integrity: sha512-fn4bQ0Xq8FTej09YC/jqKZwtijpvARlRp6wxL5WTA6yPe2YWSJ5RJh7Nm79rK2qB0wr6iDQzH60XGq5V/7u8YQ==}
     dev: false
 
   /intersection-observer@0.12.2:
