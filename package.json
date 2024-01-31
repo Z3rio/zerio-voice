@@ -28,7 +28,7 @@
     "@ianvs/prettier-plugin-sort-imports": "^4.1.1",
     "@next/eslint-plugin-next": "^14.1.0",
     "@rushstack/eslint-patch": "^1.7.2",
-    "@types/node": "^20.11.10",
+    "@types/node": "^20.11.13",
     "@typescript-eslint/eslint-plugin": "^6.20.0",
     "@typescript-eslint/parser": "^6.20.0",
     "@zerio-voice/typescript-config": "workspace:*",
