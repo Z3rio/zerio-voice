@@ -15,7 +15,7 @@
   "dependencies": {
     "focus-visible": "^5.1.0",
     "intersection-observer": "^0.12.2",
-    "isomorphic-git": "1.25.4",
+    "isomorphic-git": "1.25.5",
     "markdown-to-jsx": "^7.4.1",
     "next": "^14.1.0",
     "nextra": "^2.13.3",
