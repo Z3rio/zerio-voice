@@ -109,8 +109,8 @@ importers:
         specifier: ^0.12.2
         version: 0.12.2
       isomorphic-git:
-        specifier: 1.25.5
-        version: 1.25.5
+        specifier: 1.25.6
+        version: 1.25.6
       markdown-to-jsx:
         specifier: ^7.4.1
         version: 7.4.1(react@18.2.0)
@@ -4798,8 +4798,8 @@ packages:
   /isexe@2.0.0:
     resolution: {integrity: sha512-RHxMLp9lnKHGHRng9QFhRCMbYAcVpn69smSGcq3f36xjgVVWThj4qqLbTLlq7Ssj8B+fIQ1EuCEGI2lKsyQeIw==}
 
-  /isomorphic-git@1.25.5:
-    resolution: {integrity: sha512-gEsQpICiw7u68pitnHdJFe3ep6sLbz45uHdGac1NSKPm+Q22hxenIH9uXvXdCYfx7NhwOV7dUKgVk6rKzeNmCA==}
+  /isomorphic-git@1.25.6:
+    resolution: {integrity: sha512-zA3k3QOO7doqOnBgwsaXJwHKSIIl5saEdH4xxalu082WHVES4KghsG6RE2SDwjXMCIlNa1bWocbitH6bRIrmLQ==}
     engines: {node: '>=12'}
     hasBin: true
     dependencies:
