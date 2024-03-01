@@ -27,7 +27,7 @@
   "devDependencies": {
     "@zerio-voice/eslint-config": "workspace:^",
     "@zerio-voice/prettier-config": "workspace:^",
-    "autoprefixer": "^10.4.17",
+    "autoprefixer": "^10.4.18",
     "postcss": "^8.4.35",
     "sharp": "^0.33.2",
     "tailwindcss": "^3.4.1"
