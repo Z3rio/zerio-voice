@@ -18,8 +18,8 @@ importers:
         specifier: ^4.1.1
         version: 4.1.1(prettier@3.2.5)
       '@next/eslint-plugin-next':
-        specifier: ^14.1.0
-        version: 14.1.0
+        specifier: ^14.1.2
+        version: 14.1.2
       '@rushstack/eslint-patch':
         specifier: ^1.7.2
         version: 1.7.2
@@ -1397,8 +1397,8 @@ packages:
     resolution: {integrity: sha512-7CnQyD5G8shHxQIIg3c7/pSeYFeMhsNbpU/bmvH7ZnDql7mNRgg8O2JZrhrc/soFnfBnKP4/xXNiiSIPn2w8gA==}
     dev: false
 
-  /@next/eslint-plugin-next@14.1.0:
-    resolution: {integrity: sha512-x4FavbNEeXx/baD/zC/SdrvkjSby8nBn8KcCREqk6UuwvwoAPZmaV8TFCAuo/cpovBRTIY67mHhe86MQQm/68Q==}
+  /@next/eslint-plugin-next@14.1.2:
+    resolution: {integrity: sha512-k9h9NfR1joJI48uwdQd/DuOV1mBgcjlmWaX45eAXCFGT96oc+/6SMjO3s7naVtTXqSKjFAgk2GDlW6Hv41ROXQ==}
     dependencies:
       glob: 10.3.10
     dev: true
