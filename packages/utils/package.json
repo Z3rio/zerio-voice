@@ -15,7 +15,7 @@
     "./submix": "./src/submix.ts"
   },
   "dependencies": {
-    "ansicolor": "^2.0.1",
+    "ansicolor": "^2.0.3",
     "jsonschema": "^1.4.1"
   }
 }
