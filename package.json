@@ -46,7 +46,7 @@
     "nodemon": "^3.1.0",
     "prettier": "^3.2.5",
     "prettier-plugin-pkg": "^0.18.1",
-    "prettier-plugin-tailwindcss": "^0.5.12",
+    "prettier-plugin-tailwindcss": "^0.5.13",
     "turbo": "latest"
   },
   "husky": {
