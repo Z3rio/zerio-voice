@@ -112,8 +112,8 @@ importers:
         specifier: 1.25.7
         version: 1.25.7
       markdown-to-jsx:
-        specifier: ^7.4.6
-        version: 7.4.6(react@18.2.0)
+        specifier: ^7.4.7
+        version: 7.4.7(react@18.2.0)
       next:
         specifier: ^14.2.1
         version: 14.2.1(@babel/core@7.24.0)(react-dom@18.2.0)(react@18.2.0)
@@ -5008,8 +5008,8 @@ packages:
     resolution: {integrity: sha512-Z1NL3Tb1M9wH4XESsCDEksWoKTdlUafKc4pt0GRwjUyXaCFZ+dc3g2erqB6zm3szA2IUSi7VnPI+o/9jnxh9hw==}
     dev: false
 
-  /markdown-to-jsx@7.4.6(react@18.2.0):
-    resolution: {integrity: sha512-3cyNxI/PwotvYkjg6KmFaN1uyN/7NqETteD2DobBB8ro/FR9jsHIh4Fi7ywAz0s9QHRKCmGlOUggs5GxSWACKA==}
+  /markdown-to-jsx@7.4.7(react@18.2.0):
+    resolution: {integrity: sha512-0+ls1IQZdU6cwM1yu0ZjjiVWYtkbExSyUIFU2ZeDIFuZM1W42Mh4OlJ4nb4apX4H8smxDHRdFaoIVJGwfv5hkg==}
     engines: {node: '>= 10'}
     peerDependencies:
       react: '>= 0.14.0'
